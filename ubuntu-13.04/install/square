@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [[ $EUID -ne 0 ]]; then
-  echo "$0 must be run as root"
+if [[ $EUID -eq 0 ]]; then
+  echo "$0 explicitly cannot be run as root!"
   exit 1
 fi
 
@@ -12,8 +12,6 @@ cd /tmp
 rm -rf square* && \
 git clone https://github.com/observing/square.git && \
 cd square && \
-touch /tmp/square/.git/hooks/pre-commit && \
-chmod 0777 /tmp/square/.git/hooks/pre-commit && \
 make update && \
 make install && \
 cd ../ && \
