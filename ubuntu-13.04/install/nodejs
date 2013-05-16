@@ -16,16 +16,20 @@ else
 LATESTNODE=$(grep linux-x86 /tmp/node.latest | cut -d' ' -f 3)
 fi
 
-wget http://nodejs.org/dist/latest/$LATESTNODE -O /tmp/node.latest.tar.gz
-gunzip /tmp/node.latest.tar.gz
+wget http://nodejs.org/dist/latest/$LATESTNODE -cO /tmp/node.latest.tar.gz && \
+gunzip /tmp/node.latest.tar.gz && \
 tar xvf /tmp/node.latest.tar
 
 NODEDIR=$($LATESTNODE | cut -d'.' -f1)
 
 cd /tmp/$NODEDIR
 
-./configure
-make
-make install
+chmod +x ./configure && \
+./configure && \
+make && \
+make install && \
+rm -rf $NODEDIR && \
+rm -f node.latest.tar && \
+rm -f node.latest
 
 cd $OPAD
