@@ -9,11 +9,11 @@ OPAD=$(pwd)
 
 cd /tmp
 
-wget https://github.com/observing/square/archive/development.zip -O square.zip
+wget https://github.com/observing/square/archive/development.zip -O square.zip && \
 unzip square.zip
 
-cd square
-make update
+cd square-development
+make update && \
 make install
 
 cd $OPAD
