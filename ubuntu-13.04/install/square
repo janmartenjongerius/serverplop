@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+  echo "$0 must be run as root"
+  exit 1
+fi
+
+OPAD=$(pwd)
+
+cd /tmp
+
+wget https://github.com/observing/square/archive/development.zip -O square.zip
+unzip square.zip
+
+cd square
+make update
+make install
+
+cd $OPAD

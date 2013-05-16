@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+  echo "$0 must be run as root"
+  exit 1
+fi
+
+OPAD=$(pwd)
+
+wget http://nodejs.org/dist/latest/SHASUMS.txt -O /tmp/node.latest
+
+ARCH=$(uname -i)
+if [[ $ARCH = "x86_64" ]]; then
+LATESTNODE=$(grep linux-x64 /tmp/node.latest | cut -d' ' -f 3)
+else
+LATESTNODE=$(grep linux-x86 /tmp/node.latest | cut -d' ' -f 3)
+fi
+
+wget http://nodejs.org/dist/latest/$LATESTNODE -O /tmp/node.latest.tar.gz
+gunzip /tmp/node.latest.tar.gz
+tar xvf /tmp/node.latest.tar
+
+NODEDIR=$($LATESTNODE | cut -d'.' -f1)
+
+cd /tmp/$NODEDIR
+
+./configure
+make
+make install
+
+cd $OPAD

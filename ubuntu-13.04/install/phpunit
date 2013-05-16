@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+  echo "$0 must be run as root"
+  exit 1
+fi
+
+pear config-set auto_discover 1 && \
+pear upgrade PEAR && \
+pear install pear.phpunit.de/PHPUnit && \
+pear install phpunit/DbUnit && \
+pear install phpunit/PHP_Invoker && \
+pear install phpunit/PHPUnit_Selenium && \
+pear install phpunit/PHPUnit_Story && \
+pear install phpunit/PHPUnit_SkeletonGenerator && \
+pear config-set auto_discover 0
