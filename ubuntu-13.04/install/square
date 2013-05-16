@@ -12,6 +12,8 @@ cd /tmp
 git clone https://github.com/observing/square.git && \
 cd square && \
 make update && \
-make install
+make install && \
+cd ../ && \
+rm -rf square
 
 cd $OPAD
