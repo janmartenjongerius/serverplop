@@ -12,8 +12,9 @@ cd /tmp
 rm -rf square* && \
 git clone https://github.com/observing/square.git && \
 cd square && \
-make update && \
+touch /tmp/square/.git/hooks/pre-commit && \
 chmod 0777 /tmp/square/.git/hooks/pre-commit && \
+make update && \
 make install && \
 cd ../ && \
 rm -rf square
