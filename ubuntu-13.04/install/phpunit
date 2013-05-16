@@ -7,10 +7,10 @@ fi
 
 pear config-set auto_discover 1 && \
 pear upgrade PEAR && \
-pear install pear.phpunit.de/PHPUnit && \
-pear install phpunit/DbUnit && \
-pear install phpunit/PHP_Invoker && \
-pear install phpunit/PHPUnit_Selenium && \
-pear install phpunit/PHPUnit_Story && \
-pear install phpunit/PHPUnit_SkeletonGenerator && \
+pear upgrade pear.phpunit.de/PHPUnit && \
+pear upgrade phpunit/DbUnit && \
+pear upgrade phpunit/PHP_Invoker && \
+pear upgrade phpunit/PHPUnit_Selenium && \
+pear upgrade phpunit/PHPUnit_Story && \
+pear upgrade phpunit/PHPUnit_SkeletonGenerator && \
 pear config-set auto_discover 0
