@@ -8,7 +8,7 @@ To simply build a fresh development environment, do the following:
 
 ```
 $ cd ubuntu-13.04
-$ sudo make development
+$ make development
 ```
 
 Development is a bundle make rule for the following make rules:
