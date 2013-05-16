@@ -1,14 +1,14 @@
 webserver:
-	@chmod +x install/webserver && install/webserver
+	@chmod +x install/webserver && sudo install/webserver
 
 phpunit:
-	@chmod +x install/phpunit && install/phpunit
+	@chmod +x install/phpunit && sudo install/phpunit
 
 java8:
-	@chmod +x install/java8 && install/java8
+	@chmod +x install/java8 && sudo install/java8
 
 nodejs: java8
-	@chmod +x install/nodejs && install/nodejs
+	@chmod +x install/nodejs && sudo install/nodejs
 
 square:
 	@chmod +x install/square && install/square
