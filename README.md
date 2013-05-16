@@ -2,7 +2,7 @@
 
 Server installation bundles and fixes. Adding lazyness to being a developer.
 
-![http://www.doosvolplezier.nl/media/catalog/category/1._cover_kabouter_plop.png](http://www.doosvolplezier.nl/media/catalog/category/1._cover_kabouter_plop.png)
+![http://www.allemaalleuk.nl/media/catalog/product/cache/1/thumbnail/50x/9df78eab33525d08d6e5fb8d27136e95/k/a/kabouter_plop_pak_-1.jpg](http://www.allemaalleuk.nl/media/catalog/product/cache/1/thumbnail/50x/9df78eab33525d08d6e5fb8d27136e95/k/a/kabouter_plop_pak_-1.jpg)
 
 ## Ubuntu 13.04
 
