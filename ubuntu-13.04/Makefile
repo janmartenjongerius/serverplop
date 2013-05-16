@@ -7,10 +7,10 @@ phpunit:
 java8:
 	@chmod +x install/java8 && install/java8
 
-nodejs:
+nodejs: java8
 	@chmod +x install/nodejs && install/nodejs
 
-square: java8 nodejs
+square: nodejs
 	@chmod +x install/square && install/square
 
 development: webserver phpunit square
