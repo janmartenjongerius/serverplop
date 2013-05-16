@@ -7,14 +7,16 @@ fi
 
 OPAD=$(pwd)
 
-cd /tmp
+mkdir -p ~/tmp && \
+chmod -R 0777 ~/tmp
 
-rm -rf square* && \
+mkdir -p ~/Applications/ && \
+cd ~/Applications/
+
+rm -rf square && \
 git clone https://github.com/observing/square.git && \
 cd square && \
 make update && \
-make install && \
-cd ../ && \
-rm -rf square
+sudo make install && \
 
 cd $OPAD
