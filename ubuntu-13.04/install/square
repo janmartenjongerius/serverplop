@@ -18,6 +18,6 @@ rm -rf square && \
 git clone https://github.com/observing/square.git && \
 cd square && \
 make update && \
-sudo make install && \
+sudo make install
 
 cd $OPAD
