@@ -9,6 +9,7 @@ OPAD=$(pwd)
 
 cd /tmp
 
+rm -rf square* && \
 git clone https://github.com/observing/square.git && \
 cd square && \
 make update && \

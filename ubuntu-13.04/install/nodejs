@@ -9,6 +9,7 @@ OPAD=$(pwd)
 
 cd /tmp
 
+rm -rf node* && \
 wget http://nodejs.org/dist/latest/SHASUMS.txt -O /tmp/node.latest
 
 ARCH=$(uname -i)
