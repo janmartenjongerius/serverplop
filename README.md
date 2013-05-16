@@ -2,6 +2,8 @@
 
 Server installation bundles and fixes. Adding lazyness to being a developer.
 
+![http://www.doosvolplezier.nl/media/catalog/category/1._cover_kabouter_plop.png](http://www.doosvolplezier.nl/media/catalog/category/1._cover_kabouter_plop.png)
+
 ## Ubuntu 13.04
 
 To simply build a fresh development environment, do the following:
