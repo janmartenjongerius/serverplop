@@ -10,10 +10,10 @@ java8:
 nodejs: java8
 	@chmod +x install/nodejs && install/nodejs
 
-square: nodejs
+square:
 	@chmod +x install/square && install/square
 
-development: webserver phpunit square
+development: webserver phpunit nodejs square
 
 amd-watermark-fix:
 	@chmod +x hardware/AMD/graphics/watermarkfix.sh && \
