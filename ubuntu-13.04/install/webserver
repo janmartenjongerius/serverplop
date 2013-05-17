@@ -10,71 +10,69 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-apt-get update
-apt-get install -y apache2
-apt-get install -y build-essential
-apt-get install -y curl
-apt-get install -y debhelper
-apt-get install -y denyhosts
-apt-get install -y gcc
-apt-get install -y git
-apt-get install -y less
-apt-get install -y libapache2-mod-perl2
-apt-get install -y libapache2-mod-perl2-dev
-apt-get install -y libbusiness-creditcard-perl
-apt-get install -y libcgi-session-perl
-apt-get install -y libconfig-ini-perl
-apt-get install -y libconvert-pem-perl
-apt-get install -y libcrypt-openssl-rsa-perl
-apt-get install -y libcrypt-openssl-x509-perl
-apt-get install -y libcrypt-ssleay-perl
-apt-get install -y libdatetime-perl
-apt-get install -y libdbd-mysql-perl
-apt-get install -y liberror-perl
-apt-get install -y libfreezethaw-perl
-apt-get install -y libhtml-scrubber-perl
-apt-get install -y libhtml-strip-perl
-apt-get install -y libhtml-stripscripts-parser-perl
-apt-get install -y libhtml-stripscripts-perl
-apt-get install -y libhttp-browserdetect-perl
-apt-get install -y libjson-perl
-apt-get install -y libmail-rfc822-address-perl
-apt-get install -y libmime-lite-perl
-apt-get install -y libnet-sftp-foreign-perl
-apt-get install -y libnet-sftp-foreign-perl
-apt-get install -y libnet-ssh-perl
-apt-get install -y libnet-ssleay-perl
-apt-get install -y libphp-serialization-perl
-apt-get install -y libreadonly-perl
-apt-get install -y libredis-perl
-apt-get install -y libsphinx-search-perl
-apt-get install -y libstring-approx-perl
-apt-get install -y libsys-syslog-perl
-apt-get install -y libtemplate-perl
-apt-get install -y libtemplate-perl-doc
-apt-get install -y libtemplate-plugin-xml-perl
-apt-get install -y libtext-unaccent-perl
-apt-get install -y libtime-modules-perl
-apt-get install -y libtime-piece-mysql-perl
-apt-get install -y liburi-encode-perl
-apt-get install -y libxml-simple-perl
-apt-get install -y libxml-xpath-perl
-apt-get install -y libyaml-libyaml-perl
-apt-get install -y libyaml-perl
-apt-get install -y libyaml-syck-perl
-apt-get install -y make
-apt-get install -y mysql-client
-apt-get install -y openssh-server
-apt-get install -y openssl
-apt-get install -y pari-gp
-apt-get install -y php-htmlpurifier
-apt-get install -y php5
-apt-get install -y php5-curl
-apt-get install -y php5-mysql
-apt-get install -y php5-xdebug
-apt-get install -y screen
-apt-get install -y smarty
-apt-get install -y vim
+apt-get update -y
+apt-get install -y \
+  apache2 \
+  build-essential \
+  curl \
+  debhelper \
+  denyhosts \
+  gcc \
+  git \
+  less \
+  libapache2-mod-perl2 \
+  libapache2-mod-perl2-dev \
+  libbusiness-creditcard-perl \
+  libcgi-session-perl \
+  libconfig-ini-perl \
+  libconvert-pem-perl \
+  libcrypt-openssl-rsa-perl \
+  libcrypt-openssl-x509-perl \
+  libcrypt-ssleay-perl \
+  libdatetime-perl \
+  libdbd-mysql-perl \
+  liberror-perl \
+  libfreezethaw-perl \
+  libhtml-scrubber-perl \
+  libhtml-strip-perl \
+  libhtml-stripscripts-parser-perl \
+  libhtml-stripscripts-perl \
+  libhttp-browserdetect-perl \
+  libjson-perl \
+  libmail-rfc822-address-perl \
+  libmime-lite-perl \
+  libnet-sftp-foreign-perl \
+  libnet-ssh-perl \
+  libnet-ssleay-perl \
+  libphp-serialization-perl \
+  libreadonly-perl \
+  libredis-perl \
+  libsphinx-search-perl \
+  libstring-approx-perl \
+  libsys-syslog-perl \
+  libtemplate-perl \
+  libtemplate-perl-doc \
+  libtemplate-plugin-xml-perl \
+  libtext-unaccent-perl \
+  libtime-modules-perl \
+  libtime-piece-mysql-perl \
+  liburi-encode-perl \
+  libxml-simple-perl \
+  libxml-xpath-perl \
+  libyaml-libyaml-perl \
+  libyaml-perl \
+  libyaml-syck-perl \
+  make \
+  mysql-client \
+  openssh-server \
+  openssl \
+  pari-gp \
+  php-htmlpurifier \
+  php5 \
+  php5-curl \
+  php5-mysql \
+  screen \
+  vim
 
 cpan Geo::Distance
 cpan SOAP::Lite

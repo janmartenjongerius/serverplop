@@ -20,6 +20,8 @@ Development is a bundle make rule for the following make rules:
 - java8
 - nodejs
 - square
+- locales
+- xdebug
 
 `make nodejs` will also call for the `make java8` rule, which will install the Oracle version of Java version 8.
 Please note that `make java8` will remove all `openjdk*` packages if you agree or frantically mash return.

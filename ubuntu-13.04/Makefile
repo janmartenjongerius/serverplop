@@ -16,13 +16,22 @@ square:
 zend:
 	@chmod +x install/zend && sudo install/zend
 
+xdebug:
+	@chmod +x install/xdebug && sudo install/xdebug
+
 locales:
 	@chmod +x install/locales && sudo install/locales
 
+smarty2:
+	@chmod +x install/smarty2 && sudo install/smarty2
+
 production: webserver locales
 
-development: webserver locales phpunit nodejs square
+development: webserver locales xdebug phpunit nodejs square
 
 amd-watermark-fix:
 	@chmod +x hardware/AMD/graphics/watermarkfix.sh && \
 		hardware/AMD/graphics/watermarkfix.sh
+
+update:
+	@git pull && make webserver
