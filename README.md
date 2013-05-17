@@ -13,20 +13,40 @@ $ cd ubuntu-13.04
 $ make development
 ```
 
+### Development
+
 Development is a bundle make rule for the following make rules:
 
 - webserver
-- phpunit
-- java8
-- nodejs
-- square
 - locales
 - xdebug
+- phpunit
+- codesniffer (defaults to PSR2 if possible)
+- nodejs (which calls `make java8`)
+- square
+
+#### Production
+
+Production is a simplified version which leaves out all developer tools.
+
+- webserver
+- locales
+
+#### Additional rules
+
+- zend
+- smarty2
+- java8
+- update
+
+#### Java 8 warning
 
 `make nodejs` will also call for the `make java8` rule, which will install the Oracle version of Java version 8.
 Please note that `make java8` will remove all `openjdk*` packages if you agree or frantically mash return.
 
-### AMD Watermark fix
+### Fixes
+
+#### AMD Watermark fix
 Additionally I personally encountered an issue with a huge ass watermark being planted on my monitors.
 That watermark is meant for in-house testing purposes at AMD. You can remove it with a make rule.
 
