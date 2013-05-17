@@ -1,6 +1,7 @@
 # To do
 
 ## Ubuntu 13/04
+- Add suhosin installation
 - Add PHP Xdebug installation
 - Add PHP Code Sniffer installation + PSR standards
 - Add Sphinx 0.22 optional installation
