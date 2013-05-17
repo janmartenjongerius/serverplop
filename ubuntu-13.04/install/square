@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Exit the script when a command returns a non true value.
+set -e
+# Prevent using unset variables.
+set -u
+
 if [[ $EUID -eq 0 ]]; then
   echo "$0 explicitly cannot be run as root!"
   exit 1
