@@ -68,7 +68,6 @@ apt-get install -y php5-curl
 apt-get install -y php5-mysql
 apt-get install -y screen
 apt-get install -y smarty
-apt-get install -y smarty
 apt-get install -y vim
 
 cpan Geo::Distance
