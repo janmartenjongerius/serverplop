@@ -25,9 +25,12 @@ locales:
 smarty2:
 	@chmod +x install/smarty2 && sudo install/smarty2
 
+codesniffer:
+	@chmod +x install/codesniffer && install/codesniffer
+
 production: webserver locales
 
-development: webserver locales xdebug phpunit nodejs square
+development: webserver locales xdebug phpunit codesniffer nodejs square
 
 amd-watermark-fix:
 	@chmod +x hardware/AMD/graphics/watermarkfix.sh && \
