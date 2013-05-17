@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Exit the script when a command returns a non true value.
+set -e
+# Prevent using unset variables.
+set -u
+
+if [[ $EUID -ne 0 ]]; then
+  echo "$0 must be run as root"
+  exit 1
+fi
+
+OUTPUT="/var/lib/locales/supported.d/local"
+DATE=$(date +%F)
+BACKUP=$OUTPUT.$DATE
+
+# Make a backup of the output file.
+# cp -b will make a backup of the destination if it already exists.
+cp -b $OUTPUT $BACKUP
+
+export LOCALES=`cat <<EOF
+de_DE.UTF-8 UTF-8
+en_GB.UTF-8 UTF-8
+en_US.UTF-8 UTF-8
+es_ES.UTF-8 UTF-8
+fr_FR.UTF-8 UTF-8
+it_IT.UTF-8 UTF-8
+nl_NL.UTF-8 UTF-8
+pl_PL.UTF-8 UTF-8
+pt_PT.UTF-8 UTF-8
+ru_RU.UTF-8 UTF-8
+sv_SE.UTF-8 UTF-8
+EOF
+`;
+
+echo -e $LOCALES > $OUTPUT
+
+locale-gen

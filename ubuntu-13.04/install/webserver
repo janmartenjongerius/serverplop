@@ -71,6 +71,7 @@ apt-get install -y php-htmlpurifier
 apt-get install -y php5
 apt-get install -y php5-curl
 apt-get install -y php5-mysql
+apt-get install -y php5-xdebug
 apt-get install -y screen
 apt-get install -y smarty
 apt-get install -y vim
@@ -80,17 +81,3 @@ cpan SOAP::Lite
 cpan URI::Escape::XS
 cpan Time::Piece
 cpan Digest::SHA1
-
-echo 'de_DE.UTF-8 UTF-8' >> /var/lib/locales/supported.d/local
-echo 'en_GB.UTF-8 UTF-8' >> /var/lib/locales/supported.d/local
-echo 'en_US.UTF-8 UTF-8' >> /var/lib/locales/supported.d/local
-echo 'es_ES.UTF-8 UTF-8' >> /var/lib/locales/supported.d/local
-echo 'fr_FR.UTF-8 UTF-8' >> /var/lib/locales/supported.d/local
-echo 'it_IT.UTF-8 UTF-8' >> /var/lib/locales/supported.d/local
-echo 'nl_NL.UTF-8 UTF-8' >> /var/lib/locales/supported.d/local
-echo 'pl_PL.UTF-8 UTF-8' >> /var/lib/locales/supported.d/local
-echo 'pt_PT.UTF-8 UTF-8' >> /var/lib/locales/supported.d/local
-echo 'ru_RU.UTF-8 UTF-8' >> /var/lib/locales/supported.d/local
-echo 'sv_SE.UTF-8 UTF-8' >> /var/lib/locales/supported.d/local
-
-locale-gen

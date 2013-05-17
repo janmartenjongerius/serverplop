@@ -13,7 +13,15 @@ nodejs: java8
 square:
 	@chmod +x install/square && install/square
 
-development: webserver phpunit nodejs square
+zend:
+	@chmod +x install/zend && sudo install/zend
+
+locales:
+	@chmod +x install/locales && sudo install/locales
+
+production: webserver locales
+
+development: webserver locales phpunit nodejs square
 
 amd-watermark-fix:
 	@chmod +x hardware/AMD/graphics/watermarkfix.sh && \
