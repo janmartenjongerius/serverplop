@@ -28,6 +28,9 @@ smarty2:
 codesniffer:
 	@chmod +x install/codesniffer && install/codesniffer
 
+sphinx-0-22:
+	@chmod +x install/sphinx-0-22 && sudo install/sphinx-0-22
+
 production: webserver locales
 
 development: webserver locales xdebug phpunit codesniffer nodejs square

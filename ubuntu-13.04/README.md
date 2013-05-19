@@ -30,6 +30,7 @@ Production is a simplified version which leaves out all developer tools.
 - zend
 - smarty2
 - java8
+- sphinx-0-22
 - update
 
 ## Java 8 warning
