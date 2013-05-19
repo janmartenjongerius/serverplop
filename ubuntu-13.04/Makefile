@@ -37,6 +37,9 @@ graphviz:
 webgrind: xdebug graphviz
 	@chmod +x install/webgrind && sudo install/webgrind
 
+doxygen: graphviz
+	@chmod +x install/doxygen && install/doxygen
+
 production: webserver locales
 
 development: webserver locales xdebug phpunit codesniffer nodejs square

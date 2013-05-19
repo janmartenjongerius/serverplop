@@ -32,6 +32,7 @@ Production is a simplified version which leaves out all developer tools.
 - java8
 - graphviz
 - webgrind
+- doxygen
 - sphinx-0-22
 - update
 
