@@ -30,12 +30,13 @@ Production is a simplified version which leaves out all developer tools.
 - zend
 - smarty2
 - java8
+- graphviz
 - sphinx-0-22
 - update
 
 ## Java 8 warning
 
-`make nodejs` will also call for the `make java8` rule, which will install the Oracle version of Java version 8.
+Running `make java8` will install the Oracle version of Java version 8.
 Please note that `make java8` will remove all `openjdk*` packages if you agree or frantically mash return.
 
 ## Fixes
