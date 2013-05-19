@@ -31,6 +31,7 @@ Production is a simplified version which leaves out all developer tools.
 - smarty2
 - java8
 - graphviz
+- webgrind
 - sphinx-0-22
 - update
 

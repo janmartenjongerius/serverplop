@@ -34,7 +34,7 @@ sphinx-0-22:
 graphviz:
 	@chmod +x install/graphviz && sudo install/graphviz
 
-webgrind: graphviz
+webgrind: xdebug graphviz
 	@chmod +x install/webgrind && sudo install/webgrind
 
 production: webserver locales
