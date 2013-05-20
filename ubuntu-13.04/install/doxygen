@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Exit the script when a command returns a non true value.
+set -e
+# Prevent using unset variables.
+set -u
+
+if [[ $EUID -eq 0 ]]; then
+  echo "$0 cannot be run as root"
+  exit 1
+fi
+
+# Install dependencies for Doxywizard.
+sudo apt-get update -y
+sudo apt-get install -y \
+  libqt4-gui \
+  qt4-dev-tools \
+  flex \
+  bison
+
+OPWD=$(pwd)
+
+cd /tmp
+
+# Remove trash.
+sudo rm -rf doxygen-1.8.4*
+
+# Download the Doxygen package.
+wget http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.4.src.tar.gz
+
+# Extract the package.
+gunzip doxygen-1.8.4.src.tar.gz
+tar xf doxygen-1.8.4.src.tar
+cd doxygen-1.8.4
+
+# Configure the package.
+sh ./configure --with-doxywizard
+
+# Run the installation.
+make
+sudo make install
+
+cd /tmp
+
+# Remove trash.
+sudo rm -rf doxygen-1.8.4*
+
+# Run the Doxywizard.
+doxywizard ~/Doxyfile
+
+cd $OPWD
+
+echo "Your Doxyfile was stored in ~/Doxyfile"
