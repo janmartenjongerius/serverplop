@@ -46,7 +46,7 @@ development: webserver locales xdebug phpunit codesniffer nodejs square
 
 amd-watermark-fix:
 	@chmod +x hardware/AMD/graphics/watermarkfix.sh && \
-		hardware/AMD/graphics/watermarkfix.sh
+		sudo hardware/AMD/graphics/watermarkfix.sh
 
 update:
 	@git pull && make webserver

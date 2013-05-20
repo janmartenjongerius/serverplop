@@ -48,5 +48,5 @@ Additionally I personally encountered an issue with a huge ass watermark being p
 That watermark is meant for in-house testing purposes at AMD. You can remove it with a make rule.
 
 ```
-$ sudo make amd-watermark-fix
+$ make amd-watermark-fix
 ```
