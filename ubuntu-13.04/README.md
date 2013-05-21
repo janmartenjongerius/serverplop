@@ -33,6 +33,9 @@ Make rules:
 - xdebug
 - phpunit
 - codesniffer
+- zend
+- webgrind
+- doxygen
 
 ### JavaScript developer
 
@@ -66,6 +69,7 @@ $ make perl-developer
 - apache2
 - mysql
 - perl
+- doxygen
 
 ## Production
 
@@ -92,13 +96,9 @@ The lamp make rule is to provide a basic Linux + Apache2 + MySQL + PHP installat
 
 ## Additional rules
 
-- zend
-- perl
 - smarty2
 - java8
 - graphviz
-- webgrind
-- doxygen
 - sphinx-0-22
 
 ## Java 8 warning

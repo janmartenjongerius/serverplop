@@ -58,13 +58,13 @@ production: lamp locales
 
 development: lamp locales xdebug phpunit codesniffer nodejs square
 
-php-developer: lamp locales xdebug phpunit codesniffer
+php-developer: lamp locales xdebug phpunit codesniffer zend webgrind doxygen
 
 js-developer: nodejs square
 
 frontend-developer: php-developer js-developer
 
-perl-developer: essentials apache2 mysql perl
+perl-developer: essentials apache2 mysql perl doxygen
 
 amd-watermark-fix:
 	@chmod +x hardware/AMD/graphics/watermarkfix.sh && \
