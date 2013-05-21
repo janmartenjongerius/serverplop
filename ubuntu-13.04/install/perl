@@ -10,17 +10,8 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-apt-get autoremove -y
 apt-get update -y
 apt-get install -y \
-  apache2 \
-  build-essential \
-  curl \
-  debhelper \
-  denyhosts \
-  gcc \
-  git \
-  less \
   libapache2-mod-perl2 \
   libapache2-mod-perl2-dev \
   libbusiness-creditcard-perl \
@@ -63,17 +54,6 @@ apt-get install -y \
   libyaml-libyaml-perl \
   libyaml-perl \
   libyaml-syck-perl \
-  make \
-  mysql-client \
-  openssh-server \
-  openssl \
-  pari-gp \
-  php-htmlpurifier \
-  php5 \
-  php5-curl \
-  php5-mysql \
-  screen \
-  vim
 
 cpan Geo::Distance
 cpan SOAP::Lite

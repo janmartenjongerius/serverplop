@@ -1,7 +1,21 @@
-webserver:
-	@chmod +x install/webserver && sudo install/webserver
+essentials:
+	@chmod +x install/essentials && sudo install/essentials
 
-phpunit:
+apache2:
+	@chmod +x install/apache2 && sudo install/apache2
+
+php:
+	@chmod +x install/php && sudo install/php
+
+mysql:
+	@chmod +x install/mysql && sudo install/mysql
+
+perl:
+	@chmod +x install/perl && sudo install/perl
+
+webserver lamp: essentials apache2 mysql php
+
+phpunit: php
 	@chmod +x install/phpunit && sudo install/phpunit
 
 java8:
@@ -13,19 +27,19 @@ nodejs: java8
 square:
 	@chmod +x install/square && install/square
 
-zend:
+zend: php
 	@chmod +x install/zend && sudo install/zend
 
-xdebug:
+xdebug: php
 	@chmod +x install/xdebug && sudo install/xdebug
 
 locales:
 	@chmod +x install/locales && sudo install/locales
 
-smarty2:
+smarty2: php
 	@chmod +x install/smarty2 && sudo install/smarty2
 
-codesniffer:
+codesniffer: php
 	@chmod +x install/codesniffer && install/codesniffer
 
 sphinx-0-22:
@@ -40,13 +54,18 @@ webgrind: xdebug graphviz
 doxygen: graphviz
 	@chmod +x install/doxygen && install/doxygen
 
-production: webserver locales
+production: lamp locales
 
-development: webserver locales xdebug phpunit codesniffer nodejs square
+development: lamp locales xdebug phpunit codesniffer nodejs square
+
+php-developer: lamp locales xdebug phpunit codesniffer
+
+js-developer: nodejs square
+
+frontend-developer: php-developer js-developer
+
+perl-developer: essentials apache2 mysql perl
 
 amd-watermark-fix:
 	@chmod +x hardware/AMD/graphics/watermarkfix.sh && \
 		sudo hardware/AMD/graphics/watermarkfix.sh
-
-update:
-	@git pull && make webserver

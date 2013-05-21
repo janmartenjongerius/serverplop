@@ -1,16 +1,16 @@
 # Ubuntu 13.04
 
+## Development
+
 To simply build a fresh development environment, do the following:
 
-```
+```bash
 $ make development
 ```
 
-## Development
-
 Development is a bundle make rule for the following make rules:
 
-- webserver
+- lamp
 - locales
 - xdebug
 - phpunit
@@ -18,23 +18,88 @@ Development is a bundle make rule for the following make rules:
 - nodejs (which calls `make java8`)
 - square
 
+Additionally, there are some specific developer subsets.
+
+### PHP developer
+
+```bash
+$ make php-developer
+```
+
+Make rules:
+
+- lamp
+- locales
+- xdebug
+- phpunit
+- codesniffer
+
+### JavaScript developer
+
+```bash
+$ make js-developer
+```
+
+Make rules:
+
+- nodejs
+- square
+
+### Frontend developer
+
+```bash
+$ make frontend-developer
+```
+
+Make rules:
+
+- php-developer
+- js-developer
+
+### Perl developer
+
+```bash
+$ make perl-developer
+```
+
+- essentials
+- apache2
+- mysql
+- perl
+
 ## Production
+
+```bash
+$ make production
+```
 
 Production is a simplified version which leaves out all developer tools.
 
-- webserver
+- lamp
 - locales
+
+## LAMP / Webserver
+
+```bash
+$ make lamp
+```
+The lamp make rule is to provide a basic Linux + Apache2 + MySQL + PHP installation. It consists of the following rules:
+
+- essentials
+- apache2
+- mysql
+- php
 
 ## Additional rules
 
 - zend
+- perl
 - smarty2
 - java8
 - graphviz
 - webgrind
 - doxygen
 - sphinx-0-22
-- update
 
 ## Java 8 warning
 
