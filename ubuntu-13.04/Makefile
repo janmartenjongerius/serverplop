@@ -15,7 +15,7 @@ perl:
 
 webserver lamp: essentials apache2 mysql php
 
-phpunit: php
+phpunit:
 	@chmod +x install/phpunit && sudo install/phpunit
 
 java8:
@@ -27,19 +27,19 @@ nodejs: java8
 square:
 	@chmod +x install/square && install/square
 
-zend: php
+zend:
 	@chmod +x install/zend && sudo install/zend
 
-xdebug: php
+xdebug:
 	@chmod +x install/xdebug && sudo install/xdebug
 
 locales:
 	@chmod +x install/locales && sudo install/locales
 
-smarty2: php
+smarty2:
 	@chmod +x install/smarty2 && sudo install/smarty2
 
-codesniffer: php
+codesniffer:
 	@chmod +x install/codesniffer && install/codesniffer
 
 sphinx-0-22:
@@ -48,15 +48,18 @@ sphinx-0-22:
 graphviz:
 	@chmod +x install/graphviz && sudo install/graphviz
 
+webgrind-vhost:
+	@chmod +x install/webgrind-vhost && install/webgrind-vhost
+
 webgrind: xdebug graphviz
-	@chmod +x install/webgrind && sudo install/webgrind
+	@chmod +x install/webgrind && sudo install/webgrind && make webgrind-vhost
 
 doxygen: graphviz
 	@chmod +x install/doxygen && install/doxygen
 
 production: lamp locales
 
-development: lamp locales xdebug phpunit codesniffer nodejs square
+development: lamp locales xdebug phpunit codesniffer doxygen
 
 php-developer: lamp locales xdebug phpunit codesniffer zend webgrind doxygen
 

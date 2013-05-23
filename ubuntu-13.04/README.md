@@ -7,6 +7,7 @@
   - [Perl Developer](#perl-developer)
 - [Production](#production)
 - [Lamp](#lamp)
+- [Additional rules](#additional-rules)
 - [Fixes](#fixes)
   - [AMD Watermark Fix](#amd-watermark-fix)
 
