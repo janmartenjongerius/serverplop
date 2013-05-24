@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Exit the script when a command returns a non true value.
+set -e
+# Prevent using unset variables.
+set -u
+
+if [[ $EUID -ne 0 ]]; then
+  echo "$0 must be run as root"
+  exit 1
+fi
+
+OPWD=$(pwd)
+
+cd /tmp
+
+# Remove trash.
+rm -rf Sphinx-Search-0.22*
+
+# Download the package.
+wget http://search.cpan.org/CPAN/authors/id/J/JJ/JJSCHUTZ/Sphinx-Search-0.22.tar.gz
+
+# Unpack the package.
+tar -xzf Sphinx-Search-0.22.tar.gz
+cd Sphinx-Search-0.22
+
+# Install Sphinx Search.
+perl Makefile.PL
+make
+make install
+
+# Remove trash.
+rm -rf Sphinx-Search-0.22*
+
+cd $OPWD

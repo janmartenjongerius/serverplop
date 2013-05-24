@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Exit the script when a command returns a non true value.
+set -e
+# Prevent using unset variables.
+set -u
+
+if [[ $EUID -ne 0 ]]; then
+  echo "$0 must be run as root"
+  exit 1
+fi
+
+OPWD=$(pwd)
+
+# Prepare structure.
+mkdir -p /www
+cd /www
+
+# Detect the existence of the repo.
+if grep -q 'Webgrind_MasterConfig' webgrind/index.php; then
+  # Update the repo.
+  cd webgrind
+  git pull
+else
+  # Clone the repo.
+  git clone https://github.com/jokkedk/webgrind
+fi
+
+# Make it writeable.
+chmod -R 0777 /www/webgrind
+
+# Now enable the profile trigger.
+if grep -q 'xdebug.profiler_enable_trigger' /etc/php5/apache2/php.ini; then
+  echo "Agreed with current trigger value"
+else
+  echo "Enabled profiling by trigger"
+  echo "xdebug.profiler_enable_trigger = 1" >> /etc/php5/apache2/php.ini
+fi
+
+cd $OPWD
+
+echo "Make sure there is a VirtualHost pointing to /www/webgrind"
+echo "You can enable the grinding by adding the request parameter XDEBUG_PROFILE=1"
+echo "See https://code.google.com/p/webgrind/wiki/Installation for more information"

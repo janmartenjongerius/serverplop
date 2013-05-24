@@ -10,12 +10,12 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-pear config-set auto_discover 1 && \
-pear upgrade PEAR && \
-pear upgrade pear.phpunit.de/PHPUnit && \
-pear upgrade phpunit/DbUnit && \
-pear upgrade phpunit/PHP_Invoker && \
-pear upgrade phpunit/PHPUnit_Selenium && \
-pear upgrade phpunit/PHPUnit_Story && \
-pear upgrade phpunit/PHPUnit_SkeletonGenerator && \
+pear config-set auto_discover 1
+pear upgrade PEAR
+pear upgrade pear.phpunit.de/PHPUnit
+pear upgrade phpunit/DbUnit
+pear upgrade phpunit/PHP_Invoker
+pear upgrade phpunit/PHPUnit_Selenium
+pear upgrade phpunit/PHPUnit_Story
+pear upgrade phpunit/PHPUnit_SkeletonGenerator
 pear config-set auto_discover 0
