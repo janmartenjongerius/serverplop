@@ -49,7 +49,7 @@ if (!file_exists($vhostFile)) {
     $hostsFile = '/etc/hosts';
 
     // Get the local IP.
-    $ip = ido('ifconfig | grep inet\ addr | grep Bcast | head -1');
+    $ip = ido('ifconfig | grep "inet addr" | grep Bcast | head -1');
     list(,$ip) = explode(' ', $ip);
     list(,$ip) = explode(':', $ip);
 
@@ -120,6 +120,3 @@ if (!file_exists($vhostFile)) {
 } else {
     echo "VirtualHost already exists\n";
 }
-
-// Open the webgrind page.
-ido("xdg-open http://{$webgrindHostName}:{$port}/");
