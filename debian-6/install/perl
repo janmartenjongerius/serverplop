@@ -54,8 +54,20 @@ apt-get install -y \
   libyaml-perl \
   libyaml-syck-perl \
 
-cpan CPAN
-cpan YAML
-cpan Geo::Distance
-cpan URI::Escape::XS
-cpan Math::Pari
+OPWD=$(pwd)
+
+# Install cpanminus.
+cd /opt
+curl https://raw.github.com/miyagawa/cpanminus/master/cpanm > cpanm
+chmod +x cpanm
+ln -s /opt/cpanm /usr/bin/
+
+# Upgrade cpanminus.
+cpanm --self-upgrade
+cpanm CPAN
+cpanm YAML
+cpanm Geo::Distance
+cpanm URI::Escape::XS
+cpanm Math::Pari
+
+cd $OPWD
