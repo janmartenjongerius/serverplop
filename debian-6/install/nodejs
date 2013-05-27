@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Exit the script when a command returns a non true value.
+set -e
+# Prevent using unset variables.
+set -u
+
+if [[ $EUID -ne 0 ]]; then
+  echo "$0 must be run as root"
+  exit 1
+fi
+
+OPAD=$(pwd)
+
+cd /tmp
+
+rm -rf node* && \
+wget http://nodejs.org/dist/latest/SHASUMS.txt -O /tmp/node.latest
+
+ARCH=$(uname -i)
+if [[ $ARCH = "x86_64" ]]; then
+LATESTNODE=$(grep linux-x64 /tmp/node.latest | cut -d' ' -f 3)
+else
+LATESTNODE=$(grep linux-x86 /tmp/node.latest | cut -d' ' -f 3)
+fi
+
+wget http://nodejs.org/dist/latest/$LATESTNODE -cO /tmp/node.latest.tar.gz && \
+gunzip /tmp/node.latest.tar.gz && \
+tar xvf /tmp/node.latest.tar
+
+NODEDIR=$($LATESTNODE | cut -d'.' -f1)
+
+cd /tmp/$NODEDIR
+
+chmod +x ./configure && \
+./configure && \
+make && \
+make install && \
+rm -rf $NODEDIR && \
+rm -f node.latest.tar && \
+rm -f node.latest
+
+cd $OPAD
