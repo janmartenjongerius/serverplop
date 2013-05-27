@@ -13,7 +13,9 @@ fi
 apt-get autoremove -y
 apt-get update -y
 apt-get install -y \
+  adjtimex \
   build-essential \
+  bzip2 \
   curl \
   debhelper \
   denyhosts \
@@ -27,4 +29,5 @@ apt-get install -y \
   pari-gp \
   screen \
   sysstat \
-  vim
+  vim \
+  zip

@@ -10,18 +10,5 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-# By default, Ubuntu 13.04 installs Smarty3.
 apt-get update -y
-apt-get remove -y smarty
-
-OPWD=$(pwd)
-URL="http://ubuntu.mirror.cambrium.nl/ubuntu/pool/universe/s/smarty/smarty_2.6.26-0.2ubuntu1_all.deb"
-
-cd /tmp
-
-rm -f smarty2.6.deb
-wget $URL -O smarty2.6.deb
-dpkg -i smarty2.6.deb
-rm -f smarty2.6.deb
-
-cd $OPWD
+apt-get install -y smarty

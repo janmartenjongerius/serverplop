@@ -13,9 +13,9 @@ fi
 apt-get update -y
 apt-get install -y \
   libapache2-mod-perl2 \
-  libapache2-mod-perl2-dev \
   libbusiness-creditcard-perl \
   libcgi-session-perl \
+  libclass-dbi-sqlite-perl \
   libconfig-ini-perl \
   libconvert-pem-perl \
   libcrypt-openssl-rsa-perl \
@@ -23,6 +23,7 @@ apt-get install -y \
   libcrypt-ssleay-perl \
   libdatetime-perl \
   libdbd-mysql-perl \
+  libdigest-sha1-perl \
   liberror-perl \
   libfreezethaw-perl \
   libhtml-scrubber-perl \
@@ -34,29 +35,27 @@ apt-get install -y \
   libmail-rfc822-address-perl \
   libmime-lite-perl \
   libnet-sftp-foreign-perl \
-  libnet-ssh-perl \
   libnet-ssleay-perl \
   libphp-serialization-perl \
   libreadonly-perl \
-  libredis-perl \
+  libsoap-lite-perl \
   libsphinx-search-perl \
   libstring-approx-perl \
-  libsys-syslog-perl \
   libtemplate-perl \
   libtemplate-perl-doc \
   libtemplate-plugin-xml-perl \
   libtext-unaccent-perl \
   libtime-modules-perl \
   libtime-piece-mysql-perl \
-  liburi-encode-perl \
+  libtime-piece-perl \
   libxml-simple-perl \
   libxml-xpath-perl \
   libyaml-libyaml-perl \
   libyaml-perl \
   libyaml-syck-perl \
 
+cpan CPAN
+cpan YAML
 cpan Geo::Distance
-cpan SOAP::Lite
 cpan URI::Escape::XS
-cpan Time::Piece
-cpan Digest::SHA1
+cpan Math::Pari

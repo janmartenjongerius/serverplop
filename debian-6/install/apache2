@@ -11,4 +11,8 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 apt-get update -y
-apt-get install -y apache2
+apt-get install -y \
+  apache2 \
+  libapache2-mod-perl2 \
+  libapache2-mod-php5 \
+  libdbd-sqlite
