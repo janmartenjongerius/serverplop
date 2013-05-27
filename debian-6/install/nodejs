@@ -24,10 +24,6 @@ else
 LATESTNODE=$(grep linux-x86 /tmp/node.latest | cut -d' ' -f 3)
 fi
 
-wget http://nodejs.org/dist/latest/$LATESTNODE -cO /tmp/node.latest.tar.gz && \
-gunzip /tmp/node.latest.tar.gz && \
-tar xvf /tmp/node.latest.tar
-
 VERSION=$(echo $LATESTNODE | cut -d'.' -f1,2,3)
 
 git clone https://github.com/joyent/node.git
@@ -44,3 +40,4 @@ make install
 cd $OPAD
 
 node -v
+
