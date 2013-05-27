@@ -30,13 +30,13 @@ tar xvf /tmp/node.latest.tar
 
 NODEDIR=$(echo $LATESTNODE | cut -d'.' -f1)
 
-cd /tmp/$NODEDIR
+cd /tmp/$NODEDIR*
 
 chmod +x ./configure && \
 ./configure && \
 make && \
 make install && \
-rm -rf $NODEDIR && \
+rm -rf $NODEDIR* && \
 rm -f node.latest.tar && \
 rm -f node.latest
 
