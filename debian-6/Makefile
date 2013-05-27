@@ -48,11 +48,8 @@ sphinx-0-22:
 graphviz:
 	@chmod +x install/graphviz && sudo install/graphviz
 
-webgrind-vhost:
-	@chmod +x install/webgrind-vhost && install/webgrind-vhost
-
 webgrind: xdebug graphviz
-	@chmod +x install/webgrind && sudo install/webgrind && make webgrind-vhost
+	@chmod +x install/webgrind && sudo install/webgrind
 
 doxygen: graphviz
 	@chmod +x install/doxygen && install/doxygen

@@ -21,8 +21,10 @@ apt-get install -y \
   denyhosts \
   gcc \
   git \
+  git-core \
   htop \
   less \
+  libssl-dev \
   make \
   openssh-server \
   openssl \

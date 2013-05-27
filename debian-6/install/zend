@@ -11,4 +11,4 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 apt-get update
-apt-get install -y zend-framework
+apt-get install -y zendframework

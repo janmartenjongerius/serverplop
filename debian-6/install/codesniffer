@@ -10,6 +10,9 @@ if [[ $EUID -eq 0 ]]; then
   exit 1
 fi
 
+apt-get update -y
+apt-get install -y php-pear
+
 sudo pear config-set auto_discover 1
 sudo pear upgrade PEAR
 sudo pear upgrade PHP_CodeSniffer

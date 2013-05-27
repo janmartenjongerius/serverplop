@@ -52,7 +52,7 @@ apt-get install -y \
   libxml-xpath-perl \
   libyaml-libyaml-perl \
   libyaml-perl \
-  libyaml-syck-perl \
+  libyaml-syck-perl
 
 OPWD=$(pwd)
 

@@ -10,11 +10,9 @@ if [[ $EUID -eq 0 ]]; then
   exit 1
 fi
 
-# Install dependencies for Doxywizard.
+# Install dependencies.
 sudo apt-get update -y
 sudo apt-get install -y \
-  libqt4-gui \
-  qt4-dev-tools \
   flex \
   bison
 
@@ -34,7 +32,7 @@ tar xf doxygen-1.8.4.src.tar
 cd doxygen-1.8.4
 
 # Configure the package.
-sh ./configure --with-doxywizard
+sh ./configure
 
 # Run the installation.
 make
@@ -46,7 +44,7 @@ cd /tmp
 sudo rm -rf doxygen-1.8.4*
 
 # Run the Doxywizard.
-doxywizard ~/Doxyfile
+touch ~/Doxyfile
 
 cd $OPWD
 
