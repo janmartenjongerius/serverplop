@@ -63,11 +63,12 @@ chmod +x cpanm
 ln -s /opt/cpanm /usr/bin/
 
 # Upgrade cpanminus.
-cpanm --self-upgrade
-cpanm CPAN
-cpanm YAML
-cpanm Geo::Distance
-cpanm URI::Escape::XS
-cpanm Math::Pari
+cpanm --self-upgrade --sudo
+cpanm --sudo \
+  CPAN \
+  YAML \
+  Geo::Distance \
+  URI::Escape::XS \
+  Math::Pari
 
 cd $OPWD
