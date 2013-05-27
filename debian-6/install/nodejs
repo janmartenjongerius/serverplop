@@ -28,7 +28,7 @@ wget http://nodejs.org/dist/latest/$LATESTNODE -cO /tmp/node.latest.tar.gz && \
 gunzip /tmp/node.latest.tar.gz && \
 tar xvf /tmp/node.latest.tar
 
-NODEDIR=$($LATESTNODE | cut -d'.' -f1)
+NODEDIR=$(echo $LATESTNODE | cut -d'.' -f1)
 
 cd /tmp/$NODEDIR
 
