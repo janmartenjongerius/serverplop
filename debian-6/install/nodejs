@@ -28,16 +28,19 @@ wget http://nodejs.org/dist/latest/$LATESTNODE -cO /tmp/node.latest.tar.gz && \
 gunzip /tmp/node.latest.tar.gz && \
 tar xvf /tmp/node.latest.tar
 
-NODEDIR=$(echo $LATESTNODE | cut -d'.' -f1)
+VERSION=$(echo $LATESTNODE | cut -d'.' -f1,2,3)
 
-cd /tmp/$NODEDIR*
+git clone https://github.com/joyent/node.git
+cd node
+git checkout $VERSION
 
-chmod +x ./configure && \
-./configure && \
-make && \
-make install && \
-rm -rf $NODEDIR* && \
-rm -f node.latest.tar && \
-rm -f node.latest
+# Configure seems not to find libssl by default so we give it an explicit pointer.
+# Optionally: you can isolate node by adding --prefix=/opt/node
+./configure --openssl-libpath=/usr/lib/ssl
+
+make
+make install
 
 cd $OPAD
+
+node -v
