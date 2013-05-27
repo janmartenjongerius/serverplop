@@ -10,7 +10,7 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-OUTPUT="/var/lib/locales/supported.d/local"
+OUTPUT="/etc/locale.gen"
 DATE=$(date +%F)
 BACKUP=$OUTPUT.$DATE
 
@@ -18,20 +18,19 @@ BACKUP=$OUTPUT.$DATE
 # cp -b will make a backup of the destination if it already exists.
 cp -b $OUTPUT $BACKUP
 
-export LOCALES=`cat <<EOF
-de_DE.UTF-8 UTF-8
-en_GB.UTF-8 UTF-8
-en_US.UTF-8 UTF-8
-es_ES.UTF-8 UTF-8
-fr_FR.UTF-8 UTF-8
-it_IT.UTF-8 UTF-8
-nl_NL.UTF-8 UTF-8
-pl_PL.UTF-8 UTF-8
-pt_PT.UTF-8 UTF-8
-ru_RU.UTF-8 UTF-8
-sv_SE.UTF-8 UTF-8
-EOF
-`;
+LOCALES="\n
+de_DE.UTF-8 UTF-8\n
+en_GB.UTF-8 UTF-8\n
+en_US.UTF-8 UTF-8\n
+es_ES.UTF-8 UTF-8\n
+fr_FR.UTF-8 UTF-8\n
+it_IT.UTF-8 UTF-8\n
+nl_NL.UTF-8 UTF-8\n
+pl_PL.UTF-8 UTF-8\n
+pt_PT.UTF-8 UTF-8\n
+ru_RU.UTF-8 UTF-8\n
+sv_SE.UTF-8 UTF-8\n
+";
 
 echo -e $LOCALES > $OUTPUT
 
