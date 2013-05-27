@@ -24,7 +24,7 @@ else
 LATESTNODE=$(grep linux-x86 /tmp/node.latest | cut -d' ' -f 3)
 fi
 
-VERSION=$(echo $LATESTNODE | cut -d'.' -f1,2,3)
+VERSION=$(echo $LATESTNODE | cut -d'.' -f1,2,3 | cut -d'-' -f2)
 
 git clone https://github.com/joyent/node.git
 cd node
