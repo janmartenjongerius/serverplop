@@ -58,8 +58,10 @@ OPWD=$(pwd)
 
 # Install cpanminus.
 cd /opt
+rm cpanm
 curl https://raw.github.com/miyagawa/cpanminus/master/cpanm > cpanm
 chmod +x cpanm
+rm /usr/bin/cpanm
 ln -s /opt/cpanm /usr/bin/
 
 # Upgrade cpanminus.
