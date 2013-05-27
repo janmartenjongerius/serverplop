@@ -92,7 +92,7 @@ if (!file_exists($vhostFile)) {
 ";
 
     // Add the vhost file.
-    sudo("touch {$vhostFile} && chmod 0777 {$vhostFile}");
+    sudo("echo '' > {$vhostFile} && chmod 0777 {$vhostFile}");
 
     // Add the configuration.
     file_put_contents($vhostFile, trim($vhost));
