@@ -32,7 +32,6 @@ if (ido('whoami') === 'root') {
  */
 function sudo($command)
 {
-    $command = escapeshellcmd($command);
     $output = ido("sudo sh -c \"{$command}\"");
     return $output;
 }
@@ -49,7 +48,7 @@ if (!file_exists($vhostFile)) {
     $hostsFile = '/etc/hosts';
 
     // Get the local IP.
-    $ip = ido('ifconfig | grep "inet addr" | grep Bcast | head -1');
+    $ip = ido('ifconfig | grep \'inet addr\' | grep Bcast | head -1');
     list(,$ip) = explode(' ', $ip);
     list(,$ip) = explode(':', $ip);
 
@@ -92,13 +91,15 @@ if (!file_exists($vhostFile)) {
 ";
 
     // Add the vhost file.
-    sudo("echo '' > {$vhostFile} && chmod 0777 {$vhostFile}");
+    sudo("echo '' > {$vhostFile}");
+    sudo("chmod 0777 {$vhostFile}");
 
     // Add the configuration.
     file_put_contents($vhostFile, trim($vhost));
 
     // Restrict rights.
-    sudo("chown root:root {$vhostFile} && chmod 0644 {$vhostFile}");
+    sudo("chown root:root {$vhostFile}");
+    sudo("chmod 0644 {$vhostFile}");
 
     // Enable the Virtual host.
     sudo('a2ensite ' . pathinfo($vhostFile, PATHINFO_BASENAME));
