@@ -19,10 +19,12 @@ apt-get install -y \
   denyhosts \
   gcc \
   git \
+  htop \
   less \
   make \
   openssh-server \
   openssl \
   pari-gp \
   screen \
+  sysstat \
   vim
