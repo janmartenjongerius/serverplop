@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Exit the script when a command returns a non true value.
+set -e
+# Prevent using unset variables.
+set -u
+
+if [[ $EUID -eq 0 ]]; then
+  echo "$0 explicitly cannot be run as root!"
+  exit 1
+fi
+
+OPAD=$(pwd)
+
+mkdir -p ~/tmp && \
+sudo rm -rf ~/tmp/node* && \
+chmod -R 0777 ~/tmp
+
+mkdir -p ~/Applications/ && \
+cd ~/Applications/
+
+rm -rf square && \
+git clone https://github.com/observing/square.git && \
+cd square && \
+make update && \
+sudo make install
+
+cd $OPAD

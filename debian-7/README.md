@@ -1,5 +1,6 @@
-# Ubuntu 13.04 - Raring Ringtail
+# Debian 7 - Wheezy
 
+- [Fresh installation](#fresh-installation)
 - [Development](#development)
   - [PHP Developer](#php-developer)
   - [JavaScript Developer](#javascript-developer)
@@ -8,8 +9,27 @@
 - [Production](#production)
 - [Lamp](#lamp)
 - [Additional rules](#additional-rules)
-- [Fixes](#fixes)
-  - [AMD Watermark Fix](#amd-watermark-fix)
+
+## Fresh installation
+
+Debian being Debian, it comes with a really bare installation.
+When you first install a Debian 7 server, it lacks a few things to get serverplop started.
+
+- zip / git
+
+When you want to set up your server for the first time, please install the following:
+
+```bash
+$ sudo apt-get install -y zip
+```
+
+Or, alternatively you can directly go for the forking method, using:
+
+```bash
+$ sudo apt-get install -y git
+```
+
+Then you either download the ZIP archive and extract that, or you clone the git repo.
 
 ## Development
 
@@ -116,13 +136,3 @@ The lamp make rule is to provide a basic Linux + Apache2 + MySQL + PHP installat
 
 Running `make java8` will install the Oracle version of Java version 8.
 Please note that `make java8` will remove all `openjdk*` packages if you agree or frantically mash return.
-
-## Fixes
-
-### AMD Watermark fix
-Additionally I personally encountered an issue with a huge ass watermark being planted on my monitors.
-That watermark is meant for in-house testing purposes at AMD. You can remove it with a make rule.
-
-```
-$ make amd-watermark-fix
-```

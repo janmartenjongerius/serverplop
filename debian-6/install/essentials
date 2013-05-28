@@ -13,18 +13,23 @@ fi
 apt-get autoremove -y
 apt-get update -y
 apt-get install -y \
+  adjtimex \
   build-essential \
+  bzip2 \
   curl \
   debhelper \
   denyhosts \
   gcc \
   git \
+  git-core \
   htop \
   less \
+  libssl-dev \
   make \
   openssh-server \
   openssl \
   pari-gp \
   screen \
   sysstat \
-  vim
+  vim \
+  zip

@@ -10,21 +10,9 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-apt-get autoremove -y
 apt-get update -y
 apt-get install -y \
-  build-essential \
-  curl \
-  debhelper \
-  denyhosts \
-  gcc \
-  git \
-  htop \
-  less \
-  make \
-  openssh-server \
-  openssl \
-  pari-gp \
-  screen \
-  sysstat \
-  vim
+  apache2 \
+  libapache2-mod-perl2 \
+  libapache2-mod-php5 \
+  libdbd-sqlite

@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Exit the script when a command returns a non true value.
+set -e
+# Prevent using unset variables.
+set -u
+
+if [[ $EUID -eq 0 ]]; then
+  echo "$0 cannot be run as root"
+  exit 1
+fi
+
+apt-get update -y
+apt-get install -y php-pear
+
+sudo pear config-set auto_discover 1
+sudo pear upgrade PEAR
+sudo pear upgrade PHP_CodeSniffer
+sudo pear config-set auto_discover 0
+
+# Conjur up an alias to enforce PSR2.
+ALIASLINE="alias phpcs='phpcs --standard=PSR2'"
+
+if grep -q 'alias phpcs' ~/.bashrc; then
+  echo "Prevented double alias for phpcs"
+else
+  echo "Adding phpcs alias"
+  echo $ALIASLINE >> ~/.bashrc
+fi
