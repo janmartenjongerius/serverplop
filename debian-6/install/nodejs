@@ -19,12 +19,12 @@ wget http://nodejs.org/dist/latest/SHASUMS.txt -O /tmp/node.latest
 
 ARCH=$(uname -i)
 if [[ $ARCH = "x86_64" ]]; then
-LATESTNODE=$(grep linux-x64 /tmp/node.latest | cut -d' ' -f 3)
+LATESTNODE=$(grep linux-x64 /tmp/node.latest | cut -sd ' ' -f 3)
 else
-LATESTNODE=$(grep linux-x86 /tmp/node.latest | cut -d' ' -f 3)
+LATESTNODE=$(grep linux-x86 /tmp/node.latest | cut -sd ' ' -f 3)
 fi
 
-VERSION=$(echo $LATESTNODE | cut -d'.' -f1,2,3 | cut -d'-' -f2)
+VERSION=$(echo $LATESTNODE | cut -sd '.' -f 1,2,3 | cut -sd'-' -f 2)
 
 git clone https://github.com/joyent/node.git
 cd node
