@@ -20,5 +20,4 @@ apt-get install -y \
   php5-gd \
   php5-imagick \
   php5-mcrypt \
-  php5-mysql \
-  php5-suhosin
+  php5-mysql
