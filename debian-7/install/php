@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Exit the script when a command returns a non true value.
+set -e
+# Prevent using unset variables.
+set -u
+
+if [[ $EUID -ne 0 ]]; then
+  echo "$0 must be run as root"
+  exit 1
+fi
+
+apt-get update -y
+apt-get install -y \
+  php-htmlpurifier \
+  php5 \
+  php5-cli \
+  php5-common \
+  php5-curl \
+  php5-gd \
+  php5-imagick \
+  php5-mcrypt \
+  php5-mysql \
+  php5-suhosin

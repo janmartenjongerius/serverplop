@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Exit the script when a command returns a non true value.
+set -e
+# Prevent using unset variables.
+set -u
+
+if [[ $EUID -ne 0 ]]; then
+  echo "$0 must be run as root"
+  exit 1
+fi
+
+OPAD=$(pwd)
+
+cd /tmp
+
+rm -rf node* && \
+wget http://nodejs.org/dist/latest/SHASUMS.txt -O /tmp/node.latest
+
+ARCH=$(uname -i)
+if [[ $ARCH = "x86_64" ]]; then
+LATESTNODE=$(grep linux-x64 /tmp/node.latest | cut -sd ' ' -f 3)
+else
+LATESTNODE=$(grep linux-x86 /tmp/node.latest | cut -sd ' ' -f 3)
+fi
+
+VERSION=$(echo $LATESTNODE | cut -sd '.' -f 1,2,3 | cut -sd'-' -f 2)
+
+git clone https://github.com/joyent/node.git
+cd node
+git checkout $VERSION
+
+# Configure seems not to find libssl by default so we give it an explicit pointer.
+# Optionally: you can isolate node by adding --prefix=/opt/node
+./configure --openssl-libpath=/usr/lib/ssl
+
+make
+make install
+
+cd $OPAD
+
+node -v
+

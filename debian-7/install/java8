@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Exit the script when a command returns a non true value.
+set -e
+# Prevent using unset variables.
+set -u
+
+if [[ $EUID -ne 0 ]]; then
+  echo "$0 must be run as root"
+  exit 1
+fi
+
+apt-get purge openjdk*
+
+echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" > /etc/apt/sources.list.d/webupd8team-java.list
+echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" >> /etc/apt/sources.list.d/webupd8team-java.list
+
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886
+apt-get update -y
+apt-get install oracle-java8-installer -y

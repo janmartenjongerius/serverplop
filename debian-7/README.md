@@ -1,4 +1,4 @@
-# Debian 6 - Squeeze
+# Debian 7 - Wheezy
 
 - [Fresh installation](#fresh-installation)
 - [Development](#development)
@@ -13,30 +13,21 @@
 ## Fresh installation
 
 Debian being Debian, it comes with a really bare installation.
-When you first install a Debian 6 server, it lacks a few things to get serverplop started.
+When you first install a Debian 7 server, it lacks a few things to get serverplop started.
 
-- sudo
 - zip / git
 
-When you want to set up your server for the first time, please install the following as root:
+When you want to set up your server for the first time, please install the following:
 
 ```bash
-$ apt-get install -y sudo zip
+$ sudo apt-get install -y zip
 ```
 
 Or, alternatively you can directly go for the forking method, using:
 
 ```bash
-$ apt-get install -y sudo git
+$ sudo apt-get install -y git
 ```
-
-Additionally, you want to be part of the sudo group.
-
-```bash
-$ adduser johmanx10 sudo
-```
-
-Where you replace johmanx10 with your username.
 
 Then you either download the ZIP archive and extract that, or you clone the git repo.
 
