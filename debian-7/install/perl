@@ -23,7 +23,7 @@ apt-get install -y \
   libcrypt-ssleay-perl \
   libdatetime-perl \
   libdbd-mysql-perl \
-  libdigest-sha1-perl \
+  libdigest-sha-perl \
   liberror-perl \
   libfreezethaw-perl \
   libhtml-scrubber-perl \
@@ -47,7 +47,6 @@ apt-get install -y \
   libtext-unaccent-perl \
   libtime-modules-perl \
   libtime-piece-mysql-perl \
-  libtime-piece-perl \
   libxml-simple-perl \
   libxml-xpath-perl \
   libyaml-libyaml-perl \
