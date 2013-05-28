@@ -10,5 +10,18 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+# By default, Debian 7 installs Smarty3.
 apt-get update -y
-apt-get install -y smarty
+apt-get remove -y smarty
+
+OPWD=$(pwd)
+URL="http://ftp.nl.debian.org/debian/pool/main/s/smarty/smarty_2.6.26-0.2_all.deb"
+
+cd /tmp
+
+rm -f smarty2.6.deb
+wget $URL -O smarty2.6.deb
+dpkg -i smarty2.6.deb
+rm -f smarty2.6.deb
+
+cd $OPWD
