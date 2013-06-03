@@ -12,17 +12,35 @@ fi
 
 OPAD=$(pwd)
 
-mkdir -p ~/tmp && \
-sudo rm -rf ~/tmp/node* && \
+mkdir -p ~/tmp
+sudo rm -rf ~/tmp/node*
 chmod -R 0777 ~/tmp
 
-mkdir -p ~/Applications/ && \
+mkdir -p ~/Applications/
 cd ~/Applications/
 
-rm -rf square && \
-git clone https://github.com/observing/square.git && \
-cd square && \
-make update && \
+NEEDCLONE=0
+
+if ls square; then
+  echo "Using existing square repo"
+  cd square
+
+  if git pull; then
+    echo "Using updated source files via git pull"
+    NEEDCLONE=1
+  fi
+
+  cd ..
+fi
+
+if [[ $NEEDCLONE -eq 0 ]]; then
+  rm -rf square
+  git clone https://github.com/observing/square.git
+fi
+
+cd square
+
+make update
 sudo make install
 
 cd $OPAD
