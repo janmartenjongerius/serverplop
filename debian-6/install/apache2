@@ -10,9 +10,17 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+packages=('apache2');
+
+# Install this module if Perl is available.
+if which perl; then
+  packages=("${packages[@]}" 'libapache2-mod-perl2')
+fi
+
+# Install this module if PHP is available.
+if which php; then
+  packages=("${packages[@]}" 'libapache2-mod-php5')
+fi
+
 apt-get update -y
-apt-get install -y \
-  apache2 \
-  libapache2-mod-perl2 \
-  libapache2-mod-php5 \
-  libdbd-sqlite
+apt-get install -y ${packages[@]}
