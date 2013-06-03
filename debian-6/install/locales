@@ -14,10 +14,6 @@ OUTPUT="/etc/locale.gen"
 DATE=$(date +%F)
 BACKUP=$OUTPUT.$DATE
 
-# Make a backup of the output file.
-# cp -b will make a backup of the destination if it already exists.
-cp -b $OUTPUT $BACKUP
-
 LOCALES="\n
 de_DE.UTF-8 UTF-8\n
 en_GB.UTF-8 UTF-8\n
@@ -36,6 +32,10 @@ if [[ "$(cat $OUTPUT)" == "$(echo -e $LOCALES)" ]]; then
   echo "All locales are present and accounted for"
   echo "Skipping locale-gen"
 else
+  # Make a backup of the output file.
+  # cp -b will make a backup of the destination if it already exists.
+  cp -b $OUTPUT $BACKUP
+
   echo -e $LOCALES > $OUTPUT
   locale-gen
 fi
