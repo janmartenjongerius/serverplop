@@ -7,9 +7,10 @@ set -u
 
 DISTRIBUTOR=$(lsb_release -i | cut -d ':' -f 2 | tr -d ' ' | tr -d '\t')
 CODENAME=$(lsb_release -c | cut -d ':' -f 2 | tr -d ' ' | tr -d '\t')
+PWD=$(pwd)
 
 if ls "$DISTRIBUTOR/$CODENAME/Makefile" >/dev/null 2>&1; then
-  echo "Found supported OS: $DISTRIBUTOR/$CODENAME"
+  echo "Found supported OS in $PWD/$DISTRIBUTOR/$CODENAME"
 else
   echo "Your OS is not supported yet"
   echo "Check the pull requests or create your own!"
