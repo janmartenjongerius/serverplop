@@ -11,6 +11,4 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 apt-get update -y
-apt-get install -y \
-  mysql-server \
-  mysql-client
+apt-get install -y mysql-server mysql-client

@@ -10,14 +10,20 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-# Remove any existing symlink.
-rm -f /usr/local/bin/dot
+if which dot; then
+  echo "dot already installed"
+  echo "Running update"
+  apt-get update -y
+else
+  # Remove any existing symlink.
+  rm -f /usr/local/bin/dot
 
-apt-get update -y
-apt-get install -y graphviz
+  apt-get update -y
+  apt-get install -y graphviz
 
-# Create a symlink.
-# Especially helpful for third party software that tries to keep things
-# cross OS compatible, like webgrind.
-ln -s /usr/bin/dot /usr/local/bin/dot
-chmod +x /usr/local/bin/dot
+  # Create a symlink.
+  # Especially helpful for third party software that tries to keep things
+  # cross OS compatible, like webgrind.
+  ln -s /usr/bin/dot /usr/local/bin/dot
+  chmod +x /usr/local/bin/dot
+fi

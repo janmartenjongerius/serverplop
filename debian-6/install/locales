@@ -32,6 +32,10 @@ ru_RU.UTF-8 UTF-8\n
 sv_SE.UTF-8 UTF-8\n
 ";
 
-echo -e $LOCALES > $OUTPUT
-
-locale-gen
+if [[ "$(cat $OUTPUT)" == "$(echo -e $LOCALES)" ]]; then
+  echo "All locales are present and accounted for"
+  echo "Skipping locale-gen"
+else
+  echo -e $LOCALES > $OUTPUT
+  locale-gen
+fi
