@@ -30,7 +30,7 @@ Or, alternatively you can directly go for the forking method, using:
 $ apt-get install -y sudo git
 ```
 
-Then you either download the ZIP archive and extract that, or you clone the git repo.
+Then you either [download the ZIP archive](https://github.com/johmanx10/serverplop/archive/master.zip) and extract that, or you clone the git repo.
 
 ## Development
 
