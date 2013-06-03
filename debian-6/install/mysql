@@ -10,5 +10,20 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
+packages=(
+  'mysql-server'
+  'mysql-client'
+);
+
+# Install the php5-mysql package if php is available.
+if which php; then
+  packages=("${packages[@]}" 'php5-mysql')
+fi
+
+# Install this if Perl is available.
+if which perl; then
+  packages=("${packages[@]}" 'libdbd-mysql-perl' 'libtime-piece-mysql-perl')
+fi
+
 apt-get update -y
-apt-get install -y mysql-server mysql-client
+apt-get install -y ${packages[@]}

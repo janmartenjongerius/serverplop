@@ -11,7 +11,6 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 packages=(
-  'libapache2-mod-perl2'
   'libbusiness-creditcard-perl'
   'libcgi-session-perl'
   'libclass-dbi-sqlite-perl'
@@ -21,7 +20,6 @@ packages=(
   'libcrypt-openssl-x509-perl'
   'libcrypt-ssleay-perl'
   'libdatetime-perl'
-  'libdbd-mysql-perl'
   'libdbd-sqlite'
   'libdigest-sha1-perl'
   'liberror-perl'
@@ -36,7 +34,6 @@ packages=(
   'libmime-lite-perl'
   'libnet-sftp-foreign-perl'
   'libnet-ssleay-perl'
-  'libphp-serialization-perl'
   'libreadonly-perl'
   'libsoap-lite-perl'
   'libsphinx-search-perl'
@@ -46,7 +43,6 @@ packages=(
   'libtemplate-plugin-xml-perl'
   'libtext-unaccent-perl'
   'libtime-modules-perl'
-  'libtime-piece-mysql-perl'
   'libtime-piece-perl'
   'libxml-simple-perl'
   'libxml-xpath-perl'
@@ -58,6 +54,16 @@ packages=(
 # Install this module if Apache2 is available.
 if ls /etc/init.d/apache2; then
   packages=("${packages[@]}" 'libapache2-mod-perl2')
+fi
+
+# Install these modules if MySQL is available.
+if ls /etc/init.d/apache2; then
+  packages=("${packages[@]}" 'libdbd-mysql-perl' 'libtime-piece-mysql-perl')
+fi
+
+# Install this if PHP is available.
+if which php; then
+  packages=("${packages[@]}" 'libphp-serialization-perl')
 fi
 
 apt-get update -y
