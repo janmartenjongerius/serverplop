@@ -65,3 +65,6 @@ js-developer: nodejs square
 frontend-developer: php-developer js-developer
 
 perl-developer: essentials apache2 mysql perl doxygen
+
+clean:
+	@sudo apt-get autoremove -y

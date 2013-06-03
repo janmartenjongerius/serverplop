@@ -10,7 +10,6 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-apt-get autoremove -y
 apt-get update -y
 apt-get install -y \
   adjtimex \
