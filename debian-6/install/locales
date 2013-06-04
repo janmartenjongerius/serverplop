@@ -1,14 +1,6 @@
 #!/bin/bash
 
-# Exit the script when a command returns a non true value.
-set -e
-# Prevent using unset variables.
-set -u
-
-if [[ $EUID -ne 0 ]]; then
-  echo "$0 must be run as root"
-  exit 1
-fi
+. include/bootstrap-root
 
 OUTPUT="/etc/locale.gen"
 DATE=$(date +%F)
@@ -28,14 +20,18 @@ ru_RU.UTF-8 UTF-8\n
 sv_SE.UTF-8 UTF-8\n
 ";
 
+echo -e $SERVERPLOP"Installing Locales"
+
 if [[ "$(cat $OUTPUT)" == "$(echo -e $LOCALES)" ]]; then
-  echo "All locales are present and accounted for"
-  echo "Skipping locale-gen"
+  echo -e $SERVERPLOP"All locales are present and accounted for"
+  echo -e $SERVERPLOP"Skipping locale-gen"
 else
   # Make a backup of the output file.
   # cp -b will make a backup of the destination if it already exists.
-  cp -b $OUTPUT $BACKUP
+  cp -b $OUTPUT $BACKUP >/dev/null 2>&1
 
-  echo -e $LOCALES > $OUTPUT
-  locale-gen
+  echo -e $LOCALES > $OUTPUT >/dev/null 2>&1
+  locale-gen >/dev/null 2>&1
 fi
+
+echo -e $SERVERPLOP"Finished Locales"

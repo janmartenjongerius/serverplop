@@ -1,34 +1,34 @@
 #!/bin/bash
 
-# Exit the script when a command returns a non true value.
-set -e
-# Prevent using unset variables.
-set -u
+. include/bootstrap-root
 
-if [[ $EUID -ne 0 ]]; then
-  echo "$0 must be run as root"
-  exit 1
-fi
+packages=(
+  'adjtimex'
+  'build-essential'
+  'bzip2'
+  'curl'
+  'debhelper'
+  'denyhosts'
+  'gcc'
+  'git'
+  'git-core'
+  'htop'
+  'less'
+  'libssl-dev'
+  'make'
+  'openssh-server'
+  'openssl'
+  'pari-gp'
+  'screen'
+  'sysstat'
+  'vim'
+  'zip'
+);
+
+echo -e $SERVERPLOP"Installing Linux essentials"
+echo -e $SERVERPLOP"Selected packages: ${packages[@]}"
 
 apt-get update -y >/dev/null 2>&1
-apt-get install -y \
-  adjtimex \
-  build-essential \
-  bzip2 \
-  curl \
-  debhelper \
-  denyhosts \
-  gcc \
-  git \
-  git-core \
-  htop \
-  less \
-  libssl-dev \
-  make \
-  openssh-server \
-  openssl \
-  pari-gp \
-  screen \
-  sysstat \
-  vim \
-  zip
+apt-get install -y ${packages[@]} >/dev/null 2>&1
+
+echo -e $SERVERPLOP"Finished Linux essentials"

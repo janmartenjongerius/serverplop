@@ -1,35 +1,31 @@
 #!/bin/bash
 
-# Exit the script when a command returns a non true value.
-set -e
-# Prevent using unset variables.
-set -u
-
-if [[ $EUID -ne 0 ]]; then
-  echo "$0 must be run as root"
-  exit 1
-fi
+. include/bootstrap-root
 
 OPWD=$(pwd)
+
+echo -e $SERVERPLOP"Installing Sphinx Search 0.22"
 
 cd /tmp
 
 # Remove trash.
-rm -rf Sphinx-Search-0.22*
+rm -rf Sphinx-Search-0.22* >/dev/null 2>&1
 
 # Download the package.
-wget http://search.cpan.org/CPAN/authors/id/J/JJ/JJSCHUTZ/Sphinx-Search-0.22.tar.gz
+wget http://search.cpan.org/CPAN/authors/id/J/JJ/JJSCHUTZ/Sphinx-Search-0.22.tar.gz >/dev/null 2>&1
 
 # Unpack the package.
-tar -xzf Sphinx-Search-0.22.tar.gz
-cd Sphinx-Search-0.22
+tar -xzf Sphinx-Search-0.22.tar.gz >/dev/null 2>&1
+cd Sphinx-Search-0.22 >/dev/null 2>&1
 
 # Install Sphinx Search.
-perl Makefile.PL
-make
-make install
+perl Makefile.PL >/dev/null 2>&1
+make >/dev/null 2>&1
+make install >/dev/null 2>&1
 
 # Remove trash.
-rm -rf Sphinx-Search-0.22*
+rm -rf Sphinx-Search-0.22* >/dev/null 2>&1
 
 cd $OPWD
+
+echo -e $SERVERPLOP"Finished Sphinx Search"

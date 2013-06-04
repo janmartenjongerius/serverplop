@@ -1,52 +1,48 @@
 #!/bin/bash
 
-# Exit the script when a command returns a non true value.
-set -e
-# Prevent using unset variables.
-set -u
-
-if [[ $EUID -eq 0 ]]; then
-  echo "$0 cannot be run as root"
-  exit 1
-fi
+. include/bootstrap
 
 OPWD=$(pwd)
 cd /tmp
 
+echo -e $SERVERPLOP"Installing Doxygen"
+
 # Remove trash.
-sudo rm -rf doxygen-1.8.4*
+sudo rm -rf doxygen-1.8.4* >/dev/null 2>&1
 
 if which doxygen; then
-  echo "Doxygen already installed. No update mechanism in place."
+  echo -e $SERVERPLOP"Doxygen already installed. No update mechanism in place."
 else
   # Install dependencies.
   sudo apt-get update -y >/dev/null 2>&1
-  sudo apt-get install -y flex bison
+  sudo apt-get install -y flex bison >/dev/null 2>&1
 
   # Download the Doxygen package.
-  wget http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.4.src.tar.gz
+  wget http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.4.src.tar.gz >/dev/null 2>&1
 
   # Extract the package.
-  gunzip doxygen-1.8.4.src.tar.gz
-  tar xf doxygen-1.8.4.src.tar
+  gunzip doxygen-1.8.4.src.tar.gz >/dev/null 2>&1
+  tar xf doxygen-1.8.4.src.tar >/dev/null 2>&1
   cd doxygen-1.8.4
 
   # Configure the package.
-  sh ./configure
+  sh ./configure >/dev/null 2>&1
 
   # Run the installation.
-  make
-  sudo make install
+  make >/dev/null 2>&1
+  sudo make install >/dev/null 2>&1
 
   cd /tmp
 
   # Remove trash.
-  sudo rm -rf doxygen-1.8.4*
+  sudo rm -rf doxygen-1.8.4* >/dev/null 2>&1
 
   # Run the Doxywizard.
-  touch ~/Doxyfile
+  touch ~/Doxyfile >/dev/null 2>&1
 
-  echo "Your Doxyfile was stored in ~/Doxyfile"
+  echo -e $SERVERPLOP"Your Doxyfile was stored in ~/Doxyfile"
 fi
 
 cd $OPWD
+
+echo -e $SERVERPLOP"Finished Doxygen"

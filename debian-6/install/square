@@ -1,32 +1,26 @@
 #!/bin/bash
 
-# Exit the script when a command returns a non true value.
-set -e
-# Prevent using unset variables.
-set -u
-
-if [[ $EUID -eq 0 ]]; then
-  echo "$0 explicitly cannot be run as root!"
-  exit 1
-fi
+. include/bootstrap
 
 OPAD=$(pwd)
 
-mkdir -p ~/tmp
-sudo rm -rf ~/tmp/node*
-chmod -R 0777 ~/tmp
+echo -e $SERVERPLOP"Installing [square]"
 
-mkdir -p ~/Applications/
+mkdir -p ~/tmp >/dev/null 2>&1
+sudo rm -rf ~/tmp/node* >/dev/null 2>&1
+chmod -R 0777 ~/tmp >/dev/null 2>&1
+
+mkdir -p ~/Applications/ >/dev/null 2>&1
 cd ~/Applications/
 
 NEEDCLONE=0
 
-if ls square; then
-  echo "Using existing square repo"
+if ls square >/dev/null 2>&1; then
+  echo -e $SERVERPLOP"Using existing square repo"
   cd square
 
-  if git pull; then
-    echo "Using updated source files via git pull"
+  if git pull >/dev/null 2>&1; then
+    echo -e $SERVERPLOP"Using updated source files via git pull"
     NEEDCLONE=1
   fi
 
@@ -34,13 +28,18 @@ if ls square; then
 fi
 
 if [[ $NEEDCLONE -eq 0 ]]; then
-  rm -rf square
-  git clone https://github.com/observing/square.git
+  rm -rf square >/dev/null 2>&1
+  echo -e $SERVERPLOP"Cloning the repo"
+  git clone https://github.com/observing/square.git >/dev/null 2>&1
 fi
 
 cd square
 
-make update
-sudo make install
+echo -e $SERVERPLOP"Running installation"
+
+make update >/dev/null 2>&1
+sudo make install >/dev/null 2>&1
 
 cd $OPAD
+
+echo -e $SERVERPLOP"Finished [square]"

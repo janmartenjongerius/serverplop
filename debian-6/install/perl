@@ -1,14 +1,6 @@
 #!/bin/bash
 
-# Exit the script when a command returns a non true value.
-set -e
-# Prevent using unset variables.
-set -u
-
-if [[ $EUID -ne 0 ]]; then
-  echo "$0 must be run as root"
-  exit 1
-fi
+. include/bootstrap-root
 
 packages=(
   'libbusiness-creditcard-perl'
@@ -52,37 +44,40 @@ packages=(
 );
 
 # Install this module if Apache2 is available.
-if ls /etc/init.d/apache2; then
+if ls /etc/init.d/apache2 >/dev/null 2>&1; then
   packages=("${packages[@]}" 'libapache2-mod-perl2')
 fi
 
 # Install these modules if MySQL is available.
-if ls /etc/init.d/mysql; then
+if ls /etc/init.d/mysql >/dev/null 2>&1; then
   packages=("${packages[@]}" 'libdbd-mysql-perl' 'libtime-piece-mysql-perl')
 fi
 
 # Install this if PHP is available.
-if which php; then
+if which php >/dev/null 2>&1; then
   packages=("${packages[@]}" 'libphp-serialization-perl')
 fi
 
+echo -e $SERVERPLOP"Installing perl"
+echo -e $SERVERPLOP"Selected packages: ${packages[@]}"
+
 apt-get update -y >/dev/null 2>&1
-apt-get install -y ${packages[@]}
+apt-get install -y ${packages[@]} >/dev/null 2>&1
 
 OPWD=$(pwd)
 
 # Install cpanminus.
 if which cpanm; then
-  echo "cpanminus already installed. skipping to upgrade."
+  echo -e $SERVERPLOP"cpanminus already installed. skipping to upgrade."
 else
   cd /opt
-  rm -f cpanm
-  curl -L http://cpanmin.us > cpanm
-  chmod +x cpanm
-  rm -f /usr/local/bin/cpanm
-  rm -f /usr/bin/cpanm
-  ln -s /opt/cpanm /usr/local/bin/
-  ln -s /opt/cpanm /usr/bin/
+  rm -f cpanm >/dev/null 2>&1
+  curl -L http://cpanmin.us > cpanm 2>&1
+  chmod +x cpanm >/dev/null 2>&1
+  rm -f /usr/local/bin/cpanm >/dev/null 2>&1
+  rm -f /usr/bin/cpanm >/dev/null 2>&1
+  ln -s /opt/cpanm /usr/local/bin/ >/dev/null 2>&1
+  ln -s /opt/cpanm /usr/bin/ >/dev/null 2>&1
 fi
 
 # CPAN distributions.
@@ -94,8 +89,13 @@ distributions=(
   'Math::Pari'
 );
 
+echo -e $SERVERPLOP"Installing cpan distributions"
+echo -e $SERVERPLOP"Selected distributions: ${distributions[@]}"
+
 # Upgrade cpanminus.
-cpanm --self-upgrade --sudo
-cpanm --sudo ${distributions[@]}
+cpanm --self-upgrade --sudo >/dev/null 2>&1
+cpanm --sudo ${distributions[@]} >/dev/null 2>&1
 
 cd $OPWD
+
+echo -e $SERVERPLOP"Finished perl"

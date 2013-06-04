@@ -1,14 +1,6 @@
 #!/bin/bash
 
-# Exit the script when a command returns a non true value.
-set -e
-# Prevent using unset variables.
-set -u
-
-if [[ $EUID -ne 0 ]]; then
-  echo "$0 must be run as root"
-  exit 1
-fi
+. include/bootstrap-root
 
 packages=(
   'php-htmlpurifier'
@@ -23,19 +15,24 @@ packages=(
 );
 
 # Install this module if Apache2 is available.
-if ls /etc/init.d/apache2; then
+if ls /etc/init.d/apache2 >/dev/null 2>&1; then
   packages=("${packages[@]}" 'libapache2-mod-php5')
 fi
 
 # Install the mysql package if the server is available.
-if ls /etc/init.d/mysql; then
+if ls /etc/init.d/mysql >/dev/null 2>&1; then
   packages=("${packages[@]}" 'php5-mysql')
 fi
 
 # Install this if Perl is available.
-if which perl; then
+if which perl >/dev/null 2>&1; then
   packages=("${packages[@]}" 'libphp-serialization-perl')
 fi
 
+echo -e $SERVERPLOP"Installing PHP"
+echo -e $SERVERPLOP"Selected packages: ${packages[@]}"
+
 apt-get update -y >/dev/null 2>&1
-apt-get install -y ${packages[@]}
+apt-get install -y ${packages[@]} >/dev/null 2>&1
+
+echo -e $SERVERPLOP"Finished PHP"

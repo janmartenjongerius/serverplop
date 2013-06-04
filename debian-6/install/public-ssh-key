@@ -1,24 +1,20 @@
 #!/bin/bash
 
-# Exit the script when a command returns a non true value.
-set -e
-# Prevent using unset variables.
-set -u
-
-if [[ $EUID -eq 0 ]]; then
-  echo "$0 explicitly cannot be run as root!"
-  exit 1
-fi
+. include/bootstrap
 
 keyfile="/home/$USER/.ssh/id_rsa.pub"
 
+echo -e $SERVERPLOP"Running public SSH key tool"
+
 # We want to check if we have a public SSH key.
 # If not, we should create one.
-if ls $keyfile; then
-  echo "Found a public key file at $keyfile"
+if ls $keyfile >/dev/null 2>&1; then
+  echo -e $SERVERPLOP"Found a public key file at $keyfile"
 else
-  echo "Enter your e-mail address (i.e. the one you use for github): "
+  echo -e $INFO"Enter your e-mail address (i.e. the one you use for github): "
   read email
   ssh-keygen -t rsa -C "$email" -f $keyfile
-  echo "You can find your key in $keyfile"
+  echo -e $SERVERPLOP"You can find your key in $keyfile"
 fi
+
+echo -e $SERVERPLOP"Finished public SSH key tool"

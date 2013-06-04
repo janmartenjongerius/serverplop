@@ -1,29 +1,25 @@
 #!/bin/bash
 
-# Exit the script when a command returns a non true value.
-set -e
-# Prevent using unset variables.
-set -u
+. include/bootstrap-root
 
-if [[ $EUID -ne 0 ]]; then
-  echo "$0 must be run as root"
-  exit 1
-fi
+echo -e $SERVERPLOP"Installing Graphviz"
 
-if which dot; then
-  echo "dot already installed"
-  echo "Running update"
-  apt-get update -y
+if which dot >/dev/null 2>&1; then
+  echo -e $SERVERPLOP"dot already installed"
+  echo -e $SERVERPLOP"Running update"
+  apt-get update -y >/dev/null 2>&1
 else
   # Remove any existing symlink.
-  rm -f /usr/local/bin/dot
+  rm -f /usr/local/bin/dot >/dev/null 2>&1
 
   apt-get update -y >/dev/null 2>&1
-  apt-get install -y graphviz
+  apt-get install -y graphviz >/dev/null 2>&1
 
   # Create a symlink.
   # Especially helpful for third party software that tries to keep things
   # cross OS compatible, like webgrind.
-  ln -s /usr/bin/dot /usr/local/bin/dot
-  chmod +x /usr/local/bin/dot
+  ln -s /usr/bin/dot /usr/local/bin/dot >/dev/null 2>&1
+  chmod +x /usr/local/bin/dot >/dev/null 2>&1
 fi
+
+echo -e $SERVERPLOP"Finished Graphviz"

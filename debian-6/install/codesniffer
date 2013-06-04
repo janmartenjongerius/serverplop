@@ -1,29 +1,25 @@
 #!/bin/bash
 
-# Exit the script when a command returns a non true value.
-set -e
-# Prevent using unset variables.
-set -u
+. include/bootstrap
 
-if [[ $EUID -eq 0 ]]; then
-  echo "$0 cannot be run as root"
-  exit 1
-fi
+echo -e $SERVERPLOP"Installing CodeSniffer"
 
 sudo apt-get update -y >/dev/null 2>&1
-sudo apt-get install -y php-pear
+sudo apt-get install -y php-pear >/dev/null 2>&1
 
-sudo pear config-set auto_discover 1
-sudo pear upgrade PEAR
-sudo pear upgrade PHP_CodeSniffer
-sudo pear config-set auto_discover 0
+sudo pear config-set auto_discover 1 >/dev/null 2>&1
+sudo pear upgrade PEAR >/dev/null 2>&1
+sudo pear upgrade PHP_CodeSniffer >/dev/null 2>&1
+sudo pear config-set auto_discover 0 >/dev/null 2>&1
 
 # Conjur up an alias to enforce PSR2.
 ALIASLINE="alias phpcs='phpcs --standard=PSR2'"
 
-if grep -q 'alias phpcs' ~/.bashrc; then
-  echo "Prevented double alias for phpcs"
+if grep -q 'alias phpcs' ~/.bashrc >/dev/null 2>&1; then
+  echo -e $SERVERPLOP"Prevented double alias for phpcs"
 else
-  echo "Adding phpcs alias"
+  echo -e $SERVERPLOP"Adding phpcs alias"
   echo $ALIASLINE >> ~/.bashrc
 fi
+
+echo -e $SERVERPLOP"Finished CodeSniffer"

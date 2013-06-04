@@ -14,10 +14,10 @@ echo -e $SERVERPLOP"Installing webgrind"
 if grep -q 'Webgrind_MasterConfig' webgrind/index.php >/dev/null 2>&1; then
   # Update the repo.
   cd webgrind
-  git pull
+  git pull >/dev/null 2>&1
 else
   # Clone the repo.
-  git clone https://github.com/jokkedk/webgrind
+  git clone https://github.com/jokkedk/webgrind >/dev/null 2>&1
 fi
 
 # Make it writeable.
