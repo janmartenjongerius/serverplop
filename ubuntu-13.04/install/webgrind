@@ -1,14 +1,6 @@
 #!/bin/bash
 
-# Exit the script when a command returns a non true value.
-set -e
-# Prevent using unset variables.
-set -u
-
-if [[ $EUID -ne 0 ]]; then
-  echo "$0 must be run as root"
-  exit 1
-fi
+. include/bootstrap-root
 
 OPWD=$(pwd)
 
@@ -16,8 +8,10 @@ OPWD=$(pwd)
 mkdir -p /www
 cd /www
 
+echo -e $SERVERPLOP"Installing webgrind"
+
 # Detect the existence of the repo.
-if grep -q 'Webgrind_MasterConfig' webgrind/index.php; then
+if grep -q 'Webgrind_MasterConfig' webgrind/index.php >/dev/null 2>&1; then
   # Update the repo.
   cd webgrind
   git pull
@@ -30,15 +24,16 @@ fi
 chmod -R 0777 /www/webgrind
 
 # Now enable the profile trigger.
-if grep -q 'xdebug.profiler_enable_trigger' /etc/php5/apache2/php.ini; then
-  echo "Agreed with current trigger value"
+if grep -q 'xdebug.profiler_enable_trigger' /etc/php5/apache2/php.ini >/dev/null 2>&1; then
+  echo -e $SERVERPLOP"Agreed with current trigger value"
 else
-  echo "Enabled profiling by trigger"
+  echo -e $SERVERPLOP"Enabled profiling by trigger"
   echo "xdebug.profiler_enable_trigger = 1" >> /etc/php5/apache2/php.ini
 fi
 
 cd $OPWD
 
-echo "Make sure there is a VirtualHost pointing to /www/webgrind"
-echo "You can enable the grinding by adding the request parameter XDEBUG_PROFILE=1"
-echo "See https://code.google.com/p/webgrind/wiki/Installation for more information"
+echo -e $SERVERPLOP"Make sure there is a VirtualHost pointing to /www/webgrind"
+echo -e $SERVERPLOP"You can enable the grinding by adding the request parameter XDEBUG_PROFILE=1"
+echo -e $SERVERPLOP"See https://code.google.com/p/webgrind/wiki/Installation for more information"
+echo -e $SERVERPLOP"Finished webgrind"

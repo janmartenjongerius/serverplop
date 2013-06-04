@@ -25,5 +25,5 @@ if which perl; then
   packages=("${packages[@]}" 'libdbd-mysql-perl' 'libtime-piece-mysql-perl')
 fi
 
-apt-get update -y
+apt-get update -y >/dev/null 2>&1
 apt-get install -y ${packages[@]}

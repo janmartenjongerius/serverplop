@@ -1,5 +1,8 @@
+public-ssh-key:
+	@chmod +x install/public-ssh-key && install/public-ssh-key
+
 essentials:
-	@chmod +x install/essentials && sudo install/essentials
+	@chmod +x install/essentials && sudo install/essentials && make public-ssh-key
 
 apache2:
 	@chmod +x install/apache2 && sudo install/apache2
@@ -72,3 +75,6 @@ perl-developer: essentials apache2 mysql perl doxygen
 amd-watermark-fix:
 	@chmod +x hardware/AMD/graphics/watermarkfix.sh && \
 		sudo hardware/AMD/graphics/watermarkfix.sh
+
+clean:
+	@sudo apt-get autoremove -y

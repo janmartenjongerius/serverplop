@@ -13,9 +13,9 @@ fi
 SOURCE="/etc/apt/sources.list.d/webupd8team-java.list"
 FRESH=0
 
-# We have a version of Java installed. Not sure if it's OpenJDK or Sun.
+# We have a version of Java installed. Not sure if it's OpenJDK or Oracle.
 if which java; then
-  # We found the source listing for the webupd8team. Assuming Sun's version is
+  # We found the source listing for the webupd8team. Assuming Oracle's version is
   # installed.
   if ls $SOURCE; then
     echo "Skipping OpenJDK purge and source listing."
@@ -34,5 +34,5 @@ if [[ $FRESH -eq 0 ]]; then
 fi
 
 # Update and install our Java.
-apt-get update -y
+apt-get update -y >/dev/null 2>&1
 apt-get install oracle-java8-installer -y

@@ -1,43 +1,76 @@
 #!/bin/bash
 
-# Exit the script when a command returns a non true value.
-set -e
-# Prevent using unset variables.
-set -u
-
-if [[ $EUID -ne 0 ]]; then
-  echo "$0 must be run as root"
-  exit 1
-fi
+. include/bootstrap-root
 
 OPAD=$(pwd)
 
+echo -e $SERVERPLOP"Installing Node.js"
+
 cd /tmp
 
-rm -rf node* && \
-wget http://nodejs.org/dist/latest/SHASUMS.txt -O /tmp/node.latest
+rm -rf node.latest >/dev/null 2>&1
+wget http://nodejs.org/dist/latest/SHASUMS.txt -O /tmp/node.latest >/dev/null 2>&1
 
-ARCH=$(uname -i)
-if [[ $ARCH = "x86_64" ]]; then
-LATESTNODE=$(grep linux-x64 /tmp/node.latest | cut -d' ' -f 3)
+if [[ "$(uname -i)" == "x86_64" ]]; then
+  LATESTNODE=$(grep linux-x64 /tmp/node.latest | cut -sd ' ' -f 3)
 else
-LATESTNODE=$(grep linux-x86 /tmp/node.latest | cut -d' ' -f 3)
+  LATESTNODE=$(grep linux-x86 /tmp/node.latest | cut -sd ' ' -f 3)
 fi
 
-wget http://nodejs.org/dist/latest/$LATESTNODE -cO /tmp/node.latest.tar.gz && \
-gunzip /tmp/node.latest.tar.gz && \
-tar xvf /tmp/node.latest.tar
+VERSION=$(echo $LATESTNODE | cut -sd '.' -f 1,2,3 | cut -sd'-' -f 2)
+REPO="https://github.com/joyent/node.git"
+UPTODATE=1
 
-NODEDIR=$($LATESTNODE | cut -d'.' -f1)
+# Check for an existing version of node.
+if which node >/dev/null 2>&1; then
+  CURRENT=$(node -v)
+  if [[ "$VERSION" == "$CURRENT" ]]; then
+    UPTODATE=0
+    echo -e $SERVERPLOP"Node already up to date! Current version: $CURRENT"
+  fi
+fi
 
-cd /tmp/$NODEDIR
+# Run update / install logic.
+if [[ $UPTODATE -eq 0 ]]; then
+  echo -e $SERVERPLOP"Skipping update process"
+else
+  NEEDCLONE=0
 
-chmod +x ./configure && \
-./configure && \
-make && \
-make install && \
-rm -rf $NODEDIR && \
-rm -f node.latest.tar && \
-rm -f node.latest
+  # Use an existing clone if it's available.
+  if ls node >/dev/null 2>&1; then
+    echo -e $SERVERPLOP"Using existing repository"
+    cd node
+
+    # Check if we can pull.
+    if git pull >/dev/null 2>&1; then
+      echo -e $SERVERPLOP"Updated source files via git pull"
+      NEEDCLONE=1
+    fi
+
+    cd ..
+  fi
+
+  if [[ $NEEDCLONE -eq 0 ]]; then
+    rm -rf node >/dev/null 2>&1
+    echo -e $SERVERPLOP"Pulling from git repo"
+    git clone $REPO >/dev/null 2>&1
+  fi
+
+  cd node
+
+  echo -e $SERVERPLOP"Running installation"
+
+  # Checkout to our specific version.
+  git checkout $VERSION >/dev/null 2>&1
+
+  # Configure seems not to find libssl by default so we give it an explicit pointer.
+  # Optionally: you can isolate node by adding --prefix=/opt/node
+  ./configure --openssl-libpath=/usr/lib/ssl >/dev/null 2>&1
+
+  make >/dev/null 2>&1
+  make install >/dev/null 2>&1
+fi
 
 cd $OPAD
+echo -e $INFO"Installed version: "$(node -v)
+echo -e $SERVERPLOP"Finished Node.js"

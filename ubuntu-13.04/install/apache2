@@ -1,14 +1,22 @@
 #!/bin/bash
+. include/bootstrap-root
 
-# Exit the script when a command returns a non true value.
-set -e
-# Prevent using unset variables.
-set -u
+packages=('apache2');
 
-if [[ $EUID -ne 0 ]]; then
-  echo "$0 must be run as root"
-  exit 1
+# Install this module if Perl is available.
+if which perl >/dev/null 2>&1; then
+  packages=("${packages[@]}" 'libapache2-mod-perl2')
 fi
 
-apt-get update -y
-apt-get install -y apache2
+# Install this module if PHP is available.
+if which php >/dev/null 2>&1; then
+  packages=("${packages[@]}" 'libapache2-mod-php5')
+fi
+
+echo -e $SERVERPLOP"Installing Apache2"
+echo -e $SERVERPLOP"Selected packages: ${packages[@]}"
+
+apt-get update -y >/dev/null 2>&1
+apt-get install -y ${packages[@]} >/dev/null 2>&1
+
+echo -e $SERVERPLOP"Finished Apache2"

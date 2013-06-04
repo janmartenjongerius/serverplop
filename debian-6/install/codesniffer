@@ -10,7 +10,7 @@ if [[ $EUID -eq 0 ]]; then
   exit 1
 fi
 
-sudo apt-get update -y
+sudo apt-get update -y >/dev/null 2>&1
 sudo apt-get install -y php-pear
 
 sudo pear config-set auto_discover 1

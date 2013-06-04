@@ -20,7 +20,7 @@ if which doxygen; then
   echo "Doxygen already installed. No update mechanism in place."
 else
   # Install dependencies.
-  sudo apt-get update -y
+  sudo apt-get update -y >/dev/null 2>&1
   sudo apt-get install -y flex bison
 
   # Download the Doxygen package.

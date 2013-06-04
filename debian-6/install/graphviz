@@ -18,7 +18,7 @@ else
   # Remove any existing symlink.
   rm -f /usr/local/bin/dot
 
-  apt-get update -y
+  apt-get update -y >/dev/null 2>&1
   apt-get install -y graphviz
 
   # Create a symlink.

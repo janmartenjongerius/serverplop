@@ -22,5 +22,5 @@ if which php; then
   packages=("${packages[@]}" 'libapache2-mod-php5')
 fi
 
-apt-get update -y
+apt-get update -y >/dev/null 2>&1
 apt-get install -y ${packages[@]}

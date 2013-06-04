@@ -37,5 +37,5 @@ if which perl; then
   packages=("${packages[@]}" 'libphp-serialization-perl')
 fi
 
-apt-get update -y
+apt-get update -y >/dev/null 2>&1
 apt-get install -y ${packages[@]}

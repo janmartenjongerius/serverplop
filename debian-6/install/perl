@@ -57,7 +57,7 @@ if ls /etc/init.d/apache2; then
 fi
 
 # Install these modules if MySQL is available.
-if ls /etc/init.d/apache2; then
+if ls /etc/init.d/mysql; then
   packages=("${packages[@]}" 'libdbd-mysql-perl' 'libtime-piece-mysql-perl')
 fi
 
@@ -66,7 +66,7 @@ if which php; then
   packages=("${packages[@]}" 'libphp-serialization-perl')
 fi
 
-apt-get update -y
+apt-get update -y >/dev/null 2>&1
 apt-get install -y ${packages[@]}
 
 OPWD=$(pwd)

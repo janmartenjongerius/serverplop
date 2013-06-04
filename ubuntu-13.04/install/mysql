@@ -1,16 +1,26 @@
 #!/bin/bash
 
-# Exit the script when a command returns a non true value.
-set -e
-# Prevent using unset variables.
-set -u
+. include/bootstrap-root
 
-if [[ $EUID -ne 0 ]]; then
-  echo "$0 must be run as root"
-  exit 1
+packages=(
+  'mysql-server'
+  'mysql-client'
+);
+
+# Install the php5-mysql package if php is available.
+if which php >/dev/null 2>&1; then
+  packages=("${packages[@]}" 'php5-mysql')
 fi
 
-apt-get update -y
-apt-get install -y \
-  mysql-server \
-  mysql-client
+# Install this if Perl is available.
+if which perl >/dev/null 2>&1; then
+  packages=("${packages[@]}" 'libdbd-mysql-perl' 'libtime-piece-mysql-perl')
+fi
+
+echo -e $SERVERPLOP"Installing MySQL"
+echo -e $SERVERPLOP"Selected packages: ${packages[@]}"
+
+apt-get update -y >/dev/null 2>&1
+apt-get install -y ${packages[@]} >/dev/null 2>&1
+
+echo -e $SERVERPLOP"Finished MySQL"
