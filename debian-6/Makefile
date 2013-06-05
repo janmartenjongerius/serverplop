@@ -69,9 +69,5 @@ frontend-developer: php-developer js-developer
 
 perl-developer: essentials apache2 mysql perl doxygen
 
-amd-watermark-fix:
-	@chmod +x hardware/AMD/graphics/watermarkfix.sh && \
-		sudo hardware/AMD/graphics/watermarkfix.sh
-
 clean:
 	@sudo apt-get autoremove -y

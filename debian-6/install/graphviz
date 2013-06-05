@@ -2,7 +2,7 @@
 
 . include/bootstrap-root
 
-echo -e $SERVERPLOP"Installing dot"
+echo -e $SERVERPLOP"Installing Graphviz"
 
 if which dot >/dev/null 2>&1; then
   echo -e $SERVERPLOP"dot already installed"
@@ -22,4 +22,4 @@ else
   chmod +x /usr/local/bin/dot >/dev/null 2>&1
 fi
 
-echo -e $SERVERPLOP"Finished installing dot"
+echo -e $SERVERPLOP"Finished Graphviz"

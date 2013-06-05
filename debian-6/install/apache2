@@ -1,4 +1,5 @@
 #!/bin/bash
+
 . include/bootstrap-root
 
 packages=('apache2');

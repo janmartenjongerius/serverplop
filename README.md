@@ -5,7 +5,8 @@ Server installation bundles and fixes. Adding lazyness to being a developer.
 ![http://www.allemaalleuk.nl/media/catalog/product/cache/1/thumbnail/50x/9df78eab33525d08d6e5fb8d27136e95/k/a/kabouter_plop_pak_-1.jpg](http://www.allemaalleuk.nl/media/catalog/product/cache/1/thumbnail/50x/9df78eab33525d08d6e5fb8d27136e95/k/a/kabouter_plop_pak_-1.jpg) Plopperdeplop
 
 ## Supported distributions
-- [Ubuntu 13.04 Raring Ringtail](ubuntu-13.04/)
+- [Debian 6 - Squeeze](debian-6/)
+- [Ubuntu 13.04 - Raring Ringtail](ubuntu-13.04/)
 
 ### Adding your own OS
 Feel free to add your own distribution via a pull request. You'll not only help yourself, but a whole bunch of grateful developers who now can easily install and maintain a developer environment.

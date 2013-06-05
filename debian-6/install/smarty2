@@ -1,0 +1,10 @@
+#!/bin/bash
+
+. include/bootstrap-root
+
+echo -e $SERVERPLOP"Installing Smarty 2"
+
+apt-get update -y >/dev/null 2>&1
+apt-get install -y smarty >/dev/null 2>&1
+
+echo -e $SERVERPLOP"Finished Smarty 2"
