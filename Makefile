@@ -129,7 +129,15 @@ doxygen: graphviz
 
 production: lamp locales
 
-developer php-developer: lamp locales xdebug phpunit codesniffer zend webgrind doxygen
+developer php-developer: \
+	lamp \
+	locales \
+	xdebug \
+	phpunit \
+	codesniffer \
+	zend \
+	webgrind \
+	doxygen
 
 js-developer: nodejs square
 
