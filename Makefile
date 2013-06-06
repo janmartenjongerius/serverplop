@@ -86,7 +86,7 @@ mysql:
 perl:
 	@$(call suinstall,perl)
 
-webserver lamp: essentials apache2 mysql php
+webserver lamp: essentials apache2 mysql php perl
 
 phpunit:
 	@$(call suinstall,phpunit)
