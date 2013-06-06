@@ -11,6 +11,7 @@ packages=(
   'php5-gd'
   'php5-imagick'
   'php5-mcrypt'
+  'php5-suhosin'
 );
 
 # Install this module if Apache2 is available.

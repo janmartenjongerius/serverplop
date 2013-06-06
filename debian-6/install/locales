@@ -2,7 +2,7 @@
 
 . include/bootstrap-root
 
-OUTPUT="/var/lib/locales/supported.d/local"
+OUTPUT="/etc/locale.gen"
 DATE=$(date +%F)
 BACKUP=$OUTPUT.$DATE
 
@@ -20,7 +20,7 @@ ru_RU.UTF-8 UTF-8\n
 sv_SE.UTF-8 UTF-8\n
 ";
 
-echo -e $SERVERPLOP"Installing locales"
+echo -e $SERVERPLOP"Installing Locales"
 
 if [[ "$(cat $OUTPUT)" == "$(echo -e $LOCALES)" ]]; then
   echo -e $SERVERPLOP"All locales are present and accounted for"
@@ -30,9 +30,8 @@ else
   # cp -b will make a backup of the destination if it already exists.
   cp -b $OUTPUT $BACKUP >/dev/null 2>&1
 
-  echo -e $LOCALES > $OUTPUT
-  echo -e $SERVERPLOP"Generating locales"
+  echo -e $LOCALES > $OUTPUT >/dev/null 2>&1
   locale-gen >/dev/null 2>&1
 fi
 
-echo -e $SERVERPLOP"Finished locales"
+echo -e $SERVERPLOP"Finished Locales"
