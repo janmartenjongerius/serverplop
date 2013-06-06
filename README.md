@@ -111,7 +111,7 @@ The lamp make rule is to provide a basic Linux + Apache2 + MySQL + PHP installat
 ## Java 8 warning
 
 Running `make java8` will install the Oracle version of Java version 8.
-Please note that `make java8` will remove all `openjdk*` packages if you agree or frantically mash return.
+Please note that `make java8` will remove all `openjdk*` packages.
 
 ## Supported distributions
 - Debian 6 - Squeeze
