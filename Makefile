@@ -23,9 +23,8 @@ endef
 # Find our hardware installation script.
 define findhwscript
 	$(or \
-		$(wildcard $(DISTRIBUTOR)/$(CODENAME)/install/$1), \
-		$(wildcard $(DISTRIBUTOR)/install/$1), \
-		$(wildcard install/$1), \
+		$(wildcard $(DISTRIBUTOR)/$(CODENAME)/hardware/$1), \
+		$(wildcard $(DISTRIBUTOR)/hardware/$1), \
 		"include/notfound"
 	);
 endef
