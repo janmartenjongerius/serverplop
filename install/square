@@ -4,7 +4,7 @@
 
 OPAD=$(pwd)
 
-echo -e $SERVERPLOP"Installing [square]"
+log "Installing [square]"
 
 mkdir -p ~/tmp >/dev/null 2>&1
 sudo rm -rf ~/tmp/node* >/dev/null 2>&1
@@ -16,11 +16,11 @@ cd ~/Applications/
 NEEDCLONE=0
 
 if ls square >/dev/null 2>&1; then
-  echo -e $SERVERPLOP"Using existing square repo"
+  log "Using existing square repo"
   cd square
 
   if git pull >/dev/null 2>&1; then
-    echo -e $SERVERPLOP"Using updated source files via git pull"
+    log "Using updated source files via git pull"
     NEEDCLONE=1
   fi
 
@@ -29,17 +29,17 @@ fi
 
 if [[ $NEEDCLONE -eq 0 ]]; then
   rm -rf square >/dev/null 2>&1
-  echo -e $SERVERPLOP"Cloning the repo"
+  log "Cloning the repo"
   git clone https://github.com/observing/square.git >/dev/null 2>&1
 fi
 
 cd square
 
-echo -e $SERVERPLOP"Running installation"
+log "Running installation"
 
 make update >/dev/null 2>&1
 sudo make install >/dev/null 2>&1
 
 cd $OPAD
 
-echo -e $SERVERPLOP"Finished [square]"
+log "Finished [square]"

@@ -5,13 +5,13 @@
 OPWD=$(pwd)
 cd /tmp
 
-echo -e $SERVERPLOP"Installing Doxygen"
+log "Installing Doxygen"
 
 # Remove trash.
 sudo rm -rf doxygen-1.8.4* >/dev/null 2>&1
 
 if which doxygen >/dev/null 2>&1; then
-  echo -e $SERVERPLOP"Doxygen already installed. No update mechanism in place."
+  log "Doxygen already installed. No update mechanism in place."
 else
   # Install dependencies.
   sudo apt-get update -y >/dev/null 2>&1
@@ -40,9 +40,9 @@ else
   # Run the Doxywizard.
   touch ~/Doxyfile >/dev/null 2>&1
 
-  echo -e $SERVERPLOP"Your Doxyfile was stored in ~/Doxyfile"
+  log "Your Doxyfile was stored in ~/Doxyfile"
 fi
 
 cd $OPWD
 
-echo -e $SERVERPLOP"Finished Doxygen"
+log "Finished Doxygen"

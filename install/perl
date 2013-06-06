@@ -59,8 +59,8 @@ if which php >/dev/null 2>&1; then
   packages=("${packages[@]}" 'libphp-serialization-perl')
 fi
 
-echo -e $SERVERPLOP"Installing perl"
-echo -e $SERVERPLOP"Selected packages: ${packages[@]}"
+log "Installing perl"
+log "Selected packages: ${packages[@]}"
 
 apt-get update -y >/dev/null 2>&1
 apt-get install -y ${packages[@]} >/dev/null 2>&1
@@ -75,10 +75,10 @@ distributions=(
   'Digest::SHA1'
 );
 
-echo -e $SERVERPLOP"Installing cpan distributions"
-echo -e $SERVERPLOP"Selected distributions: ${distributions[@]}"
+log "Installing cpan distributions"
+log "Selected distributions: ${distributions[@]}"
 
 # Upgrade cpanminus.
 cpanm --sudo ${distributions[@]} >/dev/null 2>&1
 
-echo -e $SERVERPLOP"Finished perl"
+log "Finished perl"

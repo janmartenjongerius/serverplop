@@ -4,17 +4,17 @@
 
 keyfile="/home/$USER/.ssh/id_rsa.pub"
 
-echo -e $SERVERPLOP"Running public SSH key tool"
+log "Running public SSH key tool"
 
 # We want to check if we have a public SSH key.
 # If not, we should create one.
 if ls $keyfile >/dev/null 2>&1; then
-  echo -e $SERVERPLOP"Found a public key file at $keyfile"
+  log "Found a public key file at $keyfile"
 else
   echo -e $INFO"Enter your e-mail address (i.e. the one you use for github): "
   read email
   ssh-keygen -t rsa -C "$email" -f $keyfile
-  echo -e $SERVERPLOP"You can find your key in $keyfile"
+  log "You can find your key in $keyfile"
 fi
 
-echo -e $SERVERPLOP"Finished public SSH key tool"
+log "Finished public SSH key tool"

@@ -20,19 +20,19 @@ ru_RU.UTF-8 UTF-8\n
 sv_SE.UTF-8 UTF-8\n
 ";
 
-echo -e $SERVERPLOP"Installing Locales"
+log "Installing Locales"
 
 if [[ "$(cat $OUTPUT)" == "$(echo -e $LOCALES)" ]]; then
-  echo -e $SERVERPLOP"All locales are present and accounted for"
-  echo -e $SERVERPLOP"Skipping locale-gen"
+  log "All locales are present and accounted for"
+  log "Skipping locale-gen"
 else
   # Make a backup of the output file.
   # cp -b will make a backup of the destination if it already exists.
   cp -b $OUTPUT $BACKUP >/dev/null 2>&1
 
   echo -e $LOCALES > $OUTPUT 2>&1
-  echo -e $SERVERPLOP"Generating locales"
+  log "Generating locales"
   locale-gen >/dev/null 2>&1
 fi
 
-echo -e $SERVERPLOP"Finished Locales"
+log "Finished Locales"

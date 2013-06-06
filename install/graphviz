@@ -2,11 +2,11 @@
 
 . include/bootstrap-root
 
-echo -e $SERVERPLOP"Installing Graphviz"
+log "Installing Graphviz"
 
 if which dot >/dev/null 2>&1; then
-  echo -e $SERVERPLOP"dot already installed"
-  echo -e $SERVERPLOP"Running update"
+  log "dot already installed"
+  log "Running update"
   apt-get update -y >/dev/null 2>&1
 else
   # Remove any existing symlink.
@@ -22,4 +22,4 @@ else
   chmod +x /usr/local/bin/dot >/dev/null 2>&1
 fi
 
-echo -e $SERVERPLOP"Finished Graphviz"
+log "Finished Graphviz"

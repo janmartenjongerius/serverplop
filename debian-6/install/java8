@@ -5,14 +5,14 @@
 SOURCE="/etc/apt/sources.list.d/webupd8team-java.list"
 FRESH=0
 
-echo -e $SERVERPLOP"Installing Java 8"
+log "Installing Java 8"
 
 # We have a version of Java installed. Not sure if it's OpenJDK or Oracle.
 if which java >/dev/null 2>&1; then
   # We found the source listing for the webupd8team. Assuming Oracle's version is
   # installed.
   if ls $SOURCE >/dev/null 2>&1; then
-    echo -e $SERVERPLOP"Skipping OpenJDK purge and source listing."
+    log "Skipping OpenJDK purge and source listing."
     FRESH=1
   fi
 fi
@@ -21,8 +21,8 @@ fi
 if [[ $FRESH -eq 0 ]]; then
   apt-get purge openjdk* >/dev/null 2>&1
 
-  echo -e $SERVERPLOP"deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" > $SOURCE
-  echo -e $SERVERPLOP"deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" >> $SOURCE
+  log "deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" > $SOURCE
+  log "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" >> $SOURCE
 
   apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886 >/dev/null 2>&1
 fi
@@ -31,4 +31,4 @@ fi
 apt-get update -y >/dev/null 2>&1
 apt-get install oracle-java8-installer -y >/dev/null 2>&1
 
-echo -e $SERVERPLOP"Finished Java 8"
+log "Finished Java 8"

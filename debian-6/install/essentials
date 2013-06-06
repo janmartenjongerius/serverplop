@@ -25,10 +25,10 @@ packages=(
   'zip'
 );
 
-echo -e $SERVERPLOP"Installing Linux essentials"
-echo -e $SERVERPLOP"Selected packages: ${packages[@]}"
+log "Installing Linux essentials"
+log "Selected packages: ${packages[@]}"
 
 apt-get update -y >/dev/null 2>&1
 apt-get install -y ${packages[@]} >/dev/null 2>&1
 
-echo -e $SERVERPLOP"Finished Linux essentials"
+log "Finished Linux essentials"

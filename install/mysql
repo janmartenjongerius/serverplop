@@ -17,10 +17,10 @@ if which perl >/dev/null 2>&1; then
   packages=("${packages[@]}" 'libdbd-mysql-perl' 'libtime-piece-mysql-perl')
 fi
 
-echo -e $SERVERPLOP"Installing MySQL"
-echo -e $SERVERPLOP"Selected packages: ${packages[@]}"
+log "Installing MySQL"
+log "Selected packages: ${packages[@]}"
 
 apt-get update -y >/dev/null 2>&1
 apt-get install -y ${packages[@]} >/dev/null 2>&1
 
-echo -e $SERVERPLOP"Finished MySQL"
+log "Finished MySQL"

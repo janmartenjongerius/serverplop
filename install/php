@@ -28,10 +28,10 @@ if which perl >/dev/null 2>&1; then
   packages=("${packages[@]}" 'libphp-serialization-perl')
 fi
 
-echo -e $SERVERPLOP"Installing PHP"
-echo -e $SERVERPLOP"Selected packages: ${packages[@]}"
+log "Installing PHP"
+log "Selected packages: ${packages[@]}"
 
 apt-get update -y >/dev/null 2>&1
 apt-get install -y ${packages[@]} >/dev/null 2>&1
 
-echo -e $SERVERPLOP"Finished PHP"
+log "Finished PHP"

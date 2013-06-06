@@ -2,9 +2,9 @@
 
 . include/bootstrap-root
 
-echo -e $SERVERPLOP"Installing xdebug"
+log "Installing xdebug"
 
 apt-get update -y >/dev/null 2>&1
 apt-get install -y php5-xdebug >/dev/null 2>&1
 
-echo -e $SERVERPLOP"Finished xdebug"
+log "Finished xdebug"

@@ -2,7 +2,7 @@
 
 . include/bootstrap-root
 
-echo -e $SERVERPLOP"Installing PHPUnit"
+log "Installing PHPUnit"
 
 apt-get update -y >/dev/null 2>&1
 apt-get install -y php-pear >/dev/null 2>&1
@@ -17,4 +17,4 @@ pear upgrade phpunit/PHPUnit_Story >/dev/null 2>&1
 pear upgrade phpunit/PHPUnit_SkeletonGenerator >/dev/null 2>&1
 pear config-set auto_discover 0 >/dev/null 2>&1
 
-echo -e $SERVERPLOP"Finished PHPUnit"
+log "Finished PHPUnit"

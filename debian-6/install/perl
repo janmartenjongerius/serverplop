@@ -58,8 +58,8 @@ if which php >/dev/null 2>&1; then
   packages=("${packages[@]}" 'libphp-serialization-perl')
 fi
 
-echo -e $SERVERPLOP"Installing perl"
-echo -e $SERVERPLOP"Selected packages: ${packages[@]}"
+log "Installing perl"
+log "Selected packages: ${packages[@]}"
 
 apt-get update -y >/dev/null 2>&1
 apt-get install -y ${packages[@]} >/dev/null 2>&1
@@ -68,7 +68,7 @@ OPWD=$(pwd)
 
 # Install cpanminus.
 if which cpanm; then
-  echo -e $SERVERPLOP"cpanminus already installed. skipping to upgrade."
+  log "cpanminus already installed. skipping to upgrade."
 else
   cd /opt
   rm -f cpanm >/dev/null 2>&1
@@ -89,8 +89,8 @@ distributions=(
   'Math::Pari'
 );
 
-echo -e $SERVERPLOP"Installing cpan distributions"
-echo -e $SERVERPLOP"Selected distributions: ${distributions[@]}"
+log "Installing cpan distributions"
+log "Selected distributions: ${distributions[@]}"
 
 # Upgrade cpanminus.
 cpanm --self-upgrade --sudo >/dev/null 2>&1
@@ -98,4 +98,4 @@ cpanm --sudo ${distributions[@]} >/dev/null 2>&1
 
 cd $OPWD
 
-echo -e $SERVERPLOP"Finished perl"
+log "Finished perl"

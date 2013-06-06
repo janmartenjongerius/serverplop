@@ -4,7 +4,7 @@
 
 OPAD=$(pwd)
 
-echo -e $SERVERPLOP"Installing Node.js"
+log "Installing Node.js"
 
 cd /tmp
 
@@ -26,24 +26,24 @@ if which node >/dev/null 2>&1; then
   CURRENT=$(node -v)
   if [[ "$VERSION" == "$CURRENT" ]]; then
     UPTODATE=0
-    echo -e $SERVERPLOP"Node already up to date! Current version: $CURRENT"
+    log "Node already up to date! Current version: $CURRENT"
   fi
 fi
 
 # Run update / install logic.
 if [[ $UPTODATE -eq 0 ]]; then
-  echo -e $SERVERPLOP"Skipping update process"
+  log "Skipping update process"
 else
   NEEDCLONE=0
 
   # Use an existing clone if it's available.
   if ls node >/dev/null 2>&1; then
-    echo -e $SERVERPLOP"Using existing repository"
+    log "Using existing repository"
     cd node
 
     # Check if we can pull.
     if git pull >/dev/null 2>&1; then
-      echo -e $SERVERPLOP"Updated source files via git pull"
+      log "Updated source files via git pull"
       NEEDCLONE=1
     fi
 
@@ -52,13 +52,13 @@ else
 
   if [[ $NEEDCLONE -eq 0 ]]; then
     rm -rf node >/dev/null 2>&1
-    echo -e $SERVERPLOP"Pulling from git repo"
+    log "Pulling from git repo"
     git clone $REPO >/dev/null 2>&1
   fi
 
   cd node
 
-  echo -e $SERVERPLOP"Running installation"
+  log "Running installation"
 
   # Checkout to our specific version.
   git checkout $VERSION >/dev/null 2>&1
@@ -73,4 +73,4 @@ fi
 
 cd $OPAD
 echo -e $INFO"Installed version: "$(node -v)
-echo -e $SERVERPLOP"Finished Node.js"
+log "Finished Node.js"

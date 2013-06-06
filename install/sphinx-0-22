@@ -4,7 +4,7 @@
 
 OPWD=$(pwd)
 
-echo -e $SERVERPLOP"Installing Sphinx Search 0.22"
+log "Installing Sphinx Search 0.22"
 
 cd /tmp
 
@@ -28,4 +28,4 @@ rm -rf Sphinx-Search-0.22* >/dev/null 2>&1
 
 cd $OPWD
 
-echo -e $SERVERPLOP"Finished Sphinx Search"
+log "Finished Sphinx Search"

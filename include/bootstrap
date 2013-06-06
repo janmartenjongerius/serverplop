@@ -13,6 +13,7 @@ if [[ $EUID -eq 0 ]]; then
 fi
 
 . include/settings
+. include/functions
 
 echo -e $NOCLR$LINE
 echo -e "Running "$BLUE"$0"$NOCLR" as "$USERCLR"$(whoami)"$NOCLR". . ."

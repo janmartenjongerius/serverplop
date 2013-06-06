@@ -2,9 +2,9 @@
 
 . include/bootstrap-root
 
-echo -e $SERVERPLOP"Installing Zend Framework"
+log "Installing Zend Framework"
 
 apt-get update -y >/dev/null 2>&1
 apt-get install -y zend-framework >/dev/null 2>&1
 
-echo -e $SERVERPLOP"Finished Zend Framework"
+log "Finished Zend Framework"

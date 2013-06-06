@@ -6,11 +6,11 @@
 # Let's check the version.
 VERSION=$(dpkg -s smarty | grep 'Version: ' | cut -d ' ' -f 2 -s | cut -d '.' -f 1 -s)
 
-echo -e $SERVERPLOP"Installing Smarty 2"
+log "Installing Smarty 2"
 
 if [[ "$VERSION" == "2" ]]; then
-  echo -e $SERVERPLOP"You currently already have Smarty v2 installed"
-  echo -e $SERVERPLOP"Please note that this is a security risk, not a feature"
+  log "You currently already have Smarty v2 installed"
+  log "Please note that this is a security risk, not a feature"
 else
   apt-get remove -y smarty >/dev/null 2>&1
   apt-get update -y >/dev/null 2>&1
@@ -28,4 +28,4 @@ else
   cd $OPWD
 fi
 
-echo -e $SERVERPLOP"Finished Smarty 2"
+log "Finished Smarty 2"
