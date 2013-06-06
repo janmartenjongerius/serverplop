@@ -5,19 +5,15 @@ set -e
 # Prevent using unset variables.
 set -u
 
+echo ""
+
 if [[ $EUID -eq 0 ]]; then
   echo "$0 cannot be run as root"
   exit 1
 fi
 
-BLUE="\033[0;34m";
-GREEN="\033[0;32m";
-NOCLR="\033[0m";
-SERVERPLOP=$GREEN"[serverplop]"$NOCLR" ";
-INFO=$BLUE"[serverplop]"$NOCLR" ";
-COLUMNS=$(tput cols)
-LINE=$(head -c $COLUMNS < /dev/zero | tr '\0' '=')
+. include/settings
 
-echo -e $GREEN$LINE$NOCLR
-echo -e "Running "$BLUE"$0"$NOCLR" as "$BLUE"$(whoami)"$NOCLR". . ."
-echo -e $GREEN$LINE$NOCLR
+echo -e $NOCLR$LINE
+echo -e "Running "$BLUE"$0"$NOCLR" as "$USERCLR"$(whoami)"$NOCLR". . ."
+echo -e $LINE

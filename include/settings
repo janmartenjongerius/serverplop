@@ -1,0 +1,10 @@
+#!/bin/bash
+
+BLUE="\033[0;36m";
+USERCLR="\033[0;32m";
+ROOTCLR="\033[0;34m";
+NOCLR="\033[0m";
+SERVERPLOP=$USERCLR"[serverplop]"$NOCLR" ";
+INFO=$BLUE"[serverplop]"$NOCLR" ";
+COLUMNS=$(tput cols)
+LINE=$(head -c $COLUMNS < /dev/zero | tr '\0' '=')
