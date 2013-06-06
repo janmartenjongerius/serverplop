@@ -10,7 +10,7 @@ echo -e $SERVERPLOP"Installing Doxygen"
 # Remove trash.
 sudo rm -rf doxygen-1.8.4* >/dev/null 2>&1
 
-if which doxygen; then
+if which doxygen >/dev/null 2>&1; then
   echo -e $SERVERPLOP"Doxygen already installed. No update mechanism in place."
 else
   # Install dependencies.
