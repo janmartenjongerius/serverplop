@@ -2,13 +2,122 @@
 
 Server installation bundles and fixes. Adding lazyness to being a developer.
 
-![http://www.allemaalleuk.nl/media/catalog/product/cache/1/thumbnail/50x/9df78eab33525d08d6e5fb8d27136e95/k/a/kabouter_plop_pak_-1.jpg](http://www.allemaalleuk.nl/media/catalog/product/cache/1/thumbnail/50x/9df78eab33525d08d6e5fb8d27136e95/k/a/kabouter_plop_pak_-1.jpg) Plopperdeplop
+- [Installation](#installation)
+  - [PHP Developer](#php-developer)
+  - [JavaScript Developer](#javascript-developer)
+  - [Frontend developer](#frontend-developer)
+  - [Perl Developer](#perl-developer)
+  - [Production](#production)
+  - [Lamp](#lamp)
+  - [Additional rules](#additional-rules)
+  - [Java 8 warning](#java-8-warning)
+- [Supported distributions](#supported-distributions)
+- [Adding your own OS](#adding-your-own-os)
+  - [Some rules to keep in mind](#some-rules-to-keep-in-mind)
+
+## Installation
+
+Installing your server with Serverplop should go like a breeze.
+
+However, there are some operating systems that come with a really bare installation.
+If you encounter problems at some point, please take a look at the README of your OS.
+
+Some operating systems support additional make rules, where other operating systems will ignore those.
+Again, for more info, please refer to the README of your OS.
+
+### PHP developer
+
+To simply build a fresh development environment, do the following:
+
+
+```bash
+$ make php-developer
+```
+PHP developer is a bundle make rule for the following make rules:
+
+- lamp
+- locales
+- xdebug
+- phpunit
+- codesniffer
+- zend
+- webgrind
+- doxygen
+
+### JavaScript developer
+
+```bash
+$ make js-developer
+```
+
+Make rules:
+
+- nodejs
+- square
+
+### Frontend developer
+
+```bash
+$ make frontend-developer
+```
+
+Make rules:
+
+- php-developer
+- js-developer
+
+### Perl developer
+
+```bash
+$ make perl-developer
+```
+
+- essentials
+- apache2
+- mysql
+- perl
+- doxygen
+
+## Production
+
+```bash
+$ make production
+```
+
+Production is a simplified version which leaves out all developer tools.
+
+- lamp
+- locales
+
+## LAMP / Webserver
+
+```bash
+$ make lamp
+```
+The lamp make rule is to provide a basic Linux + Apache2 + MySQL + PHP installation. It consists of the following rules:
+
+- essentials
+- apache2
+- mysql
+- php
+
+## Additional rules
+
+- smarty2
+- java8
+- graphviz
+- sphinx-0-22
+
+## Java 8 warning
+
+Running `make java8` will install the Oracle version of Java version 8.
+Please note that `make java8` will remove all `openjdk*` packages if you agree or frantically mash return.
 
 ## Supported distributions
-- [Debian 6 - Squeeze](debian-6/)
-- [Ubuntu 13.04 - Raring Ringtail](ubuntu-13.04/)
+- Debian 6 - Squeeze
+- Ubuntu 13.04 - Raring Ringtail
 
-### Adding your own OS
+## Adding your own OS
 Feel free to add your own distribution via a pull request. You'll not only help yourself, but a whole bunch of grateful developers who now can easily install and maintain a developer environment.
 
 ### Some rules to keep in mind
