@@ -30,7 +30,7 @@ else
   # cp -b will make a backup of the destination if it already exists.
   cp -b $OUTPUT $BACKUP >/dev/null 2>&1
 
-  echo -e $LOCALES > $OUTPUT
+  echo -e $LOCALES > $OUTPUT 2>&1
   echo -e $SERVERPLOP"Generating locales"
   locale-gen >/dev/null 2>&1
 fi
