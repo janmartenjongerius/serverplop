@@ -17,10 +17,7 @@ Server installation bundles and fixes. Adding lazyness to being a developer.
 
 ## Installation
 
-Installing your server with Serverplop should go like a breeze.
-
-However, there are some operating systems that come with a really bare installation.
-If you encounter problems at some point, please take a look at the README of your OS.
+Installing your server with Serverplop should go like a breeze. However, there are some operating systems that come with a really bare installation. If you encounter problems at some point, please take a look at the README of your OS.
 
 Some operating systems support additional make rules, where other operating systems will ignore those.
 Again, for more info, please refer to the README of your OS.
@@ -114,8 +111,8 @@ Running `make java8` will install the Oracle version of Java version 8.
 Please note that `make java8` will remove all `openjdk*` packages.
 
 ## Supported distributions
-- Debian 6 - Squeeze
-- Ubuntu 13.04 - Raring Ringtail
+- [Debian 6 - Squeeze](https://github.com/johmanx10/serverplop/tree/master/debian-6)
+- [Ubuntu 13.04 - Raring Ringtail](https://github.com/johmanx10/serverplop/tree/master/ubuntu-13.04)
 
 ## Adding your own OS
 Feel free to add your own distribution via a pull request. You'll not only help yourself, but a whole bunch of grateful developers who now can easily install and maintain a developer environment.
