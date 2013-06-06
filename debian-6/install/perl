@@ -3,15 +3,17 @@
 . include/bootstrap-root
 
 packages=(
-  'cpanminus'
   'libbusiness-creditcard-perl'
   'libcgi-session-perl'
+  'libclass-dbi-sqlite-perl'
   'libconfig-ini-perl'
   'libconvert-pem-perl'
   'libcrypt-openssl-rsa-perl'
   'libcrypt-openssl-x509-perl'
   'libcrypt-ssleay-perl'
   'libdatetime-perl'
+  'libdbd-sqlite'
+  'libdigest-sha1-perl'
   'liberror-perl'
   'libfreezethaw-perl'
   'libhtml-scrubber-perl'
@@ -23,20 +25,17 @@ packages=(
   'libmail-rfc822-address-perl'
   'libmime-lite-perl'
   'libnet-sftp-foreign-perl'
-  'libnet-ssh-perl'
   'libnet-ssleay-perl'
   'libreadonly-perl'
-  'libredis-perl'
+  'libsoap-lite-perl'
   'libsphinx-search-perl'
   'libstring-approx-perl'
-  'libsys-syslog-perl'
   'libtemplate-perl'
   'libtemplate-perl-doc'
   'libtemplate-plugin-xml-perl'
   'libtext-unaccent-perl'
   'libtime-modules-perl'
-  'libtime-piece-mysql-perl'
-  'liburi-encode-perl'
+  'libtime-piece-perl'
   'libxml-simple-perl'
   'libxml-xpath-perl'
   'libyaml-libyaml-perl'
@@ -46,7 +45,7 @@ packages=(
 
 # Install this module if Apache2 is available.
 if ls /etc/init.d/apache2 >/dev/null 2>&1; then
-  packages=("${packages[@]}" 'libapache2-mod-perl2' 'libapache2-mod-perl2-dev')
+  packages=("${packages[@]}" 'libapache2-mod-perl2')
 fi
 
 # Install these modules if MySQL is available.
@@ -65,20 +64,38 @@ echo -e $SERVERPLOP"Selected packages: ${packages[@]}"
 apt-get update -y >/dev/null 2>&1
 apt-get install -y ${packages[@]} >/dev/null 2>&1
 
+OPWD=$(pwd)
+
+# Install cpanminus.
+if which cpanm; then
+  echo -e $SERVERPLOP"cpanminus already installed. skipping to upgrade."
+else
+  cd /opt
+  rm -f cpanm >/dev/null 2>&1
+  curl -L http://cpanmin.us > cpanm 2>&1
+  chmod +x cpanm >/dev/null 2>&1
+  rm -f /usr/local/bin/cpanm >/dev/null 2>&1
+  rm -f /usr/bin/cpanm >/dev/null 2>&1
+  ln -s /opt/cpanm /usr/local/bin/ >/dev/null 2>&1
+  ln -s /opt/cpanm /usr/bin/ >/dev/null 2>&1
+fi
+
 # CPAN distributions.
 distributions=(
   'CPAN'
+  'YAML'
   'Geo::Distance'
-  'SOAP::Lite'
   'URI::Escape::XS'
-  'Time::Piece'
-  'Digest::SHA1'
+  'Math::Pari'
 );
 
 echo -e $SERVERPLOP"Installing cpan distributions"
 echo -e $SERVERPLOP"Selected distributions: ${distributions[@]}"
 
 # Upgrade cpanminus.
+cpanm --self-upgrade --sudo >/dev/null 2>&1
 cpanm --sudo ${distributions[@]} >/dev/null 2>&1
+
+cd $OPWD
 
 echo -e $SERVERPLOP"Finished perl"

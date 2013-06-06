@@ -5,6 +5,6 @@
 echo -e $SERVERPLOP"Installing Zend Framework"
 
 apt-get update -y >/dev/null 2>&1
-apt-get install -y zend-framework >/dev/null 2>&1
+apt-get install -y zendframework >/dev/null 2>&1
 
 echo -e $SERVERPLOP"Finished Zend Framework"
