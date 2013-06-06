@@ -1,5 +1,5 @@
 #!/bin/bash
 
 function log {
-  echo -e $SERVERPLOP"$1"
+  echo -e $SERVERPLOP"$@"
 }
