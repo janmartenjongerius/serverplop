@@ -14,30 +14,28 @@ function logerror {
 
 function spinner {
   while [ -d /proc/$1 ]; do
-    echo -en $GREEN'/\x08';
+    echo -en $GREEN'/\x08'$NOCLR;
     sleep .1
 
-    echo -en $GREEN'-\x08';
+    echo -en $GREEN'-\x08'$NOCLR;
     sleep .1
 
-    echo -en $GREEN'\x08';
+    echo -en $GREEN'\x08'$NOCLR;
     sleep .1
 
-    echo -en $GREEN'|\x08';
+    echo -en $GREEN'|\x08'$NOCLR;
     sleep .1
 
     tput sgr0;
   done;
-
-  echo -en $NOCLR;
 }
 
 function run {
   # If the command is prefixed with sudo, we want to echo something as sudo.
   # Otherwise, the spinner will mess with the password input.
-  if [[ $(echo "$@" | cut -d ' ' -f 1) -eq "sudo" ]]; then
+  if [[ "$(echo $@ | cut -d ' ' -f 1)" == "sudo" ]]; then
     sudo echo -en ''
-  fi
+  fi;
 
   # Run the process in the background and tie it to a spinner.
   $@ >/dev/null 2>&1 &
