@@ -1,4 +1,7 @@
 #!/bin/bash
 
-echo "The requested installation could not be found for your OS!"
-echo "It's probably nothing, but we're skipping this rule for now."
+. include/settings
+. include/functions
+
+loginfo "The requested installation could not be found for your OS!"
+loginfo "It's probably nothing, but we're skipping this rule for now."
