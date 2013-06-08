@@ -9,8 +9,7 @@ VERSION=$(dpkg -s smarty | grep 'Version: ' | cut -d ' ' -f 2 -s | cut -d '.' -f
 log "Installing Smarty 2"
 
 if [[ "$VERSION" == "2" ]]; then
-  log "You currently already have Smarty v2 installed"
-  log "Please note that this is a security risk, not a feature"
+  loginfo "You currently already have Smarty v2 installed"
 else
   apt-get remove -y smarty >/dev/null 2>&1
   apt-get update -y >/dev/null 2>&1
@@ -29,3 +28,4 @@ else
 fi
 
 log "Finished Smarty 2"
+loginfo "Please note that this is a security risk, not a feature"

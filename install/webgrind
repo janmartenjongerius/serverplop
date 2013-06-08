@@ -33,7 +33,7 @@ fi
 
 cd $OPWD
 
-log "Make sure there is a VirtualHost pointing to /www/webgrind"
-log "You can enable the grinding by adding the request parameter XDEBUG_PROFILE=1"
-log "See https://code.google.com/p/webgrind/wiki/Installation for more information"
+loginfo "Make sure there is a VirtualHost pointing to /www/webgrind"
+loginfo "You can enable the grinding by adding the request parameter XDEBUG_PROFILE=1"
+loginfo "See https://code.google.com/p/webgrind/wiki/Installation for more information"
 log "Finished webgrind"

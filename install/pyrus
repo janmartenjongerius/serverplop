@@ -1,0 +1,38 @@
+#!/bin/bash
+
+. include/bootstrap-root
+
+log "Installing Pyrus"
+
+WRAPPER=$(pwd)"/"$(findlib pyrus-wrapper)
+ARCHIVE="http://pear2.php.net/pyrus.phar"
+
+apt-get install -y php5-sqlite >/dev/null 2>&1
+
+OPWD=$(pwd)
+cd /tmp
+
+rm -f pyrus.phar >/dev/null 2>&1
+
+if which pyrus.phar >/dev/null 2>&1; then
+  log "Found an existing pyrus.phar. Skipping pyrus.phar download."
+else
+  log "Downloading $ARCHIVE."
+  wget $ARCHIVE >/dev/null 2>&1
+  log "Running install"
+  install -m 0777 pyrus.phar /usr/bin
+  rm -f pyrus.phar >/dev/null 2>&1
+fi
+
+cd $OPWD
+
+# Checking if the wrapper is already in place.
+if which pyrus >/dev/null 2>&1; then
+  log "Found an existing wrapper around pyrus. Skipping wrapper installation."
+else
+  log "Installing pyrus.phar wrapper"
+  loginfo "A wrapper is needed so we don't need to prefix each command with 'php'."
+  install -m 0777 -T $WRAPPER /usr/bin/pyrus
+fi
+
+log "Finished Pyrus"

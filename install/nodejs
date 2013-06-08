@@ -72,5 +72,5 @@ else
 fi
 
 cd $OPAD
-echo -e $INFO"Installed version: "$(node -v)
+loginfo "Installed version: "$(node -v)
 log "Finished Node.js"

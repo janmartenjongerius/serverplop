@@ -11,7 +11,7 @@ log "Running public SSH key tool"
 if ls $keyfile >/dev/null 2>&1; then
   log "Found a public key file at $keyfile"
 else
-  echo -e $INFO"Enter your e-mail address (i.e. the one you use for github): "
+  loginfo "Enter your e-mail address (i.e. the one you use for github): "
   read email
   ssh-keygen -t rsa -C "$email" -f $keyfile
   log "You can find your key in $keyfile"

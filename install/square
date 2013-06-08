@@ -16,7 +16,7 @@ cd ~/Applications/
 NEEDCLONE=0
 
 if ls square >/dev/null 2>&1; then
-  log "Using existing square repo"
+  log "Using existing square clone"
   cd square
 
   if git pull >/dev/null 2>&1; then
