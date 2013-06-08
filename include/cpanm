@@ -1,0 +1,27 @@
+#!/bin/bash
+
+function cpanversion {
+  cpan -D $1 | grep Installed | awk -F ': ' '{ print $NF }'
+}
+
+function cpanlist {
+  loginfo "Installed CPAN distributions:"
+
+  for distribution in $@; do
+    if cpanversion $distribution >/dev/null 2>&1; then
+      loginfo "- $distribution $(cpanversion $distribution)"
+    else
+      logerror "- $distribution not installed!"
+    fi;
+  done
+}
+
+function cpanminstall {
+  log "Installing cpan distributions"
+  log "Selected distributions: $@"
+
+  # Upgrade cpanminus.
+  cpanm --sudo CPAN $@ >/dev/null 2>&1
+
+  cpanlist $@
+}

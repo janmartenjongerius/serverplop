@@ -1,0 +1,40 @@
+#!/bin/bash
+
+function pearversion {
+  # Get info about our package.
+  pear info $1 | \
+  # Grep the version.
+  grep 'Release Version' | \
+  # Remove the first part of the string.
+  awk -F '  ' '{print $NF }'
+}
+
+function pearlist {
+  loginfo "Installed PEAR packages:"
+
+  for package in $@; do
+    if pearversion $package >/dev/null 2>&1; then
+      loginfo "- $package $(pearversion $package)"
+    else
+      logerror "- $package not installed!"
+    fi;
+  done
+}
+
+function pearinstall {
+  log "Installing dependency: php-pear"
+
+  sudo apt-get update -y >/dev/null 2>&1
+  sudo apt-get install -y php-pear >/dev/null 2>&1
+
+  log "Enabled auto_discover"
+  sudo pear config-set auto_discover 1 >/dev/null 2>&1
+
+  log "Selected packages: $@"
+  pear upgrade PEAR $@ >/dev/null 2>&1
+
+  log "Disabled auto_discover"
+  sudo pear config-set auto_discover 0 >/dev/null 2>&1
+
+  pearlist $@
+}

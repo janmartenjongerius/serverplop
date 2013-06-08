@@ -1,0 +1,26 @@
+#!/bin/bash
+
+function dpkgversion {
+  dpkg -s $1 | grep 'Version:' | awk -F ': ' '{ print $NF }'
+}
+
+function dpkglist {
+  loginfo "Installed packages:"
+
+  for package in $@; do
+    if dpkgversion $package >/dev/null 2>&1; then
+      loginfo "- $package $(dpkgversion $package)"
+    else
+      logerror "- $package not installed!"
+    fi;
+  done
+}
+
+function aptinstall {
+  log "Selected packages: $@"
+
+  apt-get update -y >/dev/null 2>&1
+  apt-get install -y $@ >/dev/null 2>&1
+
+  dpkglist $@
+}

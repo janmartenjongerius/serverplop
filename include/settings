@@ -2,6 +2,7 @@
 
 # Colors.
 BLUE="\033[0;36m";
+RED="\033[0;31m";
 USERCLR="\033[0;32m";
 ROOTCLR="\033[0;34m";
 NOCLR="\033[0m";
@@ -9,6 +10,7 @@ NOCLR="\033[0m";
 # Log openings.
 SERVERPLOP=$USERCLR"[serverplop]"$NOCLR" ";
 INFO=$BLUE"[serverplop]"$NOCLR" ";
+ERROR=$RED"[serverplop]"$NOCLR" ";
 
 # Generic settings.
 COLUMNS=$(tput cols)

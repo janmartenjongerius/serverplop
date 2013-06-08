@@ -8,6 +8,10 @@ function loginfo {
   echo -e $INFO"$@"
 }
 
+function logerror {
+  echo -e $ERROR"$@"
+}
+
 # Currently dead code. Had need for this when trying to add a new installation.
 # I gave up on that installation, but the function is probably still useful.
 function findlib {

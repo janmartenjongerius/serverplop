@@ -1,6 +1,8 @@
 #!/bin/bash
 
 . include/bootstrap-root
+. include/apt
+. include/cpanm
 
 packages=(
   'cpanminus'
@@ -60,14 +62,11 @@ if which php >/dev/null 2>&1; then
 fi
 
 log "Installing perl"
-log "Selected packages: ${packages[@]}"
 
-apt-get update -y >/dev/null 2>&1
-apt-get install -y ${packages[@]} >/dev/null 2>&1
+aptinstall ${packages[@]}
 
 # CPAN distributions.
 distributions=(
-  'CPAN'
   'Geo::Distance'
   'SOAP::Lite'
   'URI::Escape::XS'
@@ -75,10 +74,6 @@ distributions=(
   'Digest::SHA1'
 );
 
-log "Installing cpan distributions"
-log "Selected distributions: ${distributions[@]}"
-
-# Upgrade cpanminus.
-cpanm --sudo ${distributions[@]} >/dev/null 2>&1
+cpanminstall ${distributions[@]}
 
 log "Finished perl"
