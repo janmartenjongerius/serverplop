@@ -13,6 +13,12 @@ function logerror {
 }
 
 function spinner {
+  # Make the cursor invisible.
+  tput civis
+
+  # Turn off all atributes.
+  tput sgr0
+
   while [ -d /proc/$1 ]; do
     echo -en $GREEN'/\x08'$NOCLR;
     sleep .1
@@ -25,9 +31,10 @@ function spinner {
 
     echo -en $GREEN'|\x08'$NOCLR;
     sleep .1
-
-    tput sgr0;
   done;
+
+  # Make the cursor visible.
+  tput cnorm
 }
 
 function run {
