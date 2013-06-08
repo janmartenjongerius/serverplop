@@ -36,6 +36,7 @@ function run {
     # The spinner will simply eat up the password input.
     $@ >/dev/null 2>&1
   else
+    # Ensure we get a password field before the spinner starts.
     if [[ "$1" == "sudo" ]]; then
       sudo echo -en ""
     fi
