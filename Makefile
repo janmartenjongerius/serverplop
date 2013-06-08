@@ -47,7 +47,7 @@ endef
 define suhwinstall
 	$(eval fileName := $(call findhwscript,$1)) \
 	$(shell chmod +x $(fileName)) \
-	@sudo $(SHELL) '$(fileName) $1'
+	@sudo $(SHELL) '$(fileName) hardware/$1'
 endef
 
 # Detect if we support the current OS.
@@ -69,6 +69,8 @@ autodetect:
 
 notfound-test:
 	@$(call install,fiets)
+	@$(call suinstall,fiets)
+	@$(call suhwinstall,fiets)
 
 public-ssh-key:
 	@$(call install,public-ssh-key)
