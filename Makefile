@@ -40,14 +40,14 @@ endef
 define suinstall
 	$(eval fileName := $(call findscript,$1)) \
 	$(shell chmod +x $(fileName)) \
-	@sudo $(SHELL) $(fileName)
+	@sudo $(SHELL) '$(fileName) $1'
 endef
 
 # A sudo hardware install function.
 define suhwinstall
 	$(eval fileName := $(call findhwscript,$1)) \
 	$(shell chmod +x $(fileName)) \
-	@sudo $(SHELL) $(fileName)
+	@sudo $(SHELL) '$(fileName) $1'
 endef
 
 # Detect if we support the current OS.
