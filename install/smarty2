@@ -1,10 +1,10 @@
 #!/bin/bash
 
 . include/bootstrap-root
+. include/apt
 
 log "Installing Smarty 2"
 
-apt-get update -y >/dev/null 2>&1
-apt-get install -y smarty >/dev/null 2>&1
+aptinstall smarty
 
 log "Finished Smarty 2"
