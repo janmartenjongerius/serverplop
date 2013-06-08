@@ -1,19 +1,19 @@
 #!/bin/bash
 
 . include/bootstrap-root
+. include/apt
 
 log "Installing Graphviz"
 
 if which dot >/dev/null 2>&1; then
   log "dot already installed"
   log "Running update"
-  apt-get update -y >/dev/null 2>&1
+  aptinstall graphviz
 else
   # Remove any existing symlink.
   rm -f /usr/local/bin/dot >/dev/null 2>&1
 
-  apt-get update -y >/dev/null 2>&1
-  apt-get install -y graphviz >/dev/null 2>&1
+  aptinstall graphviz
 
   # Create a symlink.
   # Especially helpful for third party software that tries to keep things

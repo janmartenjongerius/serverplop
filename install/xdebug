@@ -1,10 +1,10 @@
 #!/bin/bash
 
 . include/bootstrap-root
+. include/apt
 
 log "Installing xdebug"
 
-apt-get update -y >/dev/null 2>&1
-apt-get install -y php5-xdebug >/dev/null 2>&1
+aptinstall php5-xdebug
 
 log "Finished xdebug"

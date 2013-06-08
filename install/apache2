@@ -1,5 +1,6 @@
 #!/bin/bash
 . include/bootstrap-root
+. include/apt
 
 packages=('apache2');
 
@@ -14,9 +15,7 @@ if which php >/dev/null 2>&1; then
 fi
 
 log "Installing Apache2"
-log "Selected packages: ${packages[@]}"
 
-apt-get update -y >/dev/null 2>&1
-apt-get install -y ${packages[@]} >/dev/null 2>&1
+aptinstall ${packages[@]}
 
 log "Finished Apache2"

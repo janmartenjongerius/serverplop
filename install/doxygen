@@ -1,32 +1,33 @@
 #!/bin/bash
 
 . include/bootstrap
+. include/apt
 
 log "Installing Doxygen"
 
-OPWD=$(pwd)
+dependencies=(
+  'libqt4-gui'
+  'qt4-dev-tools'
+  'flex'
+  'bison'
+);
 
+OPWD=$(pwd)
 cd /tmp
 
 # Remove trash.
 sudo rm -rf doxygen-1.8.4* >/dev/null 2>&1
 
 if which doxygen >/dev/null 2>&1; then
-  log "Doxygen already installed. No update mechanism in place."
+  log "Doxygen already installed."
+
+  # Update dependencies for Doxywizard.
+  aptinstall ${dependencies[@]}
 else
-
-  dependencies=(
-    'libqt4-gui'
-    'qt4-dev-tools'
-    'flex'
-    'bison'
-  );
-
   log "Installing dependencies"
 
   # Install dependencies for Doxywizard.
-  sudo apt-get update -y >/dev/null 2>&1
-  sudo apt-get install -y ${dependencies[@]} >/dev/null 2>&1
+  aptinstall ${dependencies[@]}
 
   log "Downloading archive"
 
