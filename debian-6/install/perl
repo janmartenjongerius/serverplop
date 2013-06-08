@@ -88,9 +88,6 @@ distributions=(
   'Math::Pari'
 );
 
-log "Installing cpan distributions"
-log "Selected distributions: ${distributions[@]}"
-
 # Upgrade cpanminus.
 cpanm --self-upgrade --sudo >/dev/null 2>&1
 cpanminstall ${distributions[@]}
