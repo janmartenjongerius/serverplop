@@ -61,4 +61,5 @@ fi
 
 cd $OPWD
 
+loginfo "Installed version: doxygen $GREEN$(doxygen --version)$NOCLR"
 log "Finished Doxygen"

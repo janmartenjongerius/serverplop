@@ -33,6 +33,7 @@ fi
 
 cd $OPWD
 
+loginfo "Installed version: webgrind $GREEN$(grep '$webgrindVersion =' /www/webgrind/index.php | cut -d '=' -f 2 | tr -d "' ;")$NOCLR"
 loginfo "Make sure there is a VirtualHost pointing to /www/webgrind"
 loginfo "You can enable the grinding by adding the request parameter XDEBUG_PROFILE=1"
 loginfo "See https://code.google.com/p/webgrind/wiki/Installation for more information"

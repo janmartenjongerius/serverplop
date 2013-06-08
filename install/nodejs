@@ -26,7 +26,7 @@ if which node >/dev/null 2>&1; then
   CURRENT=$(node -v)
   if [[ "$VERSION" == "$CURRENT" ]]; then
     UPTODATE=0
-    log "Node already up to date! Current version: $CURRENT"
+    log "Node already up to date! Current version: node $GREEN$CURRENT$NOCLR"
   fi
 fi
 
@@ -72,5 +72,5 @@ else
 fi
 
 cd $OPAD
-loginfo "Installed version: "$(node -v)
+loginfo "Installed version: node $GREEN$(node -v)$NOCLR"
 log "Finished Node.js"

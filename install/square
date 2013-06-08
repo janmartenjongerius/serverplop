@@ -42,4 +42,5 @@ sudo make install >/dev/null 2>&1
 
 cd $OPAD
 
+loginfo "Installed version: square $GREEN$(square --version | tail -1)$NOCLR"
 log "Finished [square]"
