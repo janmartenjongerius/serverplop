@@ -1,5 +1,5 @@
 # The installation shell.
-SHELL=/bin/bash
+SHELL=/bin/bash -c
 
 # Distributor / OS.
 DISTRIBUTOR=$(shell lsb_release -is)
@@ -16,8 +16,8 @@ define findscript
 		$(wildcard $(DISTRIBUTOR)/$(CODENAME)/install/$1), \
 		$(wildcard $(DISTRIBUTOR)/install/$1), \
 		$(wildcard install/$1), \
-		"include/notfound"
-	);
+		include/notfound
+	)
 endef
 
 # Find our hardware installation script.
@@ -25,15 +25,15 @@ define findhwscript
 	$(or \
 		$(wildcard $(DISTRIBUTOR)/$(CODENAME)/hardware/$1), \
 		$(wildcard $(DISTRIBUTOR)/hardware/$1), \
-		"include/notfound"
-	);
+		include/notfound
+	)
 endef
 
 # An install function.
 define install
 	$(eval fileName := $(call findscript,$1)) \
 	$(shell chmod +x $(fileName)) \
-	@$(SHELL) $(fileName)
+	@$(SHELL) '$(fileName) $1'
 endef
 
 # A sudo install function.
@@ -66,6 +66,9 @@ autodetect:
 	@$(call detectsupport)
 
 .PHONY: autodetect
+
+notfound-test:
+	@$(call install,fiets)
 
 public-ssh-key:
 	@$(call install,public-ssh-key)

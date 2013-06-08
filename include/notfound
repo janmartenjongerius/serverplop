@@ -3,5 +3,11 @@
 . include/settings
 . include/functions
 
-loginfo "The requested installation could not be found for your OS!"
+echo ""
+
+echo -e $NOCLR$LINE
+echo -e "Could not find "$BLUE"$1"$NOCLR" as "$ROOTCLR"$(whoami)"$NOCLR". . ."
+echo -e $LINE
+
+logerror "The requested installation could not be found for your OS!"
 loginfo "It's probably nothing, but we're skipping this rule for now."
