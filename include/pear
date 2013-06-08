@@ -14,7 +14,7 @@ function pearlist {
 
   for package in $@; do
     if pearversion $package >/dev/null 2>&1; then
-      loginfo "- $package $(pearversion $package)"
+      loginfo "- $package$GREEN$(pearversion $package)$NOCLR"
     else
       logerror "- $package not installed!"
     fi;

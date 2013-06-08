@@ -9,7 +9,7 @@ function dpkglist {
 
   for package in $@; do
     if dpkgversion $package >/dev/null 2>&1; then
-      loginfo "- $package $(dpkgversion $package)"
+      loginfo "- $package $GREEN$(dpkgversion $package)$NOCLR"
     else
       logerror "- $package not installed!"
     fi;

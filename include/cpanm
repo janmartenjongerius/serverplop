@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function cpanversion {
-  cpan -D $1 | grep Installed | awk -F ': ' '{ print $NF }'
+  perl -M$1 -e 'print "$'$1'::VERSION"'
 }
 
 function cpanlist {
@@ -9,7 +9,7 @@ function cpanlist {
 
   for distribution in $@; do
     if cpanversion $distribution >/dev/null 2>&1; then
-      loginfo "- $distribution $(cpanversion $distribution)"
+      loginfo "- $distribution $GREEN$(cpanversion $distribution)$NOCLR"
     else
       logerror "- $distribution not installed!"
     fi;

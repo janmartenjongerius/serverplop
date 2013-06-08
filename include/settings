@@ -3,6 +3,7 @@
 # Colors.
 BLUE="\033[0;36m";
 RED="\033[0;31m";
+GREEN="\033[0;32m";
 USERCLR="\033[0;32m";
 ROOTCLR="\033[0;34m";
 NOCLR="\033[0m";
