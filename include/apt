@@ -19,8 +19,8 @@ function dpkglist {
 function aptinstall {
   log "Selected packages: $@"
 
-  sudo apt-get update -y >/dev/null 2>&1
-  sudo apt-get install -y $@ >/dev/null 2>&1
+  run sudo apt-get update -y
+  run sudo apt-get install -y $@
 
   dpkglist $@
 }

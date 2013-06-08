@@ -12,6 +12,31 @@ function logerror {
   echo -e $ERROR"$@"
 }
 
+function spinner {
+  while [ -d /proc/$1 ]; do
+    echo -en $GREEN'/\x08';
+    sleep .1
+
+    echo -en $GREEN'-\x08';
+    sleep .1
+
+    echo -en $GREEN'\x08';
+    sleep .1
+
+    echo -en $GREEN'|\x08';
+    sleep .1
+
+    tput sgr0;
+  done;
+
+  echo -en $NOCLR;
+}
+
+function run {
+  $@ >/dev/null 2>&1 &
+  spinner $!
+}
+
 # Currently dead code. Had need for this when trying to add a new installation.
 # I gave up on that installation, but the function is probably still useful.
 function findlib {

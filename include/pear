@@ -24,14 +24,14 @@ function pearlist {
 function pearinstall {
   log "Installing dependency: php-pear"
 
-  sudo apt-get update -y >/dev/null 2>&1
-  sudo apt-get install -y php-pear >/dev/null 2>&1
+  run sudo apt-get update -y
+  run sudo apt-get install -y php-pear
 
   log "Enabled auto_discover"
-  sudo pear config-set auto_discover 1 >/dev/null 2>&1
+  run sudo pear config-set auto_discover 1
 
   log "Selected packages: $@"
-  pear upgrade PEAR $@ >/dev/null 2>&1
+  run pear upgrade PEAR $@
 
   log "Disabled auto_discover"
   sudo pear config-set auto_discover 0 >/dev/null 2>&1

@@ -21,7 +21,7 @@ function cpanminstall {
   log "Selected distributions: $@"
 
   # Upgrade cpanminus.
-  cpanm --sudo CPAN $@ >/dev/null 2>&1
+  run cpanm --sudo CPAN $@
 
   cpanlist $@
 }

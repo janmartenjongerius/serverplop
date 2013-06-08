@@ -19,7 +19,7 @@ if ls square >/dev/null 2>&1; then
   log "Using existing square clone"
   cd square
 
-  if git pull >/dev/null 2>&1; then
+  if run git pull; then
     log "Using updated source files via git pull"
     NEEDCLONE=1
   fi
@@ -30,15 +30,15 @@ fi
 if [[ $NEEDCLONE -eq 0 ]]; then
   rm -rf square >/dev/null 2>&1
   log "Cloning the repo"
-  git clone https://github.com/observing/square.git >/dev/null 2>&1
+  run git clone https://github.com/observing/square.git
 fi
 
 cd square
 
 log "Running installation"
 
-make update >/dev/null 2>&1
-sudo make install >/dev/null 2>&1
+run make update
+run sudo make install
 
 cd $OPAD
 

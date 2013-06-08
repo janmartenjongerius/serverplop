@@ -9,7 +9,7 @@ log "Installing Node.js"
 cd /tmp
 
 rm -rf node.latest >/dev/null 2>&1
-wget http://nodejs.org/dist/latest/SHASUMS.txt -O /tmp/node.latest >/dev/null 2>&1
+run wget http://nodejs.org/dist/latest/SHASUMS.txt -O /tmp/node.latest >/dev/null 2>&1
 
 if [[ "$(uname -i)" == "x86_64" ]]; then
   LATESTNODE=$(grep linux-x64 /tmp/node.latest | cut -sd ' ' -f 3)
@@ -42,7 +42,7 @@ else
     cd node
 
     # Check if we can pull.
-    if git pull >/dev/null 2>&1; then
+    if run git pull; then
       log "Updated source files via git pull"
       NEEDCLONE=1
     fi
@@ -53,7 +53,7 @@ else
   if [[ $NEEDCLONE -eq 0 ]]; then
     rm -rf node >/dev/null 2>&1
     log "Pulling from git repo"
-    git clone $REPO >/dev/null 2>&1
+    run git clone $REPO
   fi
 
   cd node
@@ -61,14 +61,14 @@ else
   log "Running installation"
 
   # Checkout to our specific version.
-  git checkout $VERSION >/dev/null 2>&1
+  git checkout $VERSION
 
   # Configure seems not to find libssl by default so we give it an explicit pointer.
   # Optionally: you can isolate node by adding --prefix=/opt/node
-  ./configure --openssl-libpath=/usr/lib/ssl >/dev/null 2>&1
+  run ./configure --openssl-libpath=/usr/lib/ssl
 
-  make >/dev/null 2>&1
-  make install >/dev/null 2>&1
+  run make
+  run make install
 fi
 
 cd $OPAD

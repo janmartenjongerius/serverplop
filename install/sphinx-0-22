@@ -12,16 +12,16 @@ cd /tmp
 rm -rf Sphinx-Search-0.22* >/dev/null 2>&1
 
 # Download the package.
-wget http://search.cpan.org/CPAN/authors/id/J/JJ/JJSCHUTZ/Sphinx-Search-0.22.tar.gz >/dev/null 2>&1
+run wget http://search.cpan.org/CPAN/authors/id/J/JJ/JJSCHUTZ/Sphinx-Search-0.22.tar.gz
 
 # Unpack the package.
-tar -xzf Sphinx-Search-0.22.tar.gz >/dev/null 2>&1
+run tar -xzf Sphinx-Search-0.22.tar.gz
 cd Sphinx-Search-0.22 >/dev/null 2>&1
 
 # Install Sphinx Search.
-perl Makefile.PL >/dev/null 2>&1
-make >/dev/null 2>&1
-make install >/dev/null 2>&1
+run perl Makefile.PL
+run make
+run make install
 
 # Remove trash.
 rm -rf Sphinx-Search-0.22* >/dev/null 2>&1
