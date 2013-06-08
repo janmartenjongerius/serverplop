@@ -1,6 +1,8 @@
 #!/bin/bash
 
 . include/bootstrap-root
+. include/apt
+. include/cpanm
 
 packages=(
   'libbusiness-creditcard-perl'
@@ -59,10 +61,8 @@ if which php >/dev/null 2>&1; then
 fi
 
 log "Installing perl"
-log "Selected packages: ${packages[@]}"
 
-apt-get update -y >/dev/null 2>&1
-apt-get install -y ${packages[@]} >/dev/null 2>&1
+aptinstall ${packages[@]}
 
 OPWD=$(pwd)
 
