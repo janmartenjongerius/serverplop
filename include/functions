@@ -33,6 +33,13 @@ function spinner {
 }
 
 function run {
+  # If the command is prefixed with sudo, we want to echo something as sudo.
+  # Otherwise, the spinner will mess with the password input.
+  if [[ $(echo "$@" | cut -d ' ' -f 1) -eq "sudo" ]]; then
+    sudo echo -en ''
+  fi
+
+  # Run the process in the background and tie it to a spinner.
   $@ >/dev/null 2>&1 &
   spinner $!
 }
