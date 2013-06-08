@@ -39,7 +39,13 @@ function run {
 
   # Run the process in the background and tie it to a spinner.
   $@ >/dev/null 2>&1 &
-  spinner $!
+
+  if [[ "$DISTRIBUTOR" == "Debian" && "$1" == "sudo" ]]; then
+    # We cannot use the spinner on Debian when combined with sudo.
+    # The spinner will simply eat up the password input.
+  else
+    spinner $!
+  fi
 }
 
 # Currently dead code. Had need for this when trying to add a new installation.
