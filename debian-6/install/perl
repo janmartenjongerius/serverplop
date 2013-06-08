@@ -67,7 +67,7 @@ aptinstall ${packages[@]}
 OPWD=$(pwd)
 
 # Install cpanminus.
-if which cpanm; then
+if which cpanm >/dev/null 2>&1; then
   log "cpanminus already installed. skipping to upgrade."
 else
   cd /opt
@@ -82,7 +82,6 @@ fi
 
 # CPAN distributions.
 distributions=(
-  'CPAN'
   'YAML'
   'Geo::Distance'
   'URI::Escape::XS'
@@ -94,7 +93,7 @@ log "Selected distributions: ${distributions[@]}"
 
 # Upgrade cpanminus.
 cpanm --self-upgrade --sudo >/dev/null 2>&1
-cpanm --sudo ${distributions[@]} >/dev/null 2>&1
+cpanminstall ${distributions[@]}
 
 cd $OPWD
 
