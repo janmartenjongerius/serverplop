@@ -6,7 +6,6 @@ Server installation bundles and fixes. Adding lazyness to being a developer.
   - [PHP Developer](#php-developer)
   - [JavaScript Developer](#javascript-developer)
   - [Frontend developer](#frontend-developer)
-  - [Perl Developer](#perl-developer)
   - [Production](#production)
   - [Lamp](#lamp)
   - [Additional rules](#additional-rules)
@@ -33,6 +32,7 @@ $ make php-developer
 PHP developer is a bundle make rule for the following make rules:
 
 - lamp
+- tools
 - locales
 - xdebug
 - phpunit
@@ -51,6 +51,7 @@ Make rules:
 
 - nodejs
 - square
+- tools
 
 ### Frontend developer
 
@@ -62,18 +63,6 @@ Make rules:
 
 - php-developer
 - js-developer
-
-### Perl developer
-
-```bash
-$ make perl-developer
-```
-
-- essentials
-- apache2
-- mysql
-- perl
-- doxygen
 
 ## Production
 
@@ -97,6 +86,7 @@ The lamp make rule is to provide a basic Linux + Apache2 + MySQL + PHP installat
 - apache2
 - mysql
 - php
+- perl
 
 ## Additional rules
 
@@ -104,11 +94,7 @@ The lamp make rule is to provide a basic Linux + Apache2 + MySQL + PHP installat
 - java8
 - graphviz
 - sphinx-0-22
-
-## Java 8 warning
-
-Running `make java8` will install the Oracle version of Java version 8.
-Please note that `make java8` will remove all `openjdk*` packages.
+- public-ssh-key
 
 ## Supported distributions
 - [Debian 6 - Squeeze](https://github.com/johmanx10/serverplop/tree/master/debian-6)
