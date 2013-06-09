@@ -29,6 +29,9 @@ To simply build a fresh development environment, do the following:
 ```bash
 $ make php-developer
 ```
+
+An alias for `make php-developer` is `make developer`
+
 PHP developer is a bundle make rule for the following make rules:
 
 - lamp
@@ -80,7 +83,7 @@ Production is a simplified version which leaves out all developer tools.
 ```bash
 $ make lamp
 ```
-The lamp make rule is to provide a basic Linux + Apache2 + MySQL + PHP installation. It consists of the following rules:
+The lamp make rule is to provide a basic Linux + Apache2 + MySQL + PHP + Perl installation. It consists of the following rules:
 
 - essentials
 - apache2
