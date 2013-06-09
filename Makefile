@@ -79,6 +79,9 @@ essentials:
 	@$(call suinstall,essentials)
 	@$(call install,public-ssh-key)
 
+tools:
+	@$(call install,tools)
+
 apache2:
 	@$(call suinstall,apache2)
 
@@ -136,6 +139,7 @@ production: lamp locales
 
 developer php-developer: \
 	lamp \
+	tools \
 	locales \
 	xdebug \
 	phpunit \
@@ -144,7 +148,7 @@ developer php-developer: \
 	webgrind \
 	doxygen
 
-js-developer: nodejs square
+js-developer: nodejs square tools
 
 frontend-developer: php-developer js-developer
 

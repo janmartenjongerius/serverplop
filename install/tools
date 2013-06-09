@@ -1,0 +1,36 @@
+#!/bin/bash
+. include/bootstrap
+. include/apt
+
+log "Installing developer tools"
+
+# A tool for maintaining multiple SSH terminals through a single command input.
+log "Installing Cluster SSH"
+aptinstall clusterssh
+log "Finished Cluster SSH"
+
+# A tool for jumping to directories based on visit behavior.
+log "Installing Z"
+
+if [ -f ~/.bashz ]; then
+  log "Found existing source file. Skipping download."
+else
+  log "Downloading Z"
+  run wget https://raw.github.com/rupa/z/master/z.sh -O ~/.bashz
+fi
+
+if grep ". ~/.bashz" ~/.bashrc >/dev/null 2>&1; then
+  log "Found source inclusion. Skipping installation."
+else
+  log "Installing Z"
+  echo ". ~/.bashz" >> ~/.bashrc 2>&1
+
+  loginfo "Z is a directory jumping tool, which jumps based on directory visit history."
+  loginfo "'z plop' would most likely bring you to the serverplop repo."
+  loginfo "Note that your currently active shell won't have z enabled yet."
+  loginfo "Please restart your shell/terminal for z to take effect."
+fi
+
+log "Finished Z"
+
+log "Finished developer tools"
