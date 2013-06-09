@@ -9,7 +9,6 @@ Server installation bundles and fixes. Adding lazyness to being a developer.
   - [Production](#production)
   - [Lamp](#lamp)
   - [Additional rules](#additional-rules)
-  - [Java 8 warning](#java-8-warning)
 - [Supported distributions](#supported-distributions)
 - [Adding your own OS](#adding-your-own-os)
   - [Some rules to keep in mind](#some-rules-to-keep-in-mind)
