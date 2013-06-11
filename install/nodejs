@@ -61,7 +61,7 @@ else
   log "Running installation"
 
   # Checkout to our specific version.
-  git checkout $VERSION
+  run git checkout $VERSION
 
   # Configure seems not to find libssl by default so we give it an explicit pointer.
   # Optionally: you can isolate node by adding --prefix=/opt/node
