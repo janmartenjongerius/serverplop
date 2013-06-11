@@ -12,11 +12,25 @@ log "Finished Cluster SSH"
 # A tool for jumping to directories based on visit behavior.
 log "Installing Z"
 
-if [ -f ~/.bashz ]; then
-  log "Found existing source file. Skipping download."
+OPWD=$(pwd)
+mkdir -p ~/Applications/ >/dev/null 2>&1
+cd ~/Applications
+
+if [ -d z ]; then
+  log "Using existing z clone. Updating."
+  cd z
+  run git pull
 else
-  log "Downloading Z"
-  run wget https://raw.github.com/rupa/z/master/z.sh -O ~/.bashz
+  log "Cloning into z"
+  run git clone git://github.com/rupa/z.git
+fi
+
+if [ -f ~/.bashz ]; then
+  log "Found existing source file. Skipping symlink."
+else
+  log "Creating symlink."
+  cd ~
+  ln -s ~/Applications/z/z.sh .bashz
 fi
 
 if grep ". ~/.bashz" ~/.bashrc >/dev/null 2>&1; then
