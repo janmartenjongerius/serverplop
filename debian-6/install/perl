@@ -72,7 +72,7 @@ if which cpanm >/dev/null 2>&1; then
 else
   cd /opt
   rm -f cpanm >/dev/null 2>&1
-  curl -L http://cpanmin.us > cpanm 2>&1
+  curl -sL http://cpanmin.us > cpanm 2>&1
   chmod +x cpanm >/dev/null 2>&1
   rm -f /usr/local/bin/cpanm >/dev/null 2>&1
   rm -f /usr/bin/cpanm >/dev/null 2>&1
