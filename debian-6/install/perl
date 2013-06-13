@@ -86,7 +86,6 @@ distributions=(
   'YAML'
   'Geo::Distance'
   'URI::Escape::XS'
-  'Math::Pari'
 );
 
 # Upgrade cpanminus.
