@@ -26,6 +26,7 @@ packages=(
   'libjson-perl'
   'libmail-rfc822-address-perl'
   'libmime-lite-perl'
+  'libmodule-install-perl'
   'libnet-sftp-foreign-perl'
   'libnet-ssleay-perl'
   'libreadonly-perl'
