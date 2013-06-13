@@ -22,8 +22,8 @@ fi
 if [[ $FRESH -eq 0 ]]; then
   apt-get purge openjdk* >/dev/null 2>&1
 
-  log "deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" > $SOURCE
-  log "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" >> $SOURCE
+  echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" > $SOURCE
+  echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" >> $SOURCE
 
   apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886 >/dev/null 2>&1
 fi
