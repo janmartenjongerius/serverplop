@@ -1,6 +1,7 @@
 #!/bin/bash
 . include/bootstrap
 . include/apt
+. include/git
 
 log "Installing developer tools"
 
@@ -23,21 +24,16 @@ if [ -d z ]; then
 else
   log "Cloning into z"
   run git clone git://github.com/rupa/z.git
+  cd z
 fi
 
-if [ -f ~/.bashz ]; then
-  log "Found existing source file. Skipping symlink."
-else
-  log "Creating symlink."
-  cd ~
-  ln -s ~/Applications/z/z.sh .bashz
-fi
+gitcommitdate
 
-if grep ". ~/.bashz" ~/.bashrc >/dev/null 2>&1; then
+if grep ". ~/Applications/z/z.sh" ~/.bashrc >/dev/null 2>&1; then
   log "Found source inclusion. Skipping installation."
 else
   log "Installing Z"
-  echo ". ~/.bashz" >> ~/.bashrc 2>&1
+  echo ". ~/Applications/z/z.sh" >> ~/.bashrc 2>&1
 
   loginfo "Z is a directory jumping tool, which jumps based on directory visit history."
   loginfo "'z plop' would most likely bring you to the serverplop repo."
@@ -46,5 +42,35 @@ else
 fi
 
 log "Finished Z"
+
+# A tool that changes the terminal title/tab into the current repo and branchname.
+log "Installing Smith"
+
+cd ~/Applications
+
+if [ -d smith ]; then
+  log "Using existing smith clone. Updating."
+  cd smith
+  run git pull
+else
+  log "Cloning into smith"
+  run git clone git://github.com/Swaagie/smith.git
+  cd smith
+fi
+
+gitcommitdate
+
+if grep ". ~/Applications/smith/smith.sh" ~/.bashrc >/dev/null 2>&1; then
+  log "Found source inclusion. Skipping installation."
+else
+  log "Installing smith"
+  echo ". ~/Applications/smith/smith.sh" >> ~/.bashrc 2>&1
+
+  loginfo "Smith is a prompt overloader that transforms your terminal title/tab into the current git repo and branch."
+fi
+
+log "Finished Smith"
+
+cd $OPWD
 
 log "Finished developer tools"
