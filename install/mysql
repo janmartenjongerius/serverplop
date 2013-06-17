@@ -4,9 +4,16 @@
 . include/apt
 
 packages=(
-  'mysql-server'
   'mysql-client'
 );
+
+# Conditionally add the MySQL server to the package list.
+if ls /etc/init.d/mysql >/dev/null 2>&1; then
+  packages=("${packages[@]}" 'php5-mysql')
+else
+  # Run the first installation verbose, so we can agree with the terms and conditions.
+  apt-get install -y mysql-server
+fi
 
 # Install the php5-mysql package if php is available.
 if which php >/dev/null 2>&1; then
