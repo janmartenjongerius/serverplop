@@ -50,19 +50,19 @@ function exit_handler {
   echo -e "\n(!) Serverplop encountered a fatal error:\n"
 
   if test -f "$stderr_log"; then
-    stderr=$( tail -n 1 "$stderr_log" )
+    stderr=$(tail -n 1 "$stderr_log")
     rm "$stderr_log"
   fi
 
   if test -n "$stderr"; then
-    # Exploding stderr on :
+    # Exploding stderr on :.
     mem="$IFS"
-    local shrunk_stderr=$( echo "$stderr" | sed 's/\: /\:/g' )
+    local shrunk_stderr=$(echo "$stderr" | sed 's/\: /\:/g')
     IFS=':'
     local stderr_parts=( $shrunk_stderr )
     IFS="$mem"
 
-    # Storing information on the error
+    # Storing information about the error.
     error_file="${stderr_parts[0]}"
     error_lineno="${stderr_parts[1]}"
     error_message=""
@@ -71,14 +71,14 @@ function exit_handler {
       do error_message="$error_message "${stderr_parts[$i-1]}": "
     done
 
-    # Removing last ':' (colon character)
+    # Removing last ':' (colon character).
     error_message="${error_message%:*}"
 
-    # Trim
-    error_message="$( echo "$error_message" | sed -e 's/^[ \t]*//' | sed -e 's/[ \t]*$//' )"
+    # Trim.
+    error_message="$(echo "$error_message" | sed -e 's/^[ \t]*//' | sed -e 's/[ \t]*$//')"
   fi
 
-  _backtrace=$( backtrace 2 )
+  _backtrace=$(backtrace 2)
 
   local lineno=""
   regex='^([a-z]{1,}) ([0-9]{1,})$'
@@ -98,7 +98,7 @@ function exit_handler {
   else
     regex="^${error_file}\$|^${error_file}\s+|\s+${error_file}\s+|\s+${error_file}\$"
 
-    # The file was found in the log but not the error line
+    # The file was found in the log but not the error line.
     if [[ "$_backtrace" =~ $regex ]]; then
       echo -e "File:\t\t$error_file"
       echo -e "Row:\t\tunknown\n"
@@ -107,14 +107,14 @@ function exit_handler {
       test -t 1 && tput setf 6
       echo -e "Error message:\t${stderr}"
 
-    # Neither the error line nor the error file was found on the log
+    # Neither the error line nor the error file was found on the log.
     else
-      # Exploding backtrace on newlines
+      # Exploding backtrace on newlines.
       mem=$IFS
       IFS='
       '
 
-      # Substring: I keep just the carriage return
+      # Substring: I keep just the carriage return.
       IFS=${IFS:0:1}
       local lines=( $_backtrace )
 
@@ -130,7 +130,7 @@ function exit_handler {
             error_file="$error_file ${array[$i]}"
         done
 
-        # Trim
+        # Trim.
         error_file="$( echo "$error_file" | sed -e 's/^[ \t]*//' | sed -e 's/[ \t]*$//' )"
       fi
 
@@ -173,7 +173,7 @@ function backtrace {
   local first=false
   while caller $i > /dev/null
   do
-    if test -n "$_start_from_" && (( "$i" + 1   >= "$_start_from_" )); then
+    if test -n "$_start_from_" && (( "$i" + 1 >= "$_start_from_" )); then
       if test "$first" == false; then
         echo -n "Backtrace:\t"
         first=true
