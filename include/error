@@ -3,7 +3,24 @@
 lib_name='trap'
 lib_version=20121026
 
-stderr_log="/dev/shm/stderr.log"
+# Get the owner of home.
+if [[ "$(readlink -e ~)" = "/root" ]]; then
+  OWNER='root'
+else
+  OWNER=$(ls -l $(readlink -e ~)/.. | grep $(readlink -e ~ | cut -d '/' -f 3) | cut -d ' ' -f 3)
+fi
+
+mkdir -p ~/.serverplop
+stderr_log=$(readlink -e ~/.serverplop/error.log)
+
+if [ ! -f $stderr_log ]; then
+  touch ~/.serverplop/error.log
+  chmod 0755 ~/.serverplop/error.log
+fi
+
+# Ensure ownership of the error log.
+# This is because we cannot know if the first installation is run as user or root.
+sudo chown $OWNER:$OWNER $stderr_log
 
 if test "${g_libs[$lib_name]+_}"; then
   return 0
