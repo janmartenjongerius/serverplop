@@ -42,5 +42,6 @@ run sudo make install
 
 cd $OPAD
 
+alert update-manager "Finished Square" $(square --version | tail -1)
 loginfo "Installed version: square $GREEN$(square --version | tail -1)$NOCLR"
 log "Finished [square]"

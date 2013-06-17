@@ -12,6 +12,7 @@ log "Running public SSH key tool"
 if ls $publicfile >/dev/null 2>&1; then
   log "Found a public key file at $publicfile"
 else
+  alert terminal "Requesting user input for public-ssh-key"
   loginfo "Enter your e-mail / username (i.e. the one you use for github) ["$(whoami)"]: "
   read email
 

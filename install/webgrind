@@ -37,4 +37,5 @@ loginfo "Installed version: webgrind $GREEN$(grep '$webgrindVersion =' /www/webg
 loginfo "Make sure there is a VirtualHost pointing to /www/webgrind"
 loginfo "You can enable the grinding by adding the request parameter XDEBUG_PROFILE=1"
 loginfo "See https://code.google.com/p/webgrind/wiki/Installation for more information"
+alert update-manager "Finished webgrind"
 log "Finished webgrind"

@@ -17,4 +17,5 @@ else
   echo $ALIASLINE >> ~/.bashrc
 fi
 
+alert update-manager "Finished CodeSniffer"
 log "Finished CodeSniffer"

@@ -12,6 +12,7 @@ if ls /etc/init.d/mysql >/dev/null 2>&1; then
   packages=("${packages[@]}" 'mysql-server')
 else
   # Run the first installation verbose, so we can agree with the terms and conditions.
+  alert terminal "Requesting user input for mysql-server"
   apt-get install -y mysql-server
 fi
 
@@ -29,4 +30,5 @@ log "Installing MySQL"
 
 aptinstall ${packages[@]}
 
+alert update-manager "Finished" $(mysql -V | cut -d ',' -f 1)
 log "Finished MySQL"

@@ -16,4 +16,5 @@ packages=(
 
 pearinstall ${packages[@]}
 
+alert update-manager "Finished PHPUnit"
 log "Finished PHPUnit"

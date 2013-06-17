@@ -28,4 +28,5 @@ else
 fi
 
 log "Finished Smarty 2"
+alert update-manager "Finished Smarty 2"
 loginfo "Please note that this is a security risk, not a feature"

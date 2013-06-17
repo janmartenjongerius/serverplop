@@ -33,6 +33,7 @@ else
   echo -e $LOCALES > $OUTPUT 2>&1
   log "Generating locales"
   locale-gen >/dev/null 2>&1
+  alert locale "Finished generating locales"
 fi
 
 log "Finished locales"

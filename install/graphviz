@@ -22,4 +22,5 @@ else
   chmod +x /usr/local/bin/dot >/dev/null 2>&1
 fi
 
+alert update-manager "Finished Graphviz"
 log "Finished Graphviz"

@@ -12,6 +12,12 @@ function logerror {
   echo -e $ERROR"$@"
 }
 
+function alert {
+  if which notify-send >/dev/null 2>&1; then
+    notify-send -u low -i $1 "Serverplop" "$(echo ${@:2})"
+  fi
+}
+
 function spinner {
   # Make the cursor invisible.
   tput civis

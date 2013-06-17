@@ -7,4 +7,5 @@ log "Installing xdebug"
 
 aptinstall php5-xdebug
 
+alert update-manager "Finished xdebug"
 log "Finished xdebug"

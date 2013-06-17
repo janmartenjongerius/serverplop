@@ -33,4 +33,5 @@ log "Installing PHP"
 
 aptinstall ${packages[@]}
 
+alert update-manager "Finished" $(php -v | head -1 | cut -d '(' -f 1)
 log "Finished PHP"

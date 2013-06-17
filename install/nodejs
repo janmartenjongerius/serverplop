@@ -72,5 +72,7 @@ else
 fi
 
 cd $OPAD
+
+alert update-manager "Finished Node.js" $(node -v)
 loginfo "Installed version: node $GREEN$(node -v)$NOCLR"
 log "Finished Node.js"

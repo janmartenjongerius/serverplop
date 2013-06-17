@@ -28,5 +28,6 @@ rm -rf Sphinx-Search-0.22* >/dev/null 2>&1
 
 cd $OPWD
 
+alert update-manager "Finished Sphinx 0.22"
 loginfo "Installed version: sphinx "$GREEN"0.22"$NOCLR
 log "Finished Sphinx Search"

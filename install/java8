@@ -30,8 +30,10 @@ if which java >/dev/null 2>&1; then
 else
   log "Running verbose installation."
   loginfo "Installing Java 8 for the first time. You will be asked to accept their license."
+  alert terminal "Requesting user input for oracle-java8-installer"
   apt-get update -y
   apt-get install -y oracle-java8-installer
 fi
 
+alert update-manager "Finished Java 8"
 log "Finished Java 8"

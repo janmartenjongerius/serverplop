@@ -18,4 +18,5 @@ log "Installing Apache2"
 
 aptinstall ${packages[@]}
 
+alert update-manager "Finished" $(sudo apache2 -V | grep 'Server version:' | cut -d: -f 2)
 log "Finished Apache2"

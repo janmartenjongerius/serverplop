@@ -73,4 +73,6 @@ log "Finished Smith"
 
 cd $OPWD
 
+alert key_bindings "Installed developer tools"
+
 log "Finished developer tools"

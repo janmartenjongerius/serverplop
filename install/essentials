@@ -25,4 +25,5 @@ log "Installing Linux essentials"
 
 aptinstall ${packages[@]}
 
+alert update-manager "Finished Linux Essentials for $DISTRIBUTOR $CODENAME"
 log "Finished essentials"

@@ -76,4 +76,5 @@ distributions=(
 
 cpanminstall ${distributions[@]}
 
+alert update-manager "Finished Perl" $(perl -e 'print $^V')
 log "Finished perl"
