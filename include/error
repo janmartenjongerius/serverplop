@@ -9,10 +9,8 @@ OWNER=$(stat -c %U ~)
 mkdir -p ~/.serverplop
 stderr_log=$(readlink -e ~/.serverplop/error.log)
 
-if [ ! -f $stderr_log ]; then
-  touch ~/.serverplop/error.log
-  chmod 0755 ~/.serverplop/error.log
-fi
+sudo touch $stderr_log
+sudo chmod 0755 $stderr_log
 
 # Ensure ownership of the error log.
 # This is because we cannot know if the first installation is run as user or root.
