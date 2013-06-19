@@ -18,9 +18,12 @@ log "Installing Apache2"
 
 aptinstall ${packages[@]}
 
-# @todo: create an apache specific function for enabling modules.
+# Enable specific apache modules.
 a2enmod rewrite >/dev/null 2>&1
 a2enmod ssl >/dev/null 2>&1
+
+# Reload the configuration.
+/etc/init.d/apache2 force-reload >/dev/null 2>&1
 
 alert update-manager "Finished" $(sudo apache2 -V | grep 'Server version:' | cut -d: -f 2)
 log "Finished Apache2"
