@@ -61,8 +61,13 @@ if which php >/dev/null 2>&1; then
   packages=("${packages[@]}" 'libphp-serialization-perl')
 fi
 
-log "Installing perl"
+if [ ! -f /etc/init.d/nullmailer ]; then
+  loginfo "Verbosely installing dependency nullmailer"
+  apt-get update -y
+  apt-get install -y nullmailer
+fi
 
+log "Installing perl"
 aptinstall ${packages[@]}
 
 # CPAN distributions.
