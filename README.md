@@ -20,6 +20,8 @@ Installing your server with Serverplop should go like a breeze. However, there a
 Some operating systems support additional make rules, where other operating systems will ignore those.
 Again, for more info, please refer to the README of your OS.
 
+![make developer](http://i.imgur.com/M8PsQB1.jpg)
+
 ### PHP developer
 
 To simply build a fresh development environment, do the following:
