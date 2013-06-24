@@ -46,6 +46,7 @@ function exit_handler {
   local error_code="$?"
 
   test $error_code == 0 && return;
+  test "$error_code" == "" && return;
 
   local i=0
   local regex=''
@@ -62,7 +63,7 @@ function exit_handler {
 
   if test -f "$stderr_log"; then
     stderr=$(tail -n 1 "$stderr_log")
-    rm "$stderr_log"
+    sudo rm "$stderr_log"
   fi
 
   if test -n "$stderr"; then

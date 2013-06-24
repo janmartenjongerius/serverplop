@@ -11,7 +11,8 @@ function cpanlist {
     if cpanversion $distribution >/dev/null 2>&1; then
       loginfo "- $distribution $GREEN$(cpanversion $distribution)$NOCLR"
     else
-      logerror "- $distribution not installed!"
+      logerror "$distribution not installed!"
+      exit 1
     fi;
   done
 }

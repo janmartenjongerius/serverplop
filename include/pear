@@ -16,7 +16,8 @@ function pearlist {
     if pearversion $package >/dev/null 2>&1; then
       loginfo "- $package$GREEN$(pearversion $package)$NOCLR"
     else
-      logerror "- $package not installed!"
+      logerror "$package not installed!"
+      exit 1
     fi;
   done
 }
