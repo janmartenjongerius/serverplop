@@ -14,10 +14,10 @@ log "Installing webgrind"
 if grep -q 'Webgrind_MasterConfig' webgrind/index.php >/dev/null 2>&1; then
   # Update the repo.
   cd webgrind
-  git pull >/dev/null 2>&1
+  run git pull
 else
   # Clone the repo.
-  git clone https://github.com/jokkedk/webgrind >/dev/null 2>&1
+  run git clone https://github.com/jokkedk/webgrind
 fi
 
 # Make it writeable.
