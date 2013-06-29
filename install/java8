@@ -12,7 +12,7 @@ log "Installing Java 8"
 if which java >/dev/null 2>&1; then
   # We found the source listing for the webupd8team. Assuming Sun's version is
   # installed.
-  if ls $SOURCE >/dev/null 2>&1; then
+  if [ -f $SOURCE ]; then
     log "Skipping OpenJDK purge and source listing."
     FRESH=1
   fi
@@ -20,8 +20,8 @@ fi
 
 # We found a fresh installation / an OpenJDK installation.
 if [[ $FRESH -eq 0 ]]; then
-  apt-get purge -y openjdk* >/dev/null 2>&1
-  add-apt-repository ppa:webupd8team/java -y >/dev/null 2>&1
+  aptremove openjdk*
+  run add-apt-repository ppa:webupd8team/java -y
 fi
 
 # Update and install our Java.
@@ -31,8 +31,8 @@ else
   log "Running verbose installation."
   loginfo "Installing Java 8 for the first time. You will be asked to accept their license."
   alert terminal "Requesting user input for oracle-java8-installer"
-  apt-get update -y
-  apt-get install -y oracle-java8-installer
+  run apt-get update -y
+  apt-get install -yqq oracle-java8-installer
 fi
 
 alert update-manager "Finished Java 8"

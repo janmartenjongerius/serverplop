@@ -4,6 +4,14 @@ function dpkgversion {
   dpkg -s $1 | grep 'Version:' | head -n 1 | awk -F ': ' '{ print $NF }'
 }
 
+function dpkgversionorempty {
+  if dpkgversion $1 >/dev/null 2>&1; then
+    dpkgversion $1
+  else
+    echo ""
+  fi
+}
+
 function dpkglist {
   loginfo "Installed packages:"
 
@@ -24,4 +32,13 @@ function aptinstall {
   run sudo apt-get install -y $@
 
   dpkglist $@
+}
+
+function aptremove {
+  log "Removing packages: $@"
+
+  run sudo apt-get purge -y $@
+  run sudo apt-get update -y
+
+  log "Removed packaged: $@"
 }

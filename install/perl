@@ -47,12 +47,12 @@ packages=(
 );
 
 # Install this module if Apache2 is available.
-if ls /etc/init.d/apache2 >/dev/null 2>&1; then
+if [ -f /etc/init.d/apache2 ]; then
   packages=("${packages[@]}" 'libapache2-mod-perl2' 'libapache2-mod-perl2-dev')
 fi
 
 # Install these modules if MySQL is available.
-if ls /etc/init.d/mysql >/dev/null 2>&1; then
+if [ -f /etc/init.d/mysql ]; then
   packages=("${packages[@]}" 'libdbd-mysql-perl' 'libtime-piece-mysql-perl')
 fi
 
@@ -63,8 +63,8 @@ fi
 
 if [ ! -f /etc/init.d/nullmailer ]; then
   loginfo "Verbosely installing dependency nullmailer"
-  apt-get update -y
-  apt-get install -y nullmailer
+  run apt-get update -y
+  apt-get install -yqq nullmailer
 fi
 
 log "Installing perl"

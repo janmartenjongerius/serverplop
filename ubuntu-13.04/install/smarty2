@@ -1,28 +1,32 @@
 #!/bin/bash
 
 . include/bootstrap-root
+. include/apt
 
 # By default, Ubuntu 13.04 installs Smarty3.
 # Let's check the version.
-VERSION=$(dpkg -s smarty | grep 'Version: ' | cut -d ' ' -f 2 -s | cut -d '.' -f 1 -s)
+VERSION=$(dpkgversionorempty smarty | cut -d '.' -f 1 -s)
 
 log "Installing Smarty 2"
 
 if [[ "$VERSION" == "2" ]]; then
   loginfo "You currently already have Smarty v2 installed"
 else
-  apt-get remove -y smarty >/dev/null 2>&1
-  apt-get update -y >/dev/null 2>&1
+  aptremove smarty
 
   OPWD=$(pwd)
   URL="http://ubuntu.mirror.cambrium.nl/ubuntu/pool/universe/s/smarty/smarty_2.6.26-0.2ubuntu1_all.deb"
 
   cd /tmp
 
-  rm -f smarty2.6.deb >/dev/null 2>&1
-  wget $URL -O smarty2.6.deb >/dev/null 2>&1
-  dpkg -i smarty2.6.deb >/dev/null 2>&1
-  rm -f smarty2.6.deb >/dev/null 2>&1
+  run rm -f smarty2.6.deb
+
+  log "Downloading package"
+  run wget $URL -O smarty2.6.deb
+
+  log "Installing package"
+  run dpkg -i smarty2.6.deb
+  run rm -f smarty2.6.deb
 
   cd $OPWD
 fi

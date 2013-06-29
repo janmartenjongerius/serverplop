@@ -45,8 +45,8 @@ else
   log "Running installation"
 
   # Run the installation.
-  run make >/dev/null 2>&1
-  run sudo make install >/dev/null 2>&1
+  run make
+  run sudo make install
 
   cd /tmp
 
@@ -54,13 +54,14 @@ else
   sudo rm -rf doxygen-1.8.4* >/dev/null 2>&1
 
   # Run the Doxywizard.
-  doxywizard ~/Doxyfile >/dev/null 2>&1
-
-  log "Your Doxyfile was stored in ~/Doxyfile"
+  if [ ! -f ~/Doxyfile ]; then
+    doxywizard ~/Doxyfile >/dev/null 2>&1
+    log "Your Doxyfile was stored in ~/Doxyfile"
+  fi
 fi
 
 cd $OPWD
 
 loginfo "Installed version: doxygen $GREEN$(doxygen --version)$NOCLR"
-alert update-manager "Finished Doxygen"
+alert update-manager "Finished Doxygen $(doxygen --version)"
 log "Finished Doxygen"

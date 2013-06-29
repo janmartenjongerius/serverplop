@@ -12,7 +12,7 @@ log "Installing Java 8"
 if which java >/dev/null 2>&1; then
   # We found the source listing for the webupd8team. Assuming Oracle's version is
   # installed.
-  if ls $SOURCE >/dev/null 2>&1; then
+  if [ -f $SOURCE ]; then
     log "Skipping OpenJDK purge and source listing."
     FRESH=1
   fi
@@ -20,7 +20,7 @@ fi
 
 # We found a fresh installation / an OpenJDK installation.
 if [[ $FRESH -eq 0 ]]; then
-  apt-get purge openjdk* >/dev/null 2>&1
+  aptremove openjdk*
 
   echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" > $SOURCE
   echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" >> $SOURCE
@@ -34,8 +34,8 @@ if which java >/dev/null 2>&1; then
 else
   log "Running verbose installation."
   loginfo "Installing Java 8 for the first time. You will be asked to accept their license."
-  apt-get update -y
-  apt-get install -y oracle-java8-installer
+  run apt-get update -y
+  apt-get install -yqq oracle-java8-installer
 fi
 
 log "Finished Java 8"

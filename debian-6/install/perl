@@ -47,12 +47,12 @@ packages=(
 );
 
 # Install this module if Apache2 is available.
-if ls /etc/init.d/apache2 >/dev/null 2>&1; then
+if [ -f /etc/init.d/apache2 ]; then
   packages=("${packages[@]}" 'libapache2-mod-perl2')
 fi
 
 # Install these modules if MySQL is available.
-if ls /etc/init.d/mysql >/dev/null 2>&1; then
+if [ -f /etc/init.d/mysql ]; then
   packages=("${packages[@]}" 'libdbd-mysql-perl' 'libtime-piece-mysql-perl')
 fi
 
@@ -72,13 +72,14 @@ if which cpanm >/dev/null 2>&1; then
   log "cpanminus already installed. skipping to upgrade."
 else
   cd /opt
-  rm -f cpanm >/dev/null 2>&1
+  run rm -f cpanm
+  log "Downloading cpanminus"
   curl -sL http://cpanmin.us > cpanm 2>&1
-  chmod +x cpanm >/dev/null 2>&1
-  rm -f /usr/local/bin/cpanm >/dev/null 2>&1
-  rm -f /usr/bin/cpanm >/dev/null 2>&1
-  ln -s /opt/cpanm /usr/local/bin/ >/dev/null 2>&1
-  ln -s /opt/cpanm /usr/bin/ >/dev/null 2>&1
+  run chmod +x cpanm
+  run rm -f /usr/local/bin/cpanm
+  run rm -f /usr/bin/cpanm
+  run ln -s /opt/cpanm /usr/local/bin/
+  run ln -s /opt/cpanm /usr/bin/
 fi
 
 # CPAN distributions.
