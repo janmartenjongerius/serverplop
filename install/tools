@@ -10,7 +10,7 @@ log "Installing developer tools"
 # - screen allows for maintaining multiple shell sessions within a terminal.
 #   Even after closing said terminal.
 log "Installing developer essentials"
-aptinstall clusterssh screen
+aptinstall clusterssh screen imagemagick
 log "Finished developer essentials"
 
 # Adding git completion rules for bash.
