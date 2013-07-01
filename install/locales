@@ -2,7 +2,7 @@
 
 . include/bootstrap-root
 
-OUTPUT="/etc/locale.gen"
+OUTPUT="/var/lib/locales/supported.d/local"
 DATE=$(date +%F)
 BACKUP=$OUTPUT.$DATE
 
@@ -20,7 +20,7 @@ ru_RU.UTF-8 UTF-8\n
 sv_SE.UTF-8 UTF-8\n
 ";
 
-log "Installing Locales"
+log "Installing locales"
 
 if [[ "$(cat $OUTPUT)" == "$(echo -e $LOCALES)" ]]; then
   log "All locales are present and accounted for"
@@ -33,6 +33,7 @@ else
   echo -e $LOCALES > $OUTPUT 2>&1
   log "Generating locales"
   locale-gen >/dev/null 2>&1
+  alert locale "Finished generating locales"
 fi
 
-log "Finished Locales"
+log "Finished locales"

@@ -4,29 +4,25 @@
 . include/apt
 
 packages=(
-  'adjtimex'
   'build-essential'
-  'bzip2'
   'curl'
   'debhelper'
   'denyhosts'
   'gcc'
   'git'
-  'git-core'
   'htop'
   'less'
-  'libssl-dev'
   'make'
   'openssh-server'
   'openssl'
   'pari-gp'
   'sysstat'
   'vim'
-  'zip'
 );
 
 log "Installing Linux essentials"
 
 aptinstall ${packages[@]}
 
-log "Finished Linux essentials"
+alert update-manager "Finished Linux Essentials for $DISTRIBUTOR $CODENAME"
+log "Finished essentials"

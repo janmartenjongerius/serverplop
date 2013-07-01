@@ -1,0 +1,21 @@
+#!/bin/bash
+
+. include/bootstrap
+. include/pear
+
+log "Installing CodeSniffer"
+
+pearinstall PHP_CodeSniffer
+
+# Conjur up an alias to enforce PSR2.
+ALIASLINE="alias phpcs='phpcs --standard=PSR2'"
+
+if grep -q 'alias phpcs' ~/.bashrc >/dev/null 2>&1; then
+  log "Prevented double alias for phpcs"
+else
+  log "Adding phpcs alias"
+  echo $ALIASLINE >> ~/.bashrc
+fi
+
+alert update-manager "Finished CodeSniffer"
+log "Finished CodeSniffer"

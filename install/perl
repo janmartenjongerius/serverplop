@@ -5,17 +5,15 @@
 . include/cpanm
 
 packages=(
+  'cpanminus'
   'libbusiness-creditcard-perl'
   'libcgi-session-perl'
-  'libclass-dbi-sqlite-perl'
   'libconfig-ini-perl'
   'libconvert-pem-perl'
   'libcrypt-openssl-rsa-perl'
   'libcrypt-openssl-x509-perl'
   'libcrypt-ssleay-perl'
   'libdatetime-perl'
-  'libdbd-sqlite'
-  'libdigest-sha1-perl'
   'liberror-perl'
   'libfreezethaw-perl'
   'libhtml-scrubber-perl'
@@ -26,19 +24,21 @@ packages=(
   'libjson-perl'
   'libmail-rfc822-address-perl'
   'libmime-lite-perl'
-  'libmodule-install-perl'
   'libnet-sftp-foreign-perl'
+  'libnet-ssh-perl'
   'libnet-ssleay-perl'
   'libreadonly-perl'
-  'libsoap-lite-perl'
+  'libredis-perl'
   'libsphinx-search-perl'
   'libstring-approx-perl'
+  'libsys-syslog-perl'
   'libtemplate-perl'
   'libtemplate-perl-doc'
   'libtemplate-plugin-xml-perl'
   'libtext-unaccent-perl'
   'libtime-modules-perl'
-  'libtime-piece-perl'
+  'libtime-piece-mysql-perl'
+  'liburi-encode-perl'
   'libxml-simple-perl'
   'libxml-xpath-perl'
   'libyaml-libyaml-perl'
@@ -48,7 +48,7 @@ packages=(
 
 # Install this module if Apache2 is available.
 if [ -f /etc/init.d/apache2 ]; then
-  packages=("${packages[@]}" 'libapache2-mod-perl2')
+  packages=("${packages[@]}" 'libapache2-mod-perl2' 'libapache2-mod-perl2-dev')
 fi
 
 # Install these modules if MySQL is available.
@@ -61,38 +61,25 @@ if which php >/dev/null 2>&1; then
   packages=("${packages[@]}" 'libphp-serialization-perl')
 fi
 
-log "Installing perl"
-
-aptinstall ${packages[@]}
-
-OPWD=$(pwd)
-
-# Install cpanminus.
-if which cpanm >/dev/null 2>&1; then
-  log "cpanminus already installed. skipping to upgrade."
-else
-  cd /opt
-  run rm -f cpanm
-  log "Downloading cpanminus"
-  curl -sL http://cpanmin.us > cpanm 2>&1
-  run chmod +x cpanm
-  run rm -f /usr/local/bin/cpanm
-  run rm -f /usr/bin/cpanm
-  run ln -s /opt/cpanm /usr/local/bin/
-  run ln -s /opt/cpanm /usr/bin/
+if [ ! -f /etc/init.d/nullmailer ]; then
+  loginfo "Verbosely installing dependency nullmailer"
+  run apt-get update -y
+  apt-get install -yqq nullmailer
 fi
+
+log "Installing perl"
+aptinstall ${packages[@]}
 
 # CPAN distributions.
 distributions=(
-  'YAML'
   'Geo::Distance'
+  'SOAP::Lite'
   'URI::Escape::XS'
+  'Time::Piece'
+  'Digest::SHA1'
 );
 
-# Upgrade cpanminus.
-cpanm --self-upgrade --sudo >/dev/null 2>&1
 cpanminstall ${distributions[@]}
 
-cd $OPWD
-
+alert update-manager "Finished Perl" $(perl -e 'print $^V')
 log "Finished perl"

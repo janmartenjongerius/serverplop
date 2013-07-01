@@ -1,0 +1,41 @@
+#!/bin/bash
+
+. include/bootstrap-root
+
+OPWD=$(pwd)
+
+# Prepare structure.
+mkdir -p /www
+cd /www
+
+log "Installing webgrind"
+
+# Detect the existence of the repo.
+if grep -q 'Webgrind_MasterConfig' webgrind/index.php >/dev/null 2>&1; then
+  # Update the repo.
+  cd webgrind
+  run git pull
+else
+  # Clone the repo.
+  run git clone https://github.com/jokkedk/webgrind
+fi
+
+# Make it writeable.
+chmod -R 0777 /www/webgrind
+
+# Now enable the profile trigger.
+if grep -q 'xdebug.profiler_enable_trigger' /etc/php5/apache2/php.ini >/dev/null 2>&1; then
+  log "Agreed with current trigger value"
+else
+  log "Enabled profiling by trigger"
+  echo "xdebug.profiler_enable_trigger = 1" >> /etc/php5/apache2/php.ini
+fi
+
+cd $OPWD
+
+loginfo "Installed version: webgrind $GREEN$(grep '$webgrindVersion =' /www/webgrind/index.php | cut -d '=' -f 2 | tr -d "' ;")$NOCLR"
+loginfo "Make sure there is a VirtualHost pointing to /www/webgrind"
+loginfo "You can enable the grinding by adding the request parameter XDEBUG_PROFILE=1"
+loginfo "See https://code.google.com/p/webgrind/wiki/Installation for more information"
+alert update-manager "Finished webgrind"
+log "Finished webgrind"

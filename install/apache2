@@ -1,0 +1,32 @@
+#!/bin/bash
+. include/bootstrap-root
+. include/apt
+
+packages=('apache2');
+
+# Install this module if Perl is available.
+if which perl >/dev/null 2>&1; then
+  packages=("${packages[@]}" 'libapache2-mod-perl2')
+fi
+
+# Install this module if PHP is available.
+if which php >/dev/null 2>&1; then
+  packages=("${packages[@]}" 'libapache2-mod-php5')
+fi
+
+log "Installing Apache2"
+
+aptinstall ${packages[@]}
+
+# Enable specific apache modules.
+a2enmod rewrite >/dev/null 2>&1
+loginfo "Enabled module: rewrite"
+a2enmod ssl >/dev/null 2>&1
+loginfo "Enabled module: ssl"
+
+# Reload the configuration.
+/etc/init.d/apache2 force-reload >/dev/null 2>&1
+log "Apache2 force-reload"
+
+alert update-manager "Finished" $(sudo apache2 -V | grep 'Server version:' | cut -d: -f 2)
+log "Finished Apache2"

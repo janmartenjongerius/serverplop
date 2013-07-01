@@ -1,0 +1,28 @@
+#!/bin/bash
+
+function cpanversion {
+  perl -M$1 -e 'print "$'$1'::VERSION"'
+}
+
+function cpanlist {
+  loginfo "Installed CPAN distributions:"
+
+  for distribution in $@; do
+    if cpanversion $distribution >/dev/null 2>&1; then
+      loginfo "- $distribution $GREEN$(cpanversion $distribution)$NOCLR"
+    else
+      logerror "$distribution not installed!"
+      exit 1
+    fi;
+  done
+}
+
+function cpanminstall {
+  log "Installing cpan distributions"
+  log "Selected distributions: $@"
+
+  # Upgrade cpanminus.
+  run cpanm --sudo CPAN $@
+
+  cpanlist $@
+}

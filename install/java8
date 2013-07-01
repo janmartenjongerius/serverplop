@@ -3,14 +3,14 @@
 . include/bootstrap-root
 . include/apt
 
-SOURCE="/etc/apt/sources.list.d/webupd8team-java.list"
+SOURCE="/etc/apt/sources.list.d/webupd8team-java-raring.list"
 FRESH=0
 
 log "Installing Java 8"
 
-# We have a version of Java installed. Not sure if it's OpenJDK or Oracle.
+# We have a version of Java installed. Not sure if it's OpenJDK or Sun.
 if which java >/dev/null 2>&1; then
-  # We found the source listing for the webupd8team. Assuming Oracle's version is
+  # We found the source listing for the webupd8team. Assuming Sun's version is
   # installed.
   if [ -f $SOURCE ]; then
     log "Skipping OpenJDK purge and source listing."
@@ -21,11 +21,7 @@ fi
 # We found a fresh installation / an OpenJDK installation.
 if [[ $FRESH -eq 0 ]]; then
   aptremove openjdk*
-
-  echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" > $SOURCE
-  echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu precise main" >> $SOURCE
-
-  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886 >/dev/null 2>&1
+  run add-apt-repository ppa:webupd8team/java -y
 fi
 
 # Update and install our Java.
@@ -34,8 +30,10 @@ if which java >/dev/null 2>&1; then
 else
   log "Running verbose installation."
   loginfo "Installing Java 8 for the first time. You will be asked to accept their license."
+  alert terminal "Requesting user input for oracle-java8-installer"
   run apt-get update -y
   apt-get install -yqq oracle-java8-installer
 fi
 
+alert update-manager "Finished Java 8"
 log "Finished Java 8"
