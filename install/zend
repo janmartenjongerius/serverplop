@@ -5,6 +5,7 @@
 
 log "Installing Zend Framework"
 
-aptinstall zendframework
+aptinstall zend-framework
 
+alert update-manager "Finished zend-framework"
 log "Finished Zend Framework"

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+. include/bootstrap-root
+. include/apt
+
+log "Installing Graphviz"
+
+if which dot >/dev/null 2>&1; then
+  log "dot already installed"
+  log "Running update"
+  aptinstall graphviz
+else
+  # Remove any existing symlink.
+  rm -f /usr/local/bin/dot >/dev/null 2>&1
+
+  aptinstall graphviz
+
+  # Create a symlink.
+  # Especially helpful for third party software that tries to keep things
+  # cross OS compatible, like webgrind.
+  ln -s /usr/bin/dot /usr/local/bin/dot >/dev/null 2>&1
+  chmod +x /usr/local/bin/dot >/dev/null 2>&1
+fi
+
+alert update-manager "Finished Graphviz $(dpkgversion graphviz)"
+log "Finished Graphviz"

@@ -1,0 +1,199 @@
+#!/bin/bash
+
+lib_name='trap'
+lib_version=20121026
+
+# Get the owner of home.
+OWNER=$(stat -c %U ~)
+
+mkdir -p ~/.serverplop
+stderr_log=$(readlink -e ~/.serverplop)"/error.log"
+
+sudo touch $stderr_log
+sudo chmod 0755 $stderr_log
+
+# Ensure ownership of the error log.
+# This is because we cannot know if the first installation is run as user or root.
+sudo chown $OWNER:$OWNER $stderr_log
+
+if test "${g_libs[$lib_name]+_}"; then
+  return 0
+else
+  if test ${#g_libs[@]} == 0; then
+    declare -A g_libs
+  fi
+  g_libs[$lib_name]=$lib_version
+fi
+
+# Trace errors through pipes.
+set -o pipefail
+
+# Trace error through time commands and similar functions.
+set -o errtrace
+
+# Exit the script when a command returns a non true value.
+set -e
+
+# Prevent using unset variables.
+set -u
+
+exec 2>"$stderr_log"
+
+# Implementation based on http://stackoverflow.com/questions/64786/error-handling-in-bash#answer-13099228
+# Some small modifications were made to fit in with Serverplop.
+# Perhaps the formatting can be done over.
+function exit_handler {
+  local error_code="$?"
+
+  test $error_code == 0 && return;
+  test "$error_code" == "" && return;
+
+  local i=0
+  local regex=''
+  local mem=''
+
+  local error_file=''
+  local error_lineno=''
+  local error_message='unknown'
+
+  local lineno=''
+
+  test -t 1 && tput bold; tput setf 4
+  echo -e "\n(!) Serverplop encountered a fatal error:\n"
+
+  if test -f "$stderr_log"; then
+    stderr=$(tail -n 1 "$stderr_log")
+    sudo rm "$stderr_log"
+  fi
+
+  if test -n "$stderr"; then
+    # Exploding stderr on :.
+    mem="$IFS"
+    local shrunk_stderr=$(echo "$stderr" | sed 's/\: /\:/g')
+    IFS=':'
+    local stderr_parts=( $shrunk_stderr )
+    IFS="$mem"
+
+    # Storing information about the error.
+    error_file="${stderr_parts[0]}"
+    error_lineno="${stderr_parts[1]}"
+    error_message=""
+
+    for (( i = 3; i <= ${#stderr_parts[@]}; i++ ))
+      do error_message="$error_message "${stderr_parts[$i-1]}": "
+    done
+
+    # Removing last ':' (colon character).
+    error_message="${error_message%:*}"
+
+    # Trim.
+    error_message="$(echo "$error_message" | sed -e 's/^[ \t]*//' | sed -e 's/[ \t]*$//')"
+  fi
+
+  _backtrace=$(backtrace 2)
+
+  local lineno=""
+  regex='^([a-z]{1,}) ([0-9]{1,})$'
+
+  # The error line was found in the log.
+  if [[ $error_lineno =~ $regex ]]; then
+    local row="${BASH_REMATCH[1]}"
+    lineno="${BASH_REMATCH[2]}"
+
+    echo -e "File:\t\t${error_file}"
+    echo -e "$(echo "${row^^}" | sed 's/LINE/Line/g'):\t\t${lineno}\n"
+
+    echo -e "Error code:\t${error_code}"
+    test -t 1 && tput setf 6
+    echo -e "Error message:\t$error_message"
+
+  else
+    regex="^${error_file}\$|^${error_file}\s+|\s+${error_file}\s+|\s+${error_file}\$"
+
+    # The file was found in the log but not the error line.
+    if [[ "$_backtrace" =~ $regex ]]; then
+      echo -e "File:\t\t$error_file"
+      echo -e "Row:\t\tunknown\n"
+
+      echo -e "Error code:\t${error_code}"
+      test -t 1 && tput setf 6
+      echo -e "Error message:\t${stderr}"
+
+    # Neither the error line nor the error file was found on the log.
+    else
+      # Exploding backtrace on newlines.
+      mem=$IFS
+      IFS='
+      '
+
+      # Substring: I keep just the carriage return.
+      IFS=${IFS:0:1}
+      local lines=( $_backtrace )
+
+      IFS=$mem
+
+      error_file=""
+
+      if test -n "${lines[1]}"; then
+        array=( ${lines[1]} )
+
+        for (( i=2; i<${#array[@]}; i++ ))
+          do
+            error_file="$error_file ${array[$i]}"
+        done
+
+        # Trim.
+        error_file="$( echo "$error_file" | sed -e 's/^[ \t]*//' | sed -e 's/[ \t]*$//' )"
+      fi
+
+      echo -e "File:\t\t$error_file"
+      echo -e "Row:\t\tunknown\n"
+
+      echo -e "Error code:\t${error_code}"
+      test -t 1 && tput setf 6
+      if test -n "${stderr}"; then
+        echo -e "Error message:\t${stderr}"
+      else
+        echo -e "Error message:\t${error_message}"
+      fi
+    fi
+  fi
+
+  test -t 1 && tput setf 7
+  echo -e "\n$_backtrace\n"
+
+  test -t 1 && tput setf 4
+  test -t 1 && tput sgr0
+
+  alert error "Error in $error_file on $error_lineno"
+
+  exit "$error_code"
+}
+
+trap exit_handler EXIT
+trap exit ERR
+
+function backtrace {
+  local _start_from_=0
+
+  local params=( "$@" )
+  if (( "${#params[@]}" >= "1" )); then
+    _start_from_="$1"
+  fi
+
+  local i=0
+  local first=false
+  while caller $i > /dev/null
+  do
+    if test -n "$_start_from_" && (( "$i" + 1 >= "$_start_from_" )); then
+      if test "$first" == false; then
+        echo -n "Backtrace:\t"
+        first=true
+      fi
+      caller $i
+    fi
+    let "i=i+1"
+  done
+}
+
+return 0

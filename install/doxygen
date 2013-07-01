@@ -3,7 +3,11 @@
 . include/bootstrap
 . include/apt
 
+log "Installing Doxygen"
+
 dependencies=(
+  'libqt4-gui'
+  'qt4-dev-tools'
   'flex'
   'bison'
 );
@@ -11,19 +15,21 @@ dependencies=(
 OPWD=$(pwd)
 cd /tmp
 
-log "Installing Doxygen"
-
 # Remove trash.
 sudo rm -rf doxygen-1.8.4* >/dev/null 2>&1
 
 if which doxygen >/dev/null 2>&1; then
   log "Doxygen already installed."
-  log "Updating dependencies."
+
+  # Update dependencies for Doxywizard.
   aptinstall ${dependencies[@]}
 else
-  # Install dependencies.
-  log "Installing dependencies."
+  log "Installing dependencies"
+
+  # Install dependencies for Doxywizard.
   aptinstall ${dependencies[@]}
+
+  log "Downloading archive"
 
   # Download the Doxygen package.
   run wget http://ftp.stack.nl/pub/users/dimitri/doxygen-1.8.4.src.tar.gz
@@ -34,7 +40,9 @@ else
   cd doxygen-1.8.4
 
   # Configure the package.
-  run sh ./configure
+  run sh ./configure --with-doxywizard
+
+  log "Running installation"
 
   # Run the installation.
   run make
@@ -46,12 +54,14 @@ else
   sudo rm -rf doxygen-1.8.4* >/dev/null 2>&1
 
   # Run the Doxywizard.
-  touch ~/Doxyfile >/dev/null 2>&1
-
-  log "Your Doxyfile was stored in ~/Doxyfile"
+  if [ ! -f ~/Doxyfile ]; then
+    doxywizard ~/Doxyfile >/dev/null 2>&1
+    log "Your Doxyfile was stored in ~/Doxyfile"
+  fi
 fi
 
 cd $OPWD
 
 loginfo "Installed version: doxygen $GREEN$(doxygen --version)$NOCLR"
+alert update-manager "Finished Doxygen $(doxygen --version)"
 log "Finished Doxygen"
