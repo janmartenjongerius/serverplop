@@ -99,6 +99,9 @@ webserver lamp: essentials apache2 mysql php perl
 phpunit:
 	@$(call suinstall,phpunit)
 
+phpsh:
+	@$(call install,phpsh)
+
 java8:
 	@$(call suinstall,java8)
 
@@ -143,6 +146,7 @@ developer php-developer: \
 	locales \
 	xdebug \
 	phpunit \
+	phpsh \
 	codesniffer \
 	zend \
 	webgrind \

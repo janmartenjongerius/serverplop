@@ -40,6 +40,7 @@ PHP developer is a bundle make rule for the following make rules:
 - locales
 - xdebug
 - phpunit
+- phpsh
 - codesniffer
 - zend
 - webgrind
