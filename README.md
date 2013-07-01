@@ -2,6 +2,8 @@
 
 Server installation bundles and fixes. Adding lazyness to being a developer.
 
+Current stable version: `0.1.0`
+
 - [Installation](#installation)
   - [PHP Developer](#php-developer)
   - [JavaScript Developer](#javascript-developer)

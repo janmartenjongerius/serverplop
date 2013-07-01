@@ -67,6 +67,9 @@ autodetect:
 
 .PHONY: autodetect
 
+version:
+	@cat VERSION
+
 notfound-test:
 	@$(call install,fiets)
 	@$(call suinstall,fiets)
