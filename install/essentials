@@ -16,7 +16,6 @@ packages=(
   'openssh-server'
   'openssl'
   'pari-gp'
-  'screen'
   'sysstat'
   'vim'
 );

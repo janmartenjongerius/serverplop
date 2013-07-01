@@ -5,10 +5,30 @@
 
 log "Installing developer tools"
 
-# A tool for maintaining multiple SSH terminals through a single command input.
-log "Installing Cluster SSH"
-aptinstall clusterssh
-log "Finished Cluster SSH"
+# Essential developer tools.
+# - clusterssh allows for controlling multiple ssh sessions through a single input.
+# - screen allows for maintaining multiple shell sessions within a terminal.
+#   Even after closing said terminal.
+log "Installing developer essentials"
+aptinstall clusterssh screen
+log "Finished developer essentials"
+
+# Adding git completion rules for bash.
+if [ ! -f ~/.git-completion.bash ]; then
+  log "Downloading git completion rules"
+  run wget -O ~/.git-completion.bash https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
+else
+  log "Skipping download of git completion rules"
+fi
+
+if grep ". ~/.git-completion.bash" ~/.bashrc >/dev/null 2>&1; then
+  log "Skipping git completion rules. Already installed."
+else
+  log "Installing git completion rules"
+  echo ". ~/.git-completion.bash" >> ~/.bashrc 2>&1
+fi
+
+log "Finished git completion rules"
 
 # A tool for jumping to directories based on visit behavior.
 log "Installing Z"
