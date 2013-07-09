@@ -1,0 +1,32 @@
+#!/bin/bash
+
+. include/bootstrap
+
+keyfile="/home/$USER/.ssh/id_rsa"
+publicfile=$keyfile".pub"
+
+log "Running public SSH key tool"
+
+# We want to check if we have a public SSH key.
+# If not, we should create one.
+if ls $publicfile >/dev/null 2>&1; then
+  log "Found a public key file at $publicfile"
+else
+  alert terminal "Requesting user input for public-ssh-key"
+  loginfo "Enter your e-mail / username (i.e. the one you use for github) ["$(whoami)"]: "
+  read email
+
+  # Default to the current user.
+  if [[ "$email" = "" ]]; then
+    email=$(whoami)
+  fi
+
+  # Although the man entry for ssh-keygen is a bit unclear about this,
+  # the option -f is mostly used as input file flag, but along with specific
+  # options, it is considered as the output file.
+  # Either way, this one is our output file.
+  ssh-keygen -t rsa -C "$email" -f $keyfile
+  log "You can find your key in $keyfile and your public key in $publicfile"
+fi
+
+log "Finished public SSH key tool"

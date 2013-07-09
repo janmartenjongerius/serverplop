@@ -1,0 +1,17 @@
+#!/bin/bash
+
+. include/error
+
+echo ""
+
+if [[ $EUID -ne 0 ]]; then
+  echo "$0 must be run as root"
+  exit 1
+fi
+
+. include/settings
+. include/functions
+
+echo -e $NOCLR$LINE
+echo -e "Running "$BLUE"$0"$NOCLR" as "$ROOTCLR"$(whoami)"$NOCLR". . ."
+echo -e $LINE

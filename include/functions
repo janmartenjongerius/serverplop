@@ -1,0 +1,79 @@
+#!/bin/bash
+
+function log {
+  echo -e $SERVERPLOP"$@"
+}
+
+function loginfo {
+  echo -e $INFO"$@"
+}
+
+function logerror {
+  echo -e $ERROR"$@"
+  alert error "$@"
+}
+
+function alert {
+  if which notify-send >/dev/null 2>&1; then
+    notify-send -u low -i $1 "Serverplop" "$(echo ${@:2})"
+  fi
+}
+
+function spinner {
+  # Make the cursor invisible.
+  tput civis
+
+  # Turn off all atributes.
+  tput sgr0
+
+  while [ -d /proc/$1 ]; do
+    echo -en $GREEN'/\x08'$NOCLR;
+    sleep .1
+
+    echo -en $GREEN'-\x08'$NOCLR;
+    sleep .1
+
+    echo -en $GREEN'\x08'$NOCLR;
+    sleep .1
+
+    echo -en $GREEN'|\x08'$NOCLR;
+    sleep .1
+  done;
+
+  # Make the cursor visible.
+  tput cnorm
+}
+
+function run {
+  # We cannot use the spinner on Debian when combined with sudo.
+  # The spinner will simply eat up the password input.
+  # Untill we have a better solution, the same goes for git clone, as that could
+  # have a confirmation message about accepting the SSH host github.com.
+  if [[ "$DISTRIBUTOR" == "Debian" && "$1" == "sudo" || "$1 $2" == "git clone" ]]; then
+    # Run the process in the background.
+    $@ >/dev/null 2>&1
+  else
+    # Ensure we get a password field before the spinner starts.
+    if [[ "$1" == "sudo" ]]; then
+      sudo echo -en ""
+    fi
+
+    # Run the process in the background and tie it to a spinner.
+    $@ >/dev/null 2>&1 &
+    spinner $!
+  fi
+}
+
+# Currently dead code. Had need for this when trying to add a new installation.
+# I gave up on that installation, but the function is probably still useful.
+function findlib {
+  if ls $DISTRIBUTOR"/"$CODENAME"/lib/"$1 >/dev/null 2>&1; then
+    ls $DISTRIBUTOR"/"$CODENAME"/lib/"$1
+  else
+    if ls $DISTRIBUTOR"/lib/"$1 >/dev/null 2>&1; then
+      ls $DISTRIBUTOR"/lib/"$1
+    else
+      ls "lib/"$1
+    fi
+  fi
+}

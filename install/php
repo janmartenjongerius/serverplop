@@ -12,7 +12,6 @@ packages=(
   'php5-gd'
   'php5-imagick'
   'php5-mcrypt'
-  'php5-suhosin'
 );
 
 # Install this module if Apache2 is available.
@@ -34,4 +33,5 @@ log "Installing PHP"
 
 aptinstall ${packages[@]}
 
+alert update-manager "Finished" $(php -v | head -1 | cut -d '(' -f 1)
 log "Finished PHP"

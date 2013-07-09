@@ -1,0 +1,99 @@
+#!/bin/bash
+. include/bootstrap
+. include/apt
+. include/git
+
+log "Installing developer tools"
+
+# Essential developer tools.
+# - clusterssh allows for controlling multiple ssh sessions through a single input.
+# - screen allows for maintaining multiple shell sessions within a terminal.
+#   Even after closing said terminal.
+# - imagemagick adds an arsenal of command line tools to analyze and manipulate images.
+log "Installing developer essentials"
+aptinstall clusterssh screen imagemagick
+log "Finished developer essentials"
+
+# Adding git completion rules for bash.
+if [ ! -f ~/.git-completion.bash ]; then
+  log "Downloading git completion rules"
+  run wget -O ~/.git-completion.bash https://raw.github.com/git/git/master/contrib/completion/git-completion.bash
+else
+  log "Skipping download of git completion rules"
+fi
+
+if grep ". ~/.git-completion.bash" ~/.bashrc >/dev/null 2>&1; then
+  log "Skipping git completion rules. Already installed."
+else
+  log "Installing git completion rules"
+  echo ". ~/.git-completion.bash" >> ~/.bashrc 2>&1
+fi
+
+log "Finished git completion rules"
+
+# A tool for jumping to directories based on visit behavior.
+log "Installing Z"
+
+OPWD=$(pwd)
+mkdir -p ~/Applications/ >/dev/null 2>&1
+cd ~/Applications
+
+if [ -d z ]; then
+  log "Using existing z clone. Updating."
+  cd z
+  run git pull
+else
+  log "Cloning into z"
+  run git clone git://github.com/rupa/z.git
+  cd z
+fi
+
+gitcommitdate
+
+if grep ". ~/Applications/z/z.sh" ~/.bashrc >/dev/null 2>&1; then
+  log "Found source inclusion. Skipping installation."
+else
+  log "Installing Z"
+  echo ". ~/Applications/z/z.sh" >> ~/.bashrc 2>&1
+
+  loginfo "Z is a directory jumping tool, which jumps based on directory visit history."
+  loginfo "'z plop' would most likely bring you to the serverplop repo."
+  loginfo "Note that your currently active shell won't have z enabled yet."
+  loginfo "Please restart your shell/terminal for z to take effect."
+fi
+
+log "Finished Z"
+
+# A tool that changes the terminal title/tab into the current repo and branchname.
+log "Installing Smith"
+
+cd ~/Applications
+
+if [ -d smith ]; then
+  log "Using existing smith clone. Updating."
+  cd smith
+  run git pull
+else
+  log "Cloning into smith"
+  run git clone git://github.com/Swaagie/smith.git
+  cd smith
+fi
+
+gitcommitdate
+
+if grep ". ~/Applications/smith/smith.sh" ~/.bashrc >/dev/null 2>&1; then
+  log "Found source inclusion. Skipping installation."
+else
+  log "Installing smith"
+  echo ". ~/Applications/smith/smith.sh" >> ~/.bashrc 2>&1
+
+  loginfo "Smith is a prompt overloader that transforms your terminal title/tab into the current git repo and branch."
+fi
+
+log "Finished Smith"
+
+cd $OPWD
+
+alert key_bindings "Installed developer tools"
+
+log "Finished developer tools"

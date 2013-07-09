@@ -1,0 +1,100 @@
+#!/bin/bash
+
+. include/bootstrap
+. include/apt
+. include/git
+
+log "Installing phpsh"
+
+dependencies=(
+  'python-setuptools'
+  'libncurses5-dev'
+);
+
+# Detect which package contains the python dev libs.
+if [[ "$(apt-cache search libpython-dev)" != "" ]]; then
+  dependencies=("${dependencies[@]}" 'libpython-dev')
+else
+  # If somehow this should not be available, aptinstall will error out for us.
+  dependencies=("${dependencies[@]}" 'python-dev')
+fi
+
+log "Installing python dependencies"
+aptinstall ${dependencies[@]}
+log "Running easy_install readline"
+run sudo easy_install readline
+
+OPWD=$(pwd)
+mkdir -p ~/Applications/ >/dev/null 2>&1
+cd ~/Applications
+
+if [ -d phpsh ]; then
+  log "Using existing clone"
+  cd phpsh
+else
+  log "Cloning into phpsh"
+  run git clone git@github.com:facebook/phpsh.git
+  cd phpsh
+  log "Adding remote uncreative"
+  git remote add uncreative git@github.com:uncreative/phpsh.git
+fi
+
+currenthead=$(git rev-parse HEAD)
+
+log "Updating the repo using remote uncreative"
+run git pull uncreative master
+
+if [[ "$currenthead" != "$(git rev-parse HEAD)" ]]; then
+  log "New HEAD found. Running installation."
+
+  if [ -f /etc/php/rc.php ]; then
+    log "Creating a backup of /etc/phpsh/rc.php"
+    loginfo "The installation will clobber up this configuration"
+    loginfo "Serverplop creates a backup and restores it for you"
+    loginfo "However, this might break a new installation"
+    loginfo "Therefore, serverplop also makes a backup of the new configuration"
+    loginfo "This will be stored in /etc/phpsh/rc.php.new"
+
+    sudo cp -af /etc/phpsh/rc.php /etc/phpsh/rc.php.bak
+    bootstrap=""
+  else
+    alert terminal "Requesting user input for phpsh"
+    log "Running first time setup configuration"
+    loginfo "Enter the path of your autoloader / bootstrap file (leave empty for no bootstrap): "
+    read bootstrap
+
+    if [[ $bootstrap != "" ]]; then
+      log "This will be injected in your default phpsh environment: $bootstrap"
+    else
+      log "Skipping bootstrap injection"
+    fi
+  fi
+
+  log "Running python setup.py build"
+  run python setup.py build
+
+  log "Running python setup.py install"
+  run sudo python setup.py install
+
+  log "Creating a backup of the new configuration"
+  sudo cp -af /etc/phpsh/rc.php /etc/phpsh/rc.php.new
+
+  if [[ $bootstrap != "" ]]; then
+    log "Injecting the chosen bootstrap into /etc/phpsh/rc.php"
+    search="//require_once 'relative-path-from-repo-head/lib/codebase_include.php';"
+    sudo cat /etc/phpsh/rc.php | sed "s,$search,require_once '$bootstrap';,g" > /tmp/phpsh_rc.php
+    sudo mv -f /tmp/phpsh_rc.php /etc/phpsh/rc.php
+  fi
+
+  if [ -f /etc/php/rc.php.bak ]; then
+    log "Restoring the old configuration"
+    sudo mv -f /etc/phpsh/rc.php.bak /etc/phpsh/rc.php
+  fi
+fi
+
+gitcommitdate
+
+cd $OPWD
+
+alert update-manager "Finished phpsh"
+log "Finished phpsh"

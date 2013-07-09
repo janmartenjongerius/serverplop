@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Colors.
+BLUE="\033[0;36m";
+RED="\033[0;31m";
+GREEN="\033[0;32m";
+USERCLR="\033[0;32m";
+ROOTCLR="\033[0;34m";
+NOCLR="\033[0m";
+
+# Log openings.
+SERVERPLOP=$USERCLR"[serverplop]"$NOCLR" ";
+INFO=$BLUE"[serverplop]"$NOCLR" ";
+ERROR=$RED"[serverplop]"$NOCLR" ";
+
+# Generic settings.
+COLUMNS=$(tput cols)
+LINE=$(head -c $COLUMNS < /dev/zero | tr '\0' '=')
+
+# OS specifics.
+DISTRIBUTOR=$(lsb_release -is)
+CODENAME=$(lsb_release -cs)

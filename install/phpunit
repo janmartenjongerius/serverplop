@@ -1,0 +1,20 @@
+#!/bin/bash
+
+. include/bootstrap-root
+. include/pear
+
+log "Installing PHPUnit"
+
+packages=(
+  'pear.phpunit.de/PHPUnit'
+  'phpunit/DbUnit'
+  'phpunit/PHP_Invoker'
+  'phpunit/PHPUnit_Selenium'
+  'phpunit/PHPUnit_Story'
+  'phpunit/PHPUnit_SkeletonGenerator'
+);
+
+pearinstall ${packages[@]}
+
+alert update-manager "Finished PHPUnit"
+log "Finished PHPUnit"

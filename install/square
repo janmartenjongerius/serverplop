@@ -1,0 +1,47 @@
+#!/bin/bash
+
+. include/bootstrap
+
+OPAD=$(pwd)
+
+log "Installing [square]"
+
+mkdir -p ~/tmp >/dev/null 2>&1
+sudo rm -rf ~/tmp/node* >/dev/null 2>&1
+chmod -R 0777 ~/tmp >/dev/null 2>&1
+
+mkdir -p ~/Applications/ >/dev/null 2>&1
+cd ~/Applications/
+
+NEEDCLONE=0
+
+if ls square >/dev/null 2>&1; then
+  log "Using existing square clone"
+  cd square
+
+  if run git pull; then
+    log "Using updated source files via git pull"
+    NEEDCLONE=1
+  fi
+
+  cd ..
+fi
+
+if [[ $NEEDCLONE -eq 0 ]]; then
+  rm -rf square >/dev/null 2>&1
+  log "Cloning the repo"
+  run git clone https://github.com/observing/square.git
+fi
+
+cd square
+
+log "Running installation"
+
+run make update
+run sudo make install
+
+cd $OPAD
+
+alert update-manager "Finished Square" $(square --version | tail -1)
+loginfo "Installed version: square $GREEN$(square --version | tail -1)$NOCLR"
+log "Finished [square]"

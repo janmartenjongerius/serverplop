@@ -1,0 +1,33 @@
+#!/bin/bash
+
+. include/bootstrap-root
+
+OPWD=$(pwd)
+
+log "Installing Sphinx Search 0.22"
+
+cd /tmp
+
+# Remove trash.
+rm -rf Sphinx-Search-0.22* >/dev/null 2>&1
+
+# Download the package.
+run wget http://search.cpan.org/CPAN/authors/id/J/JJ/JJSCHUTZ/Sphinx-Search-0.22.tar.gz
+
+# Unpack the package.
+run tar -xzf Sphinx-Search-0.22.tar.gz
+cd Sphinx-Search-0.22 >/dev/null 2>&1
+
+# Install Sphinx Search.
+run perl Makefile.PL
+run make
+run make install
+
+# Remove trash.
+rm -rf Sphinx-Search-0.22* >/dev/null 2>&1
+
+cd $OPWD
+
+alert update-manager "Finished Sphinx 0.22"
+loginfo "Installed version: sphinx "$GREEN"0.22"$NOCLR
+log "Finished Sphinx Search"
