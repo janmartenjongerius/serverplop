@@ -49,7 +49,7 @@ function run {
   # The spinner will simply eat up the password input.
   # Untill we have a better solution, the same goes for git clone, as that could
   # have a confirmation message about accepting the SSH host github.com.
-  if [[ "$DISTRIBUTOR" == "Debian" && "$1" == "sudo" || "$1 $2" == "git clone" ]]; then
+  if [[ "$DISTRIBUTOR" == "Debian" && "$1" == "sudo" || $# -gt 1 && "$1 $2" == "git clone" ]]; then
     # Run the process in the background.
     $@ >/dev/null 2>&1
   else
