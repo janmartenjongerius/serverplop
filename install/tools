@@ -9,9 +9,11 @@ log "Installing developer tools"
 # - clusterssh allows for controlling multiple ssh sessions through a single input.
 # - screen allows for maintaining multiple shell sessions within a terminal.
 #   Even after closing said terminal.
+# - tmux is an alternative to screen with improved UI and a decent client-server
+#   model.
 # - imagemagick adds an arsenal of command line tools to analyze and manipulate images.
 log "Installing developer essentials"
-aptinstall clusterssh screen imagemagick
+aptinstall clusterssh screen tmux imagemagick
 log "Finished developer essentials"
 
 # Adding git completion rules for bash.
