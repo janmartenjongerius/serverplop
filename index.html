@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Serverplop by johmanx10</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Serverplop</h1>
+        <h2>Server installation bundles and fixes</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/johmanx10/serverplop/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/johmanx10/serverplop/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/johmanx10/serverplop" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a name="serverplop" class="anchor" href="#serverplop"><span class="octicon octicon-link"></span></a>Serverplop</h1>
+
+<p>Server installation bundles and fixes. Adding lazyness to being a developer.</p>
+
+<p>Current stable version: <code>0.1.0</code></p>
+
+<ul>
+<li>
+<a href="#installation">Installation</a>
+
+<ul>
+<li><a href="#php-developer">PHP Developer</a></li>
+<li><a href="#javascript-developer">JavaScript Developer</a></li>
+<li><a href="#frontend-developer">Frontend developer</a></li>
+<li><a href="#production">Production</a></li>
+<li><a href="#lamp">Lamp</a></li>
+<li><a href="#additional-rules">Additional rules</a></li>
+</ul>
+</li>
+<li><a href="#supported-distributions">Supported distributions</a></li>
+<li>
+<a href="#adding-your-own-os">Adding your own OS</a>
+
+<ul>
+<li><a href="#some-rules-to-keep-in-mind">Some rules to keep in mind</a></li>
+</ul>
+</li>
+</ul><h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Installing your server with Serverplop should go like a breeze. However, there are some operating systems that come with a really bare installation. If you encounter problems at some point, please take a look at the README of your OS.</p>
+
+<p>Some operating systems support additional make rules, where other operating systems will ignore those.
+Again, for more info, please refer to the README of your OS.</p>
+
+<p><img src="http://i.imgur.com/M8PsQB1.jpg" alt="make developer"></p>
+
+<h3>
+<a name="php-developer" class="anchor" href="#php-developer"><span class="octicon octicon-link"></span></a>PHP developer</h3>
+
+<p>To simply build a fresh development environment, do the following:</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>make php-developer
+</pre></div>
+
+<p>An alias for <code>make php-developer</code> is <code>make developer</code></p>
+
+<p>PHP developer is a bundle make rule for the following make rules:</p>
+
+<ul>
+<li>lamp</li>
+<li>tools</li>
+<li>locales</li>
+<li>xdebug</li>
+<li>phpunit</li>
+<li>phpsh</li>
+<li>codesniffer</li>
+<li>zend</li>
+<li>webgrind</li>
+<li>doxygen</li>
+</ul><h3>
+<a name="javascript-developer" class="anchor" href="#javascript-developer"><span class="octicon octicon-link"></span></a>JavaScript developer</h3>
+
+<div class="highlight"><pre><span class="nv">$ </span>make js-developer
+</pre></div>
+
+<p>Make rules:</p>
+
+<ul>
+<li>nodejs</li>
+<li>square</li>
+<li>tools</li>
+</ul><h3>
+<a name="frontend-developer" class="anchor" href="#frontend-developer"><span class="octicon octicon-link"></span></a>Frontend developer</h3>
+
+<div class="highlight"><pre><span class="nv">$ </span>make frontend-developer
+</pre></div>
+
+<p>Make rules:</p>
+
+<ul>
+<li>php-developer</li>
+<li>js-developer</li>
+</ul><h2>
+<a name="production" class="anchor" href="#production"><span class="octicon octicon-link"></span></a>Production</h2>
+
+<div class="highlight"><pre><span class="nv">$ </span>make production
+</pre></div>
+
+<p>Production is a simplified version which leaves out all developer tools.</p>
+
+<ul>
+<li>lamp</li>
+<li>locales</li>
+</ul><h2>
+<a name="lamp--webserver" class="anchor" href="#lamp--webserver"><span class="octicon octicon-link"></span></a>LAMP / Webserver</h2>
+
+<div class="highlight"><pre><span class="nv">$ </span>make lamp
+</pre></div>
+
+<p>The lamp make rule is to provide a basic Linux + Apache2 + MySQL + PHP + Perl installation. It consists of the following rules:</p>
+
+<ul>
+<li>essentials</li>
+<li>apache2</li>
+<li>mysql</li>
+<li>php</li>
+<li>perl</li>
+</ul><h2>
+<a name="additional-rules" class="anchor" href="#additional-rules"><span class="octicon octicon-link"></span></a>Additional rules</h2>
+
+<ul>
+<li>smarty2</li>
+<li>java8</li>
+<li>graphviz</li>
+<li>sphinx-0-22</li>
+<li>public-ssh-key</li>
+</ul><h2>
+<a name="supported-distributions" class="anchor" href="#supported-distributions"><span class="octicon octicon-link"></span></a>Supported distributions</h2>
+
+<ul>
+<li><a href="https://github.com/johmanx10/serverplop/tree/master/debian-6">Debian 6 - Squeeze</a></li>
+<li><a href="https://github.com/johmanx10/serverplop/tree/master/ubuntu-13.04">Ubuntu 13.04 - Raring Ringtail</a></li>
+</ul><h2>
+<a name="adding-your-own-os" class="anchor" href="#adding-your-own-os"><span class="octicon octicon-link"></span></a>Adding your own OS</h2>
+
+<p>Feel free to add your own distribution via a pull request. You'll not only help yourself, but a whole bunch of grateful developers who now can easily install and maintain a developer environment.</p>
+
+<h3>
+<a name="some-rules-to-keep-in-mind" class="anchor" href="#some-rules-to-keep-in-mind"><span class="octicon octicon-link"></span></a>Some rules to keep in mind</h3>
+
+<ol>
+<li>An installation script MUST stop as soon as an error appears. This way a developer gets the chance to fix it and your script won't wreck the server, assuming dependencies got installed.</li>
+<li>An installation script can be run any number of times without doing harm or cluttering the system.</li>
+<li>You can update your server using previously mentioned installation scripts.</li>
+<li>The need for <code>sudo</code> is transparent. You never have to call sudo in front of a make.</li>
+<li>The script will quit if root rights aren't met, while they are needed, informing the user why.</li>
+<li>The script will quit if run as root while that explicitly shouldn't be the case.</li>
+<li>Installations should be tested each time when they are modified.</li>
+<li>Installation scripts can be run in sequence, at all times.</li>
+</ol>
+      </section>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-3307595-13");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
